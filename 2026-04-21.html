@@ -213,10 +213,14 @@
   .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
   .newsprint .cols { columns: 2 320px; column-gap: 3rem; font-family: var(--serif); font-size: 22px; line-height: 1.55; }
   .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
     font-family: var(--serif); font-style: italic;
     font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
     border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
-    padding: 1.6rem 0; margin: 2rem 0; max-width: 24ch;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
   }
   .newsprint .roman {
     position: absolute; right: 5vw; top: 3vh;
