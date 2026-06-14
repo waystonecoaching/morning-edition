@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Edition - 2026-06-14</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --cream: #f4efe6;
+    --ivory: #f8f4ec;
+    --ink: #121212;
+    --midnight: #0b1224;
+    --rose: #f0d3cb;
+    --alert: #c43a2e;
+    --terminal-bg: #0a0d0a;
+    --terminal-fg: #7cff9c;
+    --academic: #f6f1e3;
+    --newsprint: #ebe3d3;
+    --poster: #10412b;
+    --field: #e9efe6;
+    --sage: #c8d2c1;
+    --monastic: #3a3a34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .spread {
+    min-height: 100vh;
+    padding: 8vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .spread .meta {
+    font-family: var(--sans);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .spread .headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    margin: 0 0 2.4rem 0;
+  }
+  .spread .framing {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+  }
+  .spread .summary {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+  .spread .action {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    max-width: 60ch;
+    border-left: 6px solid currentColor;
+  }
+  .spread .source {
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    opacity: 0.85;
+  }
+  .spread .source a { text-decoration: none; }
+  .applies-stamp {
+    display: inline-block;
+    padding: 0.45rem 1.1rem;
+    border: 3px solid var(--alert);
+    color: var(--alert);
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    margin-bottom: 1.6rem;
+  }
+
+  /* ====== 01 HERO ====== */
+  .hero { background: var(--cream); color: var(--ink); }
+  .hero .big-num {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(180px, 28vw, 460px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    position: absolute;
+    right: -3vw; top: -4vh;
+    color: var(--ink);
+    opacity: 0.08;
+  }
+  .hero .headline { font-size: clamp(64px, 9vw, 140px); font-weight: 800; }
+
+  /* ====== 02 MIDNIGHT ====== */
+  .midnight { background: var(--midnight); color: var(--ivory); }
+  .midnight .big-num {
+    position: absolute; right: 6vw; top: 6vh;
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.9;
+    color: transparent; -webkit-text-stroke: 2px var(--ivory);
+  }
+  .midnight .headline { font-size: clamp(56px, 7.5vw, 120px); font-style: italic; }
+
+  /* ====== 03 ROSE ALERT ====== */
+  .rose_alert { background: var(--rose); color: var(--ink); }
+  .rose_alert .alert-stamp {
+    position: absolute; right: 6vw; top: 10vh;
+    border: 6px solid var(--alert); color: var(--alert);
+    padding: 1rem 2rem; transform: rotate(9deg);
+    font-family: var(--sans); font-weight: 900; font-size: 38px;
+    letter-spacing: 0.3em;
+  }
+  .rose_alert .big-num {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(140px, 20vw, 260px); color: var(--alert);
+    line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem;
+  }
+  .rose_alert .headline { font-size: clamp(54px, 7vw, 110px); font-weight: 700; }
+
+  /* ====== 04 TERMINAL ====== */
+  .terminal { background: var(--terminal-bg); color: var(--terminal-fg); font-family: var(--mono); }
+  .terminal::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    pointer-events: none;
+  }
+  .terminal .prompt {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(140px, 18vw, 260px); line-height: 1;
+    margin-bottom: 2rem; color: #ffb347;
+    letter-spacing: -0.02em;
+  }
+  .terminal .headline {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(40px, 5vw, 72px); line-height: 1.15; color: var(--terminal-fg);
+  }
+  .terminal .framing, .terminal .summary, .terminal .action {
+    font-family: var(--mono); color: #cfd8cf; font-size: 22px;
+  }
+  .terminal .summary { color: #9fe8b3; }
+  .terminal .source { color: #ffb347; }
+
+  /* ====== 05 ACADEMIC ====== */
+  .academic { background: var(--academic); color: #1a1a1a; }
+  .academic .big-num {
+    position: absolute; right: 7vw; top: 8vh;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(140px, 18vw, 260px); color: #b79b5a;
+  }
+  .academic .headline {
+    font-size: clamp(48px, 6.5vw, 100px); font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  }
+  .academic .summary::first-letter {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 6.5em; float: left; line-height: 0.8;
+    padding: 0.1em 0.15em 0 0; color: #8a6f2f;
+  }
+
+  /* ====== 06 BIG STAT ====== */
+  .big_stat { background: #ffffff; color: var(--ink); justify-content: flex-start; }
+  .big_stat .mega {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(220px, 34vw, 540px); line-height: 0.85;
+    letter-spacing: -0.05em; margin: 0; color: var(--ink);
+  }
+  .big_stat .mega .unit {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 0.25em; vertical-align: super; letter-spacing: 0.05em;
+  }
+  .big_stat .headline { font-size: clamp(40px, 5vw, 72px); font-weight: 700; max-width: 28ch; }
+
+  /* ====== 07 NEWSPRINT ====== */
+  .newsprint { background: var(--newsprint); color: #1b1b1b; padding: 6vh 5vw; }
+  .newsprint .masthead {
+    font-family: var(--serif); font-weight: 900; font-style: italic;
+    font-size: 28px; letter-spacing: 0.04em; border-bottom: 3px double #1b1b1b; padding-bottom: 0.6rem;
+    margin-bottom: 1.8rem;
+  }
+  .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
+  .newsprint .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem; row-gap: 1.6rem;
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+  }
+  .newsprint .cols p { margin: 0; }
+  .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .newsprint .cols > p:last-of-type { grid-column: 2; grid-row: 1; }
+  .newsprint .cols > .pullquote { grid-column: 1 / -1; grid-row: 2; }
+  @media (max-width: 720px) {
+    .newsprint .cols { grid-template-columns: 1fr; }
+    .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+    .newsprint .cols > .pullquote { grid-column: 1; grid-row: 2; }
+    .newsprint .cols > p:last-of-type { grid-column: 1; grid-row: 3; }
+  }
+  .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
+    border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
+  }
+  .newsprint .roman {
+    position: absolute; right: 5vw; top: 3vh;
+    font-family: var(--serif); font-style: italic; font-weight: 600;
+    font-size: 80px; color: #1b1b1b;
+  }
+
+  /* ====== 08 POSTER ====== */
+  .poster { background: var(--poster); color: #f2e9d5; }
+  .poster .big-num {
+    position: absolute; right: 4vw; top: 4vh;
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.85;
+    color: #f2e9d5; opacity: 0.12; letter-spacing: -0.05em;
+  }
+  .poster .headline {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(68px, 9vw, 150px); letter-spacing: -0.02em;
+    text-transform: uppercase; line-height: 0.92;
+  }
+
+  /* ====== 09 FIELD NOTES ====== */
+  .field_notes {
+    background: var(--field) ;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: #1a1f1a;
+  }
+  .field_notes .big-num {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(120px, 16vw, 220px); line-height: 0.9;
+    color: #4b5a44; margin-bottom: 0.5rem;
+  }
+  .field_notes .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); max-width: 22ch; line-height: 1.05;
+  }
+
+  /* ====== 10 CODA ====== */
+  .coda {
+    background: var(--sage); color: var(--monastic);
+    text-align: center; align-items: center;
+  }
+  .coda .roman {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(140px, 18vw, 240px); line-height: 1; margin-bottom: 1rem;
+  }
+  .coda .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(54px, 7vw, 110px); max-width: 22ch;
+  }
+  .coda .framing, .coda .summary { max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ====== Cover ====== */
+  .cover {
+    background: var(--ink); color: var(--ivory); text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10vh 6vw;
+  }
+  .cover .masthead {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(90px, 13vw, 220px); line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 0.15em;
+  }
+  .cover .masthead a { color: inherit; text-decoration: none; }
+  .cover .subhead a { color: inherit; text-decoration: none; opacity: 0.85; }
+  .cover .subhead {
+    font-family: var(--sans); font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 24px; margin-top: 2rem; opacity: 0.85;
+  }
+  .cover .date {
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(34px, 4vw, 60px); margin-top: 3rem;
+  }
+  .cover .editors {
+    font-family: var(--serif); font-size: 26px; line-height: 1.5;
+    max-width: 52ch; margin-top: 4rem; text-align: left;
+  }
+  .contents {
+    background: var(--ivory); color: var(--ink);
+    padding: 10vh 6vw; min-height: 100vh;
+  }
+  .contents h2 {
+    font-family: var(--serif); font-weight: 700; font-style: italic;
+    font-size: clamp(56px, 7vw, 100px); margin: 0 0 3rem 0;
+  }
+  .contents ol { list-style: none; padding: 0; margin: 0; }
+  .contents li {
+    border-top: 2px solid rgba(0,0,0,0.2);
+    font-family: var(--serif); font-size: 26px; line-height: 1.3;
+  }
+  .contents li:last-child { border-bottom: 2px solid rgba(0,0,0,0.2); }
+  .contents .toc-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.2rem 0; color: inherit; text-decoration: none;
+    transition: background 0.15s ease, padding 0.15s ease;
+  }
+  .contents .toc-link:hover {
+    background: rgba(0,0,0,0.05); padding-left: 1rem; padding-right: 1rem;
+  }
+  .contents .toc-link .t { flex: 1; }
+  html { scroll-behavior: smooth; }
+  .contents .num { font-weight: 800; min-width: 2.5ch; }
+  .contents .cat {
+    font-family: var(--sans); font-size: 20px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600; margin-left: auto; opacity: 0.7;
+  }
+  .contents .applies-tag {
+    font-family: var(--sans); font-size: 20px; font-weight: 800;
+    color: var(--alert); letter-spacing: 0.18em; margin-left: 0.8rem;
+  }
+  @media print { .spread, .cover, .contents { page-break-after: always; } }
+</style>
+</head>
+<body>
+
+
+<section class="cover">
+  <div class="subhead"><a href="https://waystonecoaching.com" target="_blank" rel="noopener">Waystone Coaching</a>&#8217;s</div>
+  <h1 class="masthead"><a href="https://waystonecoaching.github.io/morning-edition/">Morning<br>Edition</a></h1>
+  <div class="date">Sunday, June 14, 2026</div>
+  <div class="editors">The JTS reassessment of MDMA-assisted psychotherapy at the top is the piece to read slowly. Not because MDMA therapy is discredited, but because the evidentiary framework around it is being rebuilt from the ground up, and everyone working near this space needs to know where the ground actually is. The MAPS Colorado story and the Chicago VA psilocybin enrollment together show the field moving forward anyway. The Dharma of the Nervous System piece from Tricycle is the quiet one worth sitting with. The framing there is not translation from Buddhist to clinical -- it is the other direction, which is rarer and more useful.</div>
+</section>
+
+<section class="contents"><h2>The Ten</h2><ol><li><a class="toc-link" href="#story-1"><span class="num">01</span><span class="t">From Therapeutic Promise to Evidentiary Discipline: Reassessing MDMA-Assisted Psychotherapy</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-2"><span class="num">02</span><span class="t">A Systematic Review of the Prevalence, Risk Factors, and Protective Factors of PTSD Among Paramedics</span><span class="applies-tag">APPLIES</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-3"><span class="num">03</span><span class="t">Patient-Driven Care in Psychedelic Therapy</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-4"><span class="num">04</span><span class="t">Redesigning Trauma-Focused Interventions to Address Capacity Challenges in Mental Health Systems</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-5"><span class="num">05</span><span class="t">Chicago's VA Hospital Just Enrolled Its First Veterans in a Psilocybin-Assisted Therapy Program</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-6"><span class="num">06</span><span class="t">Mercy Health's Protocol 99 Initiative Will Aid First Responders in Crisis</span><span class="applies-tag">APPLIES</span><span class="cat">Peer Support</span></a></li><li><a class="toc-link" href="#story-7"><span class="num">07</span><span class="t">MAPS and State of Colorado Partner to Deliver Free Harm Reduction Training for First Responders</span><span class="applies-tag">APPLIES</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-8"><span class="num">08</span><span class="t">The Dharma of the Nervous System</span><span class="applies-tag">APPLIES</span><span class="cat">Polyvagal</span></a></li><li><a class="toc-link" href="#story-9"><span class="num">09</span><span class="t">Boulder Crest Foundation Announces National PTG Day 2026 and Launch of Inside Posttraumatic Growth</span><span class="cat">Coaching Practice</span></a></li><li><a class="toc-link" href="#story-10"><span class="num">10</span><span class="t">Meeting Moral Injury</span><span class="cat">Resilience &amp; Moral Injury</span></a></li></ol></section>
+
+<section id="story-1" class="spread hero">
+  <div class="big-num">01</div>
+  <div class="meta">No. 01 &middot; Psychedelic Therapy &middot; 2026-06-02</div>
+  
+  <h2 class="headline">From Therapeutic Promise to Evidentiary Discipline: Reassessing MDMA-Assisted Psychotherapy</h2>
+  <p class="framing">The MDMA/PTSD space is under real credibility stress and this JTS paper names it directly. For anyone coaching near the ketamine and psychedelic-assisted therapy world, understanding what the evidentiary reassessment actually says -- rather than what advocates or critics claim it says -- is necessary grounding. Read critically.</p>
+  <p class="summary">A Journal of Traumatic Stress paper revisiting the evidence base for MDMA-assisted psychotherapy after Phase 3 trial problems and FDA non-approval. The authors argue for moving from therapeutic enthusiasm toward evidentiary discipline: more rigorous trial design, better blinding approaches, cleaner separation of drug effect from therapy protocol effect, and honest accounting of adverse events. The piece does not abandon the therapeutic hypothesis; it demands the field earn it.</p>
+  <div class="action">Try this: If you refer clients toward MDMA-assisted therapy or work with clinicians who do, know this paper. The field is actively rebuilding its evidence standards.</div>
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70094?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+
+<section id="story-2" class="spread midnight">
+  <div class="big-num">02</div>
+  <div class="meta">No. 02 &middot; First Responder MH &middot; 2026-06-04</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">A Systematic Review of the Prevalence, Risk Factors, and Protective Factors of PTSD Among Paramedics</h2>
+  <p class="framing">This is a direct data point on your primary population. A JTS systematic review scoping PTSD prevalence and risk architecture for paramedics gives you the research baseline when clients ask whether what they are experiencing is common, or when you need to anchor your referral reasoning in the published record.</p>
+  <p class="summary">A JTS systematic review synthesizing the PTSD prevalence literature for paramedics, covering risk factors including exposure load, shift structure, organizational support failure, and moral injury, and protective factors including peer support access, leadership culture, and sense of meaning. The review provides prevalence estimates across studies and surfaces the methodological variation that makes apples-to-apples comparison difficult. Protective factor findings are the actionable half.</p>
+  <div class="action">Try this: Pull the protective factor findings. They map directly onto what coaching can address: meaning, social support, narrative coherence after critical incidents.</div>
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70086?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+
+<section id="story-3" class="spread rose_alert">
+  <div class="alert-stamp">Dispatch</div>
+  <div class="big-num">03</div>
+  <div class="meta">No. 03 &middot; Psychedelic Therapy &middot; 2026-06-13</div>
+  
+  <h2 class="headline">Patient-Driven Care in Psychedelic Therapy</h2>
+  <p class="framing">NEJM publishing on patient-driven care in psychedelic therapy is a credibility marker for the field and a framing question for practitioners. How much the patient drives the process -- set, intention, integration structure -- is not settled. This piece from a high-authority source is worth knowing regardless of where it lands.</p>
+  <p class="summary">An NEJM piece examining how patient agency, preference, and self-determination should shape psychedelic therapy delivery. The authors engage the tension between protocol fidelity (which trials require) and individualized care (which patients and clinicians often prefer). The question of how much the patient drives the therapeutic container is live in both clinical and coaching-adjacent integration contexts.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiXkFVX3lxTE1LbTd6Zm9YekpvQXlBcFB0LVhwTXBUTkd6RHZ0Q05lbDM0clZBNVpQZkZXTzFZZHQ4V2RXa1ZqMlVDd01uMlJVdXZZZkNsNHV0VTRHY0dZdERheUVj?oc=5" target="_blank" rel="noopener">The New England Journal of Medicine</a></div>
+</section>
+
+<section id="story-4" class="spread terminal">
+  <div class="prompt">04</div>
+  <div class="meta">No. 04 &middot; First Responder MH &middot; 2026-06-10</div>
+  
+  <h2 class="headline">Redesigning Trauma-Focused Interventions to Address Capacity Challenges in Mental Health Systems</h2>
+  <p class="framing">The system capacity problem is the structural constraint your clients hit when they try to access care. This JTS paper addresses it at the design level: not whether the intervention works but whether the infrastructure can deliver it. For a coach operating at the edge of that system, knowing where the bottlenecks are is part of smart referral practice.</p>
+  <p class="summary">A JTS paper examining how trauma-focused interventions can be redesigned for systems that cannot sustain specialist-intensive delivery. The authors address stepped-care models, task-sharing frameworks, and adaptation strategies that extend reach without requiring clinician-to-client ratios the system cannot maintain. The argument is structural: treatment efficacy is necessary but not sufficient when the delivery system is already at capacity.</p>
+  <div class="action">Try this: Map your local referral network against the capacity picture this paper describes. Where do your clients actually hit walls?</div>
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70090?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+
+<section id="story-5" class="spread academic">
+  <div class="big-num">V</div>
+  <div class="meta">No. 05 &middot; Psychedelic Therapy &middot; 2026-06-09</div>
+  
+  <h2 class="headline">Chicago's VA Hospital Just Enrolled Its First Veterans in a Psilocybin-Assisted Therapy Program</h2>
+  <p class="framing">The VA actually enrolling veterans in a psilocybin trial is a concrete milestone, not a policy announcement. The gap between research publication and VA-system implementation is large and slow. When it closes, it matters for how veteran clients understand their options.</p>
+  <p class="summary">The Jesse Brown VA Medical Center in Chicago enrolled its first veterans in a psilocybin-assisted therapy research program. The story represents the VA system moving from observer to participant in the psilocybin research space -- a meaningful shift given the VA's scale and the veteran PTSD burden. Read with the evidentiary reassessment context from story one in mind.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxQU1ZCUHpVSTJoNnRNZmM1MlJxZ1JMelh3VzYzMWZSRFlxc1V2cTloRm1iUTFrd3pCekNxTEdPdkxIalFqMEpvdE9hVGFuaElKejVoVjloal9PNzNfd0VLcEROUlIyY1NDa2l4d0RhUUphQ08tWW1LWEFkNlE?oc=5" target="_blank" rel="noopener">Psychedelic PTSD Responder Query</a></div>
+</section>
+
+<section id="story-6" class="spread big_stat">
+  <div class="meta">No. 06 &middot; Peer Support &middot; 2026-06-04</div>
+  <div class="mega">06</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">Mercy Health's Protocol 99 Initiative Will Aid First Responders in Crisis</h2>
+  <p class="framing">Protocol 99 is a hospital system committing real infrastructure to first responder mental health -- not a wellness program, a care pathway. The name echoes the 10-code signaling in most FR cultures. Worth tracking as a model for what institutional commitment looks like at the health system level.</p>
+  <p class="summary">Mercy Health launched Protocol 99, a dedicated care initiative to provide mental health support to first responders in crisis. The program creates a specific care pathway rather than routing first responders through general EAP or emergency psychiatric processes that often lack cultural competence for FR populations. Institutional investment at the health system level signals growing recognition that first responder mental health needs a dedicated infrastructure response.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiwgFBVV95cUxPSGVfcEU0X2R5ckFUeGg0cjAzMnZQcW5JYzE2S1hnVEJvTDFRUFYwb3VRQ1djZjlfWnJVRE10c0pBV3V5eFZnRkVhaUQ4RHBJTnRFR3NGT3lBUHBUbVJwS0tGX0hXVXlqZGRJTHVoWEdHQmVDeHpkVlI?oc=5" target="_blank" rel="noopener">Peer Support Query</a></div>
+</section>
+
+<section id="story-7" class="spread newsprint">
+  <div class="roman">VII</div>
+  <div class="masthead">The Waystone Dispatch</div>
+  <div class="meta">No. 07 &middot; Psychedelic Therapy &middot; 2026-05-05</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">MAPS and State of Colorado Partner to Deliver Free Harm Reduction Training for First Responders</h2>
+  <div class="cols">
+    <p>MAPS and the State of Colorado announced a partnership to deliver free harm reduction training specifically designed for first responders encountering people in psychedelic crisis. The curriculum addresses safe management, de-escalation appropriate to psychedelic states, and referral pathways. The state-level partnership signals official endorsement of a harm reduction rather than criminal enforcement framing for psychedelic incidents in FR response.</p>
+    <div class="pullquote">Free, state-endorsed harm reduction training for first responders -- the training gap finally has a public-sector answer.</div>
+    <p>MAPS linking harm reduction training directly to first responders is a field-development move worth noting. FR personnel are often first contact with people in psychedelic crisis -- at raves, in communities where use is legal, and increasingly in clinical settings. Training first responders in harm reduction rather than enforcement response is a paradigm shift, and a free offering makes it accessible.</p>
+  </div>
+  <div class="action">Try this: Useful context for any Phoenix Fire colleague conversation about psychedelic crisis response. Know this exists.</div>
+  <div class="source">Source: <a href="https://maps.org/2026/05/05/maps-state-of-colorado-partner-t" target="_blank" rel="noopener">MAPS</a></div>
+</section>
+
+<section id="story-8" class="spread poster">
+  <div class="big-num">08</div>
+  <div class="meta">No. 08 &middot; Polyvagal &middot; 2026-06-06</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">The Dharma of the Nervous System</h2>
+  <p class="framing">Tricycle running polyvagal theory from the dharma direction -- not translating Buddhist practice into nervous system language, but reading the nervous system through dharma -- is the rarer and more interesting move. For someone whose contemplative practice and clinical-adjacent work run parallel tracks, this kind of bridging deserves reading on its own terms.</p>
+  <p class="summary">A Tricycle essay engaging polyvagal theory as a lens for understanding what contemplative practice is actually doing at the physiological level, while also reading the nervous system hierarchy through Buddhist frameworks of suffering and liberation. The piece holds the two traditions in genuine dialogue rather than subordinating one to the other. Ventral vagal regulation as the physiological substrate of samadhi is a serious claim that this kind of piece can begin to support.</p>
+  <div class="action">Try this: Useful framing for clients who carry a meditation practice alongside PTSD or dysregulation symptoms -- the two are working the same territory from different angles.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMia0FVX3lxTE9FUnJhY0p3RHBhN1BSRXBPNEN0V1lwRVhpMHFQRkZLWXpvMkJuZXdOeVVMX3U4SEllZ0NOeVpnQWZSUkdWYXMyc2tUTlVhckI1OEdtWjJEb0VsY21Cc1lTT2RFdmNTTW9iY1Y?oc=5" target="_blank" rel="noopener">Tricycle: The Buddhist Review</a></div>
+</section>
+
+<section id="story-9" class="spread field_notes">
+  <div class="big-num">ix</div>
+  <div class="meta">No. 09 &middot; Coaching Practice &middot; 2026-06-13</div>
+  
+  <h2 class="headline">Boulder Crest Foundation Announces National PTG Day 2026 and Launch of Inside Posttraumatic Growth</h2>
+  <p class="framing">PTG -- posttraumatic growth -- is the right frame for integration coaching work with first responders. Boulder Crest has been building the FR-specific PTG infrastructure for years. A national PTG Day and a new resource launch both signal that the field is moving from research concept to public practice.</p>
+  <p class="summary">Boulder Crest Foundation announced National PTG Day 2026 and the launch of Inside Posttraumatic Growth, described as a new resource platform. The Foundation has focused specifically on PTG in military and first responder populations. Moving PTG from a research construct to a named public event reflects a broader shift in how trauma outcomes are framed -- toward growth as a real destination, not just an absence of disorder.</p>
+  <div class="action">Try this: Know the Boulder Crest PTG framework and resources. They sit directly adjacent to what integration coaching offers FR clients.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMi9AFBVV95cUxOUy0xMllaMTNKN3YxakNYVGZBM1JYb0V3X21wSmFFQ2xLUTBNWExRS2VtZ3BMdWJ3MENqak9UNW9JN3N6bklTbnBHT0tYVTBEY3A5a0lCS0wtaXhiSFlDalNLSERHTHV6MDVtTFVEbmhMdkdaVVRtTWJqX0xISnB4Y3VhUlNJR0NBdk5rRVFCMlVqMWxMWk14d1BYMC1ZZEtldkFRX3lKblg1RnBCNGVMcXBneW0xNmhPS0E?oc=5" target="_blank" rel="noopener">First HELP / Safe Call Now</a></div>
+</section>
+
+<section id="story-10" class="spread coda">
+  <div class="roman">X</div>
+  <div class="meta">No. 10 &middot; Resilience &amp; Moral Injury &middot; 2026-06-11</div>
+  
+  <h2 class="headline">Meeting Moral Injury</h2>
+  <p class="framing">A Christian publication taking moral injury seriously -- not as a secular psychological concept grafted onto religious language, but on its own terms -- matters. The Desert Fathers literature is full of it, though they had different names. When the contemplative tradition and the moral injury research tradition are reading the same wound, the overlap is worth sitting with.</p>
+  <p class="summary">A piece from The Other Cheek engaging moral injury as a category for Christian reflection and pastoral care. The framing takes the construct beyond its military-clinical origin and asks what it looks like in the context of conscience, witness, and moral agency within a community of faith. The intersection between moral theology and moral injury psychology is underworked territory, and a publication willing to hold both seriously is worth noting.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTE81Q29zVnY4NVlSTTRGMl9rSEpJTlo5VHhDVzc4bk9JYUR5anJfSnZxRjlUekpzZV9fMFkwdmRhekd1ZjFEYlFtVGFwUU14SGhXb2R3ck96amVPWGVvdA?oc=5" target="_blank" rel="noopener">The Other Cheek</a></div>
+</section>
+</body></html>
