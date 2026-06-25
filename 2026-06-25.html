@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Edition - 2026-06-25</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --cream: #f4efe6;
+    --ivory: #f8f4ec;
+    --ink: #121212;
+    --midnight: #0b1224;
+    --rose: #f0d3cb;
+    --alert: #c43a2e;
+    --terminal-bg: #0a0d0a;
+    --terminal-fg: #7cff9c;
+    --academic: #f6f1e3;
+    --newsprint: #ebe3d3;
+    --poster: #10412b;
+    --field: #e9efe6;
+    --sage: #c8d2c1;
+    --monastic: #3a3a34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .spread {
+    min-height: 100vh;
+    padding: 8vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .spread .meta {
+    font-family: var(--sans);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .spread .headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    margin: 0 0 2.4rem 0;
+  }
+  .spread .framing {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+  }
+  .spread .summary {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+  .spread .action {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    max-width: 60ch;
+    border-left: 6px solid currentColor;
+  }
+  .spread .source {
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    opacity: 0.85;
+  }
+  .spread .source a { text-decoration: none; }
+  .applies-stamp {
+    display: inline-block;
+    padding: 0.45rem 1.1rem;
+    border: 3px solid var(--alert);
+    color: var(--alert);
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    margin-bottom: 1.6rem;
+  }
+
+  /* ====== 01 HERO ====== */
+  .hero { background: var(--cream); color: var(--ink); }
+  .hero .big-num {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(180px, 28vw, 460px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    position: absolute;
+    right: -3vw; top: -4vh;
+    color: var(--ink);
+    opacity: 0.08;
+  }
+  .hero .headline { font-size: clamp(64px, 9vw, 140px); font-weight: 800; }
+
+  /* ====== 02 MIDNIGHT ====== */
+  .midnight { background: var(--midnight); color: var(--ivory); }
+  .midnight .big-num {
+    position: absolute; right: 6vw; top: 6vh;
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.9;
+    color: transparent; -webkit-text-stroke: 2px var(--ivory);
+  }
+  .midnight .headline { font-size: clamp(56px, 7.5vw, 120px); font-style: italic; }
+
+  /* ====== 03 ROSE ALERT ====== */
+  .rose_alert { background: var(--rose); color: var(--ink); }
+  .rose_alert .alert-stamp {
+    position: absolute; right: 6vw; top: 10vh;
+    border: 6px solid var(--alert); color: var(--alert);
+    padding: 1rem 2rem; transform: rotate(9deg);
+    font-family: var(--sans); font-weight: 900; font-size: 38px;
+    letter-spacing: 0.3em;
+  }
+  .rose_alert .big-num {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(140px, 20vw, 260px); color: var(--alert);
+    line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem;
+  }
+  .rose_alert .headline { font-size: clamp(54px, 7vw, 110px); font-weight: 700; }
+
+  /* ====== 04 TERMINAL ====== */
+  .terminal { background: var(--terminal-bg); color: var(--terminal-fg); font-family: var(--mono); }
+  .terminal::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    pointer-events: none;
+  }
+  .terminal .prompt {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(140px, 18vw, 260px); line-height: 1;
+    margin-bottom: 2rem; color: #ffb347;
+    letter-spacing: -0.02em;
+  }
+  .terminal .headline {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(40px, 5vw, 72px); line-height: 1.15; color: var(--terminal-fg);
+  }
+  .terminal .framing, .terminal .summary, .terminal .action {
+    font-family: var(--mono); color: #cfd8cf; font-size: 22px;
+  }
+  .terminal .summary { color: #9fe8b3; }
+  .terminal .source { color: #ffb347; }
+
+  /* ====== 05 ACADEMIC ====== */
+  .academic { background: var(--academic); color: #1a1a1a; }
+  .academic .big-num {
+    position: absolute; right: 7vw; top: 8vh;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(140px, 18vw, 260px); color: #b79b5a;
+  }
+  .academic .headline {
+    font-size: clamp(48px, 6.5vw, 100px); font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  }
+  .academic .summary::first-letter {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 6.5em; float: left; line-height: 0.8;
+    padding: 0.1em 0.15em 0 0; color: #8a6f2f;
+  }
+
+  /* ====== 06 BIG STAT ====== */
+  .big_stat { background: #ffffff; color: var(--ink); justify-content: flex-start; }
+  .big_stat .mega {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(220px, 34vw, 540px); line-height: 0.85;
+    letter-spacing: -0.05em; margin: 0; color: var(--ink);
+  }
+  .big_stat .mega .unit {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 0.25em; vertical-align: super; letter-spacing: 0.05em;
+  }
+  .big_stat .headline { font-size: clamp(40px, 5vw, 72px); font-weight: 700; max-width: 28ch; }
+
+  /* ====== 07 NEWSPRINT ====== */
+  .newsprint { background: var(--newsprint); color: #1b1b1b; padding: 6vh 5vw; }
+  .newsprint .masthead {
+    font-family: var(--serif); font-weight: 900; font-style: italic;
+    font-size: 28px; letter-spacing: 0.04em; border-bottom: 3px double #1b1b1b; padding-bottom: 0.6rem;
+    margin-bottom: 1.8rem;
+  }
+  .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
+  .newsprint .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem; row-gap: 1.6rem;
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+  }
+  .newsprint .cols p { margin: 0; }
+  .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .newsprint .cols > p:last-of-type { grid-column: 2; grid-row: 1; }
+  .newsprint .cols > .pullquote { grid-column: 1 / -1; grid-row: 2; }
+  @media (max-width: 720px) {
+    .newsprint .cols { grid-template-columns: 1fr; }
+    .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+    .newsprint .cols > .pullquote { grid-column: 1; grid-row: 2; }
+    .newsprint .cols > p:last-of-type { grid-column: 1; grid-row: 3; }
+  }
+  .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
+    border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
+  }
+  .newsprint .roman {
+    position: absolute; right: 5vw; top: 3vh;
+    font-family: var(--serif); font-style: italic; font-weight: 600;
+    font-size: 80px; color: #1b1b1b;
+  }
+
+  /* ====== 08 POSTER ====== */
+  .poster { background: var(--poster); color: #f2e9d5; }
+  .poster .big-num {
+    position: absolute; right: 4vw; top: 4vh;
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.85;
+    color: #f2e9d5; opacity: 0.12; letter-spacing: -0.05em;
+  }
+  .poster .headline {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(68px, 9vw, 150px); letter-spacing: -0.02em;
+    text-transform: uppercase; line-height: 0.92;
+  }
+
+  /* ====== 09 FIELD NOTES ====== */
+  .field_notes {
+    background: var(--field) ;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: #1a1f1a;
+  }
+  .field_notes .big-num {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(120px, 16vw, 220px); line-height: 0.9;
+    color: #4b5a44; margin-bottom: 0.5rem;
+  }
+  .field_notes .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); max-width: 22ch; line-height: 1.05;
+  }
+
+  /* ====== 10 CODA ====== */
+  .coda {
+    background: var(--sage); color: var(--monastic);
+    text-align: center; align-items: center;
+  }
+  .coda .roman {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(140px, 18vw, 240px); line-height: 1; margin-bottom: 1rem;
+  }
+  .coda .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(54px, 7vw, 110px); max-width: 22ch;
+  }
+  .coda .framing, .coda .summary { max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ====== Cover ====== */
+  .cover {
+    background: var(--ink); color: var(--ivory); text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10vh 6vw;
+  }
+  .cover .masthead {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(90px, 13vw, 220px); line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 0.15em;
+  }
+  .cover .masthead a { color: inherit; text-decoration: none; }
+  .cover .subhead a { color: inherit; text-decoration: none; opacity: 0.85; }
+  .cover .subhead {
+    font-family: var(--sans); font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 24px; margin-top: 2rem; opacity: 0.85;
+  }
+  .cover .date {
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(34px, 4vw, 60px); margin-top: 3rem;
+  }
+  .cover .editors {
+    font-family: var(--serif); font-size: 26px; line-height: 1.5;
+    max-width: 52ch; margin-top: 4rem; text-align: left;
+  }
+  .contents {
+    background: var(--ivory); color: var(--ink);
+    padding: 10vh 6vw; min-height: 100vh;
+  }
+  .contents h2 {
+    font-family: var(--serif); font-weight: 700; font-style: italic;
+    font-size: clamp(56px, 7vw, 100px); margin: 0 0 3rem 0;
+  }
+  .contents ol { list-style: none; padding: 0; margin: 0; }
+  .contents li {
+    border-top: 2px solid rgba(0,0,0,0.2);
+    font-family: var(--serif); font-size: 26px; line-height: 1.3;
+  }
+  .contents li:last-child { border-bottom: 2px solid rgba(0,0,0,0.2); }
+  .contents .toc-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.2rem 0; color: inherit; text-decoration: none;
+    transition: background 0.15s ease, padding 0.15s ease;
+  }
+  .contents .toc-link:hover {
+    background: rgba(0,0,0,0.05); padding-left: 1rem; padding-right: 1rem;
+  }
+  .contents .toc-link .t { flex: 1; }
+  html { scroll-behavior: smooth; }
+  .contents .num { font-weight: 800; min-width: 2.5ch; }
+  .contents .cat {
+    font-family: var(--sans); font-size: 20px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600; margin-left: auto; opacity: 0.7;
+  }
+  .contents .applies-tag {
+    font-family: var(--sans); font-size: 20px; font-weight: 800;
+    color: var(--alert); letter-spacing: 0.18em; margin-left: 0.8rem;
+  }
+  @media print { .spread, .cover, .contents { page-break-after: always; } }
+</style>
+</head>
+<body>
+
+
+<section class="cover">
+  <div class="subhead"><a href="https://waystonecoaching.com" target="_blank" rel="noopener">Waystone Coaching</a>&#8217;s</div>
+  <h1 class="masthead"><a href="https://waystonecoaching.github.io/morning-edition/">Morning<br>Edition</a></h1>
+  <div class="date">Thursday, June 25, 2026</div>
+  <div class="editors">The headline today is Definium's LSD Phase 3 data -- the first of its kind for a major depressive disorder indication, and Psychedelic Alpha is reading it with the skepticism the moment requires. Underneath that, the Nova rave phenomenology study deserves serious attention: it is one of the only datasets on how trauma encodes when the nervous system is in an active psychedelic state. For coaching work that sits near the integration edge, that is not academic curiosity. The wager story is a breath of air.</div>
+</section>
+
+<section class="contents"><h2>The Ten</h2><ol><li><a class="toc-link" href="#story-1"><span class="num">01</span><span class="t">A Sea Change, With Caveats: A Closer Look at Definium's Phase 3 LSD for MDD Readout</span><span class="applies-tag">APPLIES</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-2"><span class="num">02</span><span class="t">Facing Trauma Under the Influence of Psychedelics: A Phenomenological Study with Nova Rave Survivors</span><span class="applies-tag">APPLIES</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-3"><span class="num">03</span><span class="t">Relocating the Root: Expanding Psychedelic Care Beyond the Veteran-and-Survivor Frame</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-4"><span class="num">04</span><span class="t">VA Rolling Out Study of MDMA Therapy for Veterans with PTSD</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-5"><span class="num">05</span><span class="t">Meet Lambeau: Reno Fire Department's First Facility Dog Supporting First Responders</span><span class="applies-tag">APPLIES</span><span class="cat">Peer Support</span></a></li><li><a class="toc-link" href="#story-6"><span class="num">06</span><span class="t">First Responders Pay Up on Wager to Support Mental Health Support Programs</span><span class="cat">Peer Support</span></a></li><li><a class="toc-link" href="#story-7"><span class="num">07</span><span class="t">The New Workforce Reality in Policing: A Leadership Framework for Retention, Readiness and Resilience</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-8"><span class="num">08</span><span class="t">Stepped-Care Treatment via Telehealth Reduces Alcohol Use in Patients with Liver Disease</span><span class="cat">Coaching Practice</span></a></li><li><a class="toc-link" href="#story-9"><span class="num">09</span><span class="t">How Motivational Interviewing Supports Neurodivergent People</span><span class="cat">Coaching Practice</span></a></li><li><a class="toc-link" href="#story-10"><span class="num">10</span><span class="t">Psilocybin-Assisted Therapy 'Changed My Relationship' with Trauma, Veteran Says</span><span class="cat">Psychedelic Therapy</span></a></li></ol></section>
+
+<section id="story-1" class="spread hero">
+  <div class="big-num">01</div>
+  <div class="meta">No. 01 &middot; Psychedelic Therapy &middot; 2026-06-25</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">A Sea Change, With Caveats: A Closer Look at Definium's Phase 3 LSD for MDD Readout</h2>
+  <p class="framing">The first Phase 3 psychedelic trial for MDD posted topline results today, and Psychedelic Alpha is reading it critically. This matters for anyone coaching clients who are tracking the regulatory pipeline -- the credibility of psychedelic-assisted therapy lives or dies with Phase 3 data, and market enthusiasm consistently outruns evidentiary weight.</p>
+  <p class="summary">Definium Therapeutics announced positive topline data from its Phase 3 trial of DT120, an LSD candidate for major depressive disorder. The company's stock moved sharply on the news and a capital raise followed. Psychedelic Alpha examines the trial architecture, acknowledges the significance of reaching Phase 3 at all, and surfaces the caveats: the FDA pathway for LSD remains uncharted, MDD is not PTSD, and one topline readout does not a treatment paradigm make.</p>
+  <div class="action">Try this: If clients are watching the psychedelic pipeline and asking what this means, the answer is: meaningful milestone, long road. Phase 3 data for MDD does not translate directly to approval for trauma indications.</div>
+  <div class="source">Source: <a href="https://psychedelicalpha.com/news/a-sea-change-with-caveats-a-closer-look-at-definiums-phase-3-lsd-for-mdd-readout/" target="_blank" rel="noopener">Psychedelic Alpha</a></div>
+</section>
+
+<section id="story-2" class="spread midnight">
+  <div class="big-num">02</div>
+  <div class="meta">No. 02 &middot; Psychedelic Therapy &middot; 2025-11-11</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">Facing Trauma Under the Influence of Psychedelics: A Phenomenological Study with Nova Rave Survivors</h2>
+  <p class="framing">The October 7 Nova rave attack produced a research scenario that did not exist before: mass casualty trauma onset in people under active psychedelic influence. How does acute trauma land differently when the nervous system is in that state? This is scope-edge territory, but it bears directly on integration work and the coaching conversation about what psychedelic-assisted therapy can and cannot do. Note: the phenomenological data here sits close to clinical terrain -- read it as research context, not protocol.</p>
+  <p class="summary">Using a mixed-methods phenomenological approach, researchers examined how survivors of the October 7, 2023 Nova rave massacre experienced trauma while under psychedelic influence. The study investigates how the psychedelic state intersected with acute threat response, memory encoding, and subsequent trauma symptoms. It surfaces questions about integration pathways that standard PTSD models were not built to handle -- specifically, whether the psychedelic-amplified sensory imprint of the event alters the trajectory of trauma processing.</p>
+  
+  <div class="source">Source: <a href="https://journals.sagepub.com/doi/abs/10.1177/02698811251372508?af=R" target="_blank" rel="noopener">Journal of Psychopharmacology</a></div>
+</section>
+
+<section id="story-3" class="spread rose_alert">
+  <div class="alert-stamp">Dispatch</div>
+  <div class="big-num">03</div>
+  <div class="meta">No. 03 &middot; Psychedelic Therapy &middot; 2026-04-27</div>
+  
+  <h2 class="headline">Relocating the Root: Expanding Psychedelic Care Beyond the Veteran-and-Survivor Frame</h2>
+  <p class="framing">The PSIP literature review asks who psychedelic-assisted therapy actually serves and who has been systematically excluded. The field was built on veteran and first responder populations, which makes it familiar ground. But the equity argument matters as the practice matures -- care model assumptions that work for one population do not transfer cleanly to another.</p>
+  <p class="summary">The MAPS Psychedelic Social Impact Project reviews how care models in psychedelic-assisted therapy have been shaped by the demographics of early research populations: veterans, first responders, and survivors of sexualized violence. It examines what structural changes the field needs to serve people impacted by the criminal legal system and other underserved groups, and raises questions about whether the integration model as currently designed can hold the full range of experience it is being asked to address.</p>
+  
+  <div class="source">Source: <a href="https://maps.org/2026/04/27/relocating-the-root/" target="_blank" rel="noopener">MAPS</a></div>
+</section>
+
+<section id="story-4" class="spread terminal">
+  <div class="prompt">04</div>
+  <div class="meta">No. 04 &middot; Psychedelic Therapy &middot; 2026-06-16</div>
+  
+  <h2 class="headline">VA Rolling Out Study of MDMA Therapy for Veterans with PTSD</h2>
+  <p class="framing">The VA moving on MDMA-assisted therapy studies is institutional momentum. Veteran clients asking about this path will increasingly encounter it through official channels rather than private clinics. The framing shifts -- it becomes less fringe, more pipeline -- and that changes how clients understand their options and how the coaching conversation lands.</p>
+  <p class="summary">The Veterans Administration is implementing a formal study of MDMA-assisted therapy for veterans with PTSD. The rollout signals a shift from observational distance to active research participation. While the FDA's rejection of the MAPS NDA last year introduced credibility questions the field is still working through, VA-level research engagement represents a meaningful institutional signal about where the treatment category is headed.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMimAFBVV95cUxOTlh1STZONWFpeFRYamtCcDNGQmVOZ2pteEZEN2NJS3g3NFdQb0dVRmJsVXBlY0ZaMm9QcDdZQzVsa0VJSXJrYmdzNDhNVUdGdW12Qng0a00xT1NicG1BLTlXTHo2eGRXWUNDYkg4dUZ2cDRNY1VpS1RVVTJLY3FIUVlDZ0xSQWJRelhuWmdtcmF2N0dXdXpkZA?oc=5" target="_blank" rel="noopener">Washington Times</a></div>
+</section>
+
+<section id="story-5" class="spread academic">
+  <div class="big-num">V</div>
+  <div class="meta">No. 05 &middot; Peer Support &middot; 2026-06-16</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">Meet Lambeau: Reno Fire Department's First Facility Dog Supporting First Responders</h2>
+  <p class="framing">Facility dogs in fire departments work below the threshold of formal help-seeking -- the dog is there whether you come in for that reason or not. Reno's deployment is worth watching as a model. Phoenix Fire is a comparable operation, and the trajectory of peer support infrastructure in major departments matters for the work Mark is doing inside the department.</p>
+  <p class="summary">The Reno Fire Department has deployed Lambeau, a trained facility dog, to support firefighter mental health and wellness. Facility dogs in first responder settings reduce barriers to help-seeking by providing low-stakes contact with a wellness resource -- personnel who would not initiate a formal peer support or counseling contact will engage with the dog, which opens a door. The model is being adopted in departments nationally as a complement to existing peer support programs.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMihwJBVV95cUxPWVRwc3o0eEkxVjhkWE9RckllSDFEVklzLTVZWjY5cUdteDJpb3VMbUFZQ0FQYy1fOWlQa21VY18tWklSWTN5X3dDNkV3UEwzZUZVeHhvdFJmcHBybTZIV3pwUXlBTER6aW5CdHphSko1MnVweG1zaUFJMm5mQl9oWk1BSVBqMGt4em1rOHNXUTRJSHc5V3gyZVVkLW5aUHktQ3htLXpHWHN3SlRybTk3WmVENV9HT1hhT1RqajhnaXVnczNvWEY5WnlDakNpdWNCZE1qLUhTLWQ0V1RnVkRkLXU5YWRYdzhvOHFDVTVQd3F0YnZPRmtlTE5QQjR0N3d5QU85N2RZbw?oc=5" target="_blank" rel="noopener">2news KTVN</a></div>
+</section>
+
+<section id="story-6" class="spread big_stat">
+  <div class="meta">No. 06 &middot; Peer Support &middot; 2026-06-20</div>
+  <div class="mega">06</div>
+  
+  <h2 class="headline">First Responders Pay Up on Wager to Support Mental Health Support Programs</h2>
+  <p class="framing">A community story about peer-driven funding for first responder mental health programs. The pattern -- informal shift-culture norms channeled into wellness resources without requiring buy-in from above -- is a real behavior change lever inside these organizations. Small scale, but the mechanism matters.</p>
+  <p class="summary">First responders in a local community made good on an internal wager by directing the payout to mental health support programs. The story illustrates how informal shift-culture norms can be converted into wellness funding and awareness through lateral peer pressure rather than top-down mandate -- which is often the only lever that actually moves culture in these environments.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMi-AFBVV95cUxQUUxTZjB0Z0g1OUpUcUdzby0yNmFUdWgtVVJBS21sU25ibkdZbEd4dHowV1NpZGIxUEN4dERyNFpRM0dIdnVfTENnekF4RGltTEVnUFVVTTdaMmZEd0hIbWU2VVl4VUJ3eHZUUlJDb3pYY1dwaHFydUIxOTR6Sk9vc1VmT2RVaHNiY2ZhVmhEcW1fbE1Ed2Y1UW03TFc4aExYZmFPeVN1dTItT2xmN1Z5SXZyNEtObF9lX2gyRDVpZkVqNkJCN3BTTEhqSXp5NmFNNmFxVDkwRmtTdEY2cVNOUXJzaUpwTWJhN3ZsNWVENVpyTVlZemdBMA?oc=5" target="_blank" rel="noopener">GMToday.com</a></div>
+</section>
+
+<section id="story-7" class="spread newsprint">
+  <div class="roman">VII</div>
+  <div class="masthead">The Waystone Dispatch</div>
+  <div class="meta">No. 07 &middot; First Responder MH &middot; 2026-06-16</div>
+  
+  <h2 class="headline">The New Workforce Reality in Policing: A Leadership Framework for Retention, Readiness and Resilience</h2>
+  <div class="cols">
+    <p>A Police1 webinar addresses the current workforce challenge in policing as a leadership problem rather than a recruitment problem. The framework examines what organizational conditions keep experienced officers in service and what accelerates departure -- touching on psychological safety, leadership culture, and the mismatch between what officers were trained to do and what they are now asked to absorb.</p>
+    <div class="pullquote">The workforce crisis in law enforcement mirrors what Mark's department is living. The leadership frame here -- retention, readiness, resilience -- maps onto the organizational level that sits just upstream of individual coaching. Worth knowing what the field is saying to department leadership when conversations about coaching or peer support come up at that level.</div>
+    <p>The workforce crisis in law enforcement mirrors what Mark's department is living. The leadership frame here -- retention, readiness, resilience -- maps onto the organizational level that sits just upstream of individual coaching. Worth knowing what the field is saying to department leadership when conversations about coaching or peer support come up at that level.</p>
+  </div>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMi5AFBVV95cUxNMWhYZS1OTUdQS2ItTk5XNnJhTXJJVEg2S1c3SksybVlwVms3VWlSSkNLZENia1cwQk1od3FPWGFXLWk1eENGNVlRbjV6V05MczdnemZRTnljS2dNbC1IWnRRNlUta3RlbkZNTFFrcG43MGl4eFRIbGRDcXJ0UW9CMEVTNVY1bTJObDBPVVU5SnBMR0IzWmQtUVUteDVhMmdOUlM0Y210N0FBSGV3Z2hjVHV6V05pYkxLZTdBYkd6aldBSDZUR0RNZHhrQjdiVHk0RDZqU2FIV2paSjZOVFFmZ0xkOGQ?oc=5" target="_blank" rel="noopener">Police1</a></div>
+</section>
+
+<section id="story-8" class="spread poster">
+  <div class="big-num">08</div>
+  <div class="meta">No. 08 &middot; Coaching Practice &middot; 2026-06-24</div>
+  
+  <h2 class="headline">Stepped-Care Treatment via Telehealth Reduces Alcohol Use in Patients with Liver Disease</h2>
+  <p class="framing">A motivational interviewing efficacy study in a high-stakes medical population. Alcohol use in a liver disease context carries clear consequence -- this is the kind of study that demonstrates MI as a real clinical tool, not just a rapport framework. The telehealth delivery finding also matters for accessibility in first responder populations where scheduling is a real barrier.</p>
+  <p class="summary">Researchers found that stepped-care treatment delivered via telehealth, with motivational interviewing as a core component, significantly reduced alcohol use in patients with liver disease. The study supports remote delivery for MI-based interventions and demonstrates effectiveness even in medically complex patients where behavior change is often assumed to be unlikely. The stepped-care design -- matching intensity to need -- aligns with how coaching and clinical services can coordinate without overlapping.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMizAFBVV95cUxPVkVsWHRIcW9iTDVWYzU1TklnX2JyZGFrdXk2aXo1MmhoWFRaRGZoc0YxaVRUQ3g2cEN3ZmZkQndJbkxyWE9zR0YzZ3hjTmNOTGFVYlNCTnBJaEhxZXFSOTJfZ3VaMGRRRF9ieTJJNGgwXzExbXB3bGRSSDRTazY5eGp4SC03OGRmbi1rb3ktaGEwbTR1SVBZWEp0ZjJTS1lVc0NNdDU0dGdwY1FBek9vWG1HTVpnN1EteUVVRzJGZ2N5Rm0yNmdtdllEb03SAcwBQVVfeXFMT1ZFbFh0SHFvYkw1VmM1NU5JZ19icmRha3V5Nml6NTJoaFhUWkRmaHNGMWlUVEN4NnBDd2ZmZEJ3SW5MclhPc0dGM2d4Y05jTkxhVWJTQk5wSWhIcWVxUjkyX2d1WjBkUURfYnkySTRoMF8xMW1wd2xkUkg0U2s2OXhqeEgtNzhkZm4ta295LWhhMG00dUlQWVhKdGYyU0tZVXNDTXQ1NHRncGNRQXpPb1htR01aZzdRLXlFVUcyRmdjeUZtMjZnbXZZRG9N?oc=5" target="_blank" rel="noopener">Newswise</a></div>
+</section>
+
+<section id="story-9" class="spread field_notes">
+  <div class="big-num">ix</div>
+  <div class="meta">No. 09 &middot; Coaching Practice &middot; 2026-06-23</div>
+  
+  <h2 class="headline">How Motivational Interviewing Supports Neurodivergent People</h2>
+  <p class="framing">Non-directive inquiry -- the same move at the center of BTTY work -- maps naturally onto neurodivergent communication styles. This piece makes that case for MI specifically, but the argument holds for coaching more broadly. Worth a read if any clients have disclosed neurodivergence, or if this territory comes up in the practicum.</p>
+  <p class="summary">The piece examines why motivational interviewing works particularly well with neurodivergent clients: its non-prescriptive stance, tolerance of ambivalence, and avoidance of confrontational change pressure align with how neurodivergent people tend to process and act on information. The structural features that make MI effective for behavior change may make it especially well-suited for clients whose nervous systems resist directive instruction.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMixgFBVV95cUxNWDVad2lxdjVOVDRjdE9iOGRMQW1YVUtqMVJFMU50VkV3ZTNwVldhM3ZwVkQ1Z1hSVk9hWjlNOFo3TG5scFA0THY3QW41T3VWLTFwVkN5Z1BiS3RaeDQzb1FFTmRhbE9yRlVIMEFGbmJtY2RoVWtLWV93cE1PakRwZ3RYVXNrZ1B5bTRrSm52cVBLMWZGZTRldWd1VVluM2xuRVpqakF0eTRBUG5uM05rekVyOVZsRVVFS2VlTVFrS3dWYk5pSlE?oc=5" target="_blank" rel="noopener">Psychology Today</a></div>
+</section>
+
+<section id="story-10" class="spread coda">
+  <div class="roman">X</div>
+  <div class="meta">No. 10 &middot; Psychedelic Therapy &middot; 2026-06-16</div>
+  
+  <h2 class="headline">Psilocybin-Assisted Therapy 'Changed My Relationship' with Trauma, Veteran Says</h2>
+  <p class="framing">Notice the language: not 'healed' or 'cured,' but 'changed my relationship with trauma.' That is integration language. The event does not change; the orientation toward it does. A useful frame for talking about what transformation actually looks like without overclaiming what any single modality can deliver.</p>
+  <p class="summary">A CBC profile of a veteran who underwent psilocybin-assisted therapy describes a fundamental shift in how he experiences his trauma. The account emphasizes the therapeutic relationship and ongoing integration work that followed the session, rather than the session itself -- which aligns with the understanding that set, setting, and integration support are where the real work happens. The story closes the edition on a human note rather than a research one.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTE1EQS1ZQ0NXNlBkLWVRSnRKbzUycUNOeEVHUTloTFZjM3ZtcW50STI1VjZMcTZ0b1ptbU5qN0NsNkNicUhMSGxOeC1uaWVKMFpXMkFYX21UUk94UQ?oc=5" target="_blank" rel="noopener">CBC</a></div>
+</section>
+</body></html>
