@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Edition - 2026-07-05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --cream: #f4efe6;
+    --ivory: #f8f4ec;
+    --ink: #121212;
+    --midnight: #0b1224;
+    --rose: #f0d3cb;
+    --alert: #c43a2e;
+    --terminal-bg: #0a0d0a;
+    --terminal-fg: #7cff9c;
+    --academic: #f6f1e3;
+    --newsprint: #ebe3d3;
+    --poster: #10412b;
+    --field: #e9efe6;
+    --sage: #c8d2c1;
+    --monastic: #3a3a34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .spread {
+    min-height: 100vh;
+    padding: 8vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .spread .meta {
+    font-family: var(--sans);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .spread .headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    margin: 0 0 2.4rem 0;
+  }
+  .spread .framing {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+  }
+  .spread .summary {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+  .spread .action {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    max-width: 60ch;
+    border-left: 6px solid currentColor;
+  }
+  .spread .source {
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    opacity: 0.85;
+  }
+  .spread .source a { text-decoration: none; }
+  .applies-stamp {
+    display: inline-block;
+    padding: 0.45rem 1.1rem;
+    border: 3px solid var(--alert);
+    color: var(--alert);
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    margin-bottom: 1.6rem;
+  }
+
+  /* ====== 01 HERO ====== */
+  .hero { background: var(--cream); color: var(--ink); }
+  .hero .big-num {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(180px, 28vw, 460px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    position: absolute;
+    right: -3vw; top: -4vh;
+    color: var(--ink);
+    opacity: 0.08;
+  }
+  .hero .headline { font-size: clamp(64px, 9vw, 140px); font-weight: 800; }
+
+  /* ====== 02 MIDNIGHT ====== */
+  .midnight { background: var(--midnight); color: var(--ivory); }
+  .midnight .big-num {
+    position: absolute; right: 6vw; top: 6vh;
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.9;
+    color: transparent; -webkit-text-stroke: 2px var(--ivory);
+  }
+  .midnight .headline { font-size: clamp(56px, 7.5vw, 120px); font-style: italic; }
+
+  /* ====== 03 ROSE ALERT ====== */
+  .rose_alert { background: var(--rose); color: var(--ink); }
+  .rose_alert .alert-stamp {
+    position: absolute; right: 6vw; top: 10vh;
+    border: 6px solid var(--alert); color: var(--alert);
+    padding: 1rem 2rem; transform: rotate(9deg);
+    font-family: var(--sans); font-weight: 900; font-size: 38px;
+    letter-spacing: 0.3em;
+  }
+  .rose_alert .big-num {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(140px, 20vw, 260px); color: var(--alert);
+    line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem;
+  }
+  .rose_alert .headline { font-size: clamp(54px, 7vw, 110px); font-weight: 700; }
+
+  /* ====== 04 TERMINAL ====== */
+  .terminal { background: var(--terminal-bg); color: var(--terminal-fg); font-family: var(--mono); }
+  .terminal::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    pointer-events: none;
+  }
+  .terminal .prompt {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(140px, 18vw, 260px); line-height: 1;
+    margin-bottom: 2rem; color: #ffb347;
+    letter-spacing: -0.02em;
+  }
+  .terminal .headline {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(40px, 5vw, 72px); line-height: 1.15; color: var(--terminal-fg);
+  }
+  .terminal .framing, .terminal .summary, .terminal .action {
+    font-family: var(--mono); color: #cfd8cf; font-size: 22px;
+  }
+  .terminal .summary { color: #9fe8b3; }
+  .terminal .source { color: #ffb347; }
+
+  /* ====== 05 ACADEMIC ====== */
+  .academic { background: var(--academic); color: #1a1a1a; }
+  .academic .big-num {
+    position: absolute; right: 7vw; top: 8vh;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(140px, 18vw, 260px); color: #b79b5a;
+  }
+  .academic .headline {
+    font-size: clamp(48px, 6.5vw, 100px); font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  }
+  .academic .summary::first-letter {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 6.5em; float: left; line-height: 0.8;
+    padding: 0.1em 0.15em 0 0; color: #8a6f2f;
+  }
+
+  /* ====== 06 BIG STAT ====== */
+  .big_stat { background: #ffffff; color: var(--ink); justify-content: flex-start; }
+  .big_stat .mega {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(220px, 34vw, 540px); line-height: 0.85;
+    letter-spacing: -0.05em; margin: 0; color: var(--ink);
+  }
+  .big_stat .mega .unit {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 0.25em; vertical-align: super; letter-spacing: 0.05em;
+  }
+  .big_stat .headline { font-size: clamp(40px, 5vw, 72px); font-weight: 700; max-width: 28ch; }
+
+  /* ====== 07 NEWSPRINT ====== */
+  .newsprint { background: var(--newsprint); color: #1b1b1b; padding: 6vh 5vw; }
+  .newsprint .masthead {
+    font-family: var(--serif); font-weight: 900; font-style: italic;
+    font-size: 28px; letter-spacing: 0.04em; border-bottom: 3px double #1b1b1b; padding-bottom: 0.6rem;
+    margin-bottom: 1.8rem;
+  }
+  .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
+  .newsprint .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem; row-gap: 1.6rem;
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+  }
+  .newsprint .cols p { margin: 0; }
+  .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .newsprint .cols > p:last-of-type { grid-column: 2; grid-row: 1; }
+  .newsprint .cols > .pullquote { grid-column: 1 / -1; grid-row: 2; }
+  @media (max-width: 720px) {
+    .newsprint .cols { grid-template-columns: 1fr; }
+    .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+    .newsprint .cols > .pullquote { grid-column: 1; grid-row: 2; }
+    .newsprint .cols > p:last-of-type { grid-column: 1; grid-row: 3; }
+  }
+  .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
+    border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
+  }
+  .newsprint .roman {
+    position: absolute; right: 5vw; top: 3vh;
+    font-family: var(--serif); font-style: italic; font-weight: 600;
+    font-size: 80px; color: #1b1b1b;
+  }
+
+  /* ====== 08 POSTER ====== */
+  .poster { background: var(--poster); color: #f2e9d5; }
+  .poster .big-num {
+    position: absolute; right: 4vw; top: 4vh;
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.85;
+    color: #f2e9d5; opacity: 0.12; letter-spacing: -0.05em;
+  }
+  .poster .headline {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(68px, 9vw, 150px); letter-spacing: -0.02em;
+    text-transform: uppercase; line-height: 0.92;
+  }
+
+  /* ====== 09 FIELD NOTES ====== */
+  .field_notes {
+    background: var(--field) ;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: #1a1f1a;
+  }
+  .field_notes .big-num {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(120px, 16vw, 220px); line-height: 0.9;
+    color: #4b5a44; margin-bottom: 0.5rem;
+  }
+  .field_notes .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); max-width: 22ch; line-height: 1.05;
+  }
+
+  /* ====== 10 CODA ====== */
+  .coda {
+    background: var(--sage); color: var(--monastic);
+    text-align: center; align-items: center;
+  }
+  .coda .roman {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(140px, 18vw, 240px); line-height: 1; margin-bottom: 1rem;
+  }
+  .coda .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(54px, 7vw, 110px); max-width: 22ch;
+  }
+  .coda .framing, .coda .summary { max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ====== Cover ====== */
+  .cover {
+    background: var(--ink); color: var(--ivory); text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10vh 6vw;
+  }
+  .cover .masthead {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(90px, 13vw, 220px); line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 0.15em;
+  }
+  .cover .masthead a { color: inherit; text-decoration: none; }
+  .cover .subhead a { color: inherit; text-decoration: none; opacity: 0.85; }
+  .cover .subhead {
+    font-family: var(--sans); font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 24px; margin-top: 2rem; opacity: 0.85;
+  }
+  .cover .date {
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(34px, 4vw, 60px); margin-top: 3rem;
+  }
+  .cover .editors {
+    font-family: var(--serif); font-size: 26px; line-height: 1.5;
+    max-width: 52ch; margin-top: 4rem; text-align: left;
+  }
+  .contents {
+    background: var(--ivory); color: var(--ink);
+    padding: 10vh 6vw; min-height: 100vh;
+  }
+  .contents h2 {
+    font-family: var(--serif); font-weight: 700; font-style: italic;
+    font-size: clamp(56px, 7vw, 100px); margin: 0 0 3rem 0;
+  }
+  .contents ol { list-style: none; padding: 0; margin: 0; }
+  .contents li {
+    border-top: 2px solid rgba(0,0,0,0.2);
+    font-family: var(--serif); font-size: 26px; line-height: 1.3;
+  }
+  .contents li:last-child { border-bottom: 2px solid rgba(0,0,0,0.2); }
+  .contents .toc-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.2rem 0; color: inherit; text-decoration: none;
+    transition: background 0.15s ease, padding 0.15s ease;
+  }
+  .contents .toc-link:hover {
+    background: rgba(0,0,0,0.05); padding-left: 1rem; padding-right: 1rem;
+  }
+  .contents .toc-link .t { flex: 1; }
+  html { scroll-behavior: smooth; }
+  .contents .num { font-weight: 800; min-width: 2.5ch; }
+  .contents .cat {
+    font-family: var(--sans); font-size: 20px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600; margin-left: auto; opacity: 0.7;
+  }
+  .contents .applies-tag {
+    font-family: var(--sans); font-size: 20px; font-weight: 800;
+    color: var(--alert); letter-spacing: 0.18em; margin-left: 0.8rem;
+  }
+  @media print { .spread, .cover, .contents { page-break-after: always; } }
+</style>
+</head>
+<body>
+
+
+<section class="cover">
+  <div class="subhead"><a href="https://waystonecoaching.com" target="_blank" rel="noopener">Waystone Coaching</a>&#8217;s</div>
+  <h1 class="masthead"><a href="https://waystonecoaching.github.io/morning-edition/">Morning<br>Edition</a></h1>
+  <div class="date">Sunday, July 5, 2026</div>
+  <div class="editors">A Sunday edition built entirely from fresh material; the past two days consumed the week's headline stories, and repetition serves no one. The thread today is institutions meeting wounds they once ignored: the VA running its own MDMA trial, Congress moving to make the psychedelic order permanent, the Army teaching chaplains the language of moral injury, and a New Mexico lawsuit showing the cost when the system looks away. No polyvagal story cleared the bar today; the only candidate was a retreat advertisement, and silence is better than filler.</div>
+</section>
+
+<section class="contents"><h2>The Ten</h2><ol><li><a class="toc-link" href="#story-1"><span class="num">01</span><span class="t">New VA trial of MDMA for PTSD: what veterans need to know</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-2"><span class="num">02</span><span class="t">Bipartisan congressional bill would codify the psychedelics executive order into law</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-3"><span class="num">03</span><span class="t">N.M. 911 authority named in lawsuit over veteran's suicide</span><span class="applies-tag">APPLIES</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-4"><span class="num">04</span><span class="t">Psychedelic Bulletin #226: the ethics of psilocybin for advanced Alzheimer's; veterans' views on psychedelics</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-5"><span class="num">05</span><span class="t">Burnout, moral injury, and the healthcare system: clinical reflections on July 4th</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-6"><span class="num">06</span><span class="t">The EMS Pulse: top career advice from 400+ EMS professionals</span><span class="cat">Peer Support</span></a></li><li><a class="toc-link" href="#story-7"><span class="num">07</span><span class="t">The Psychedelic Practitioner Issue 5: groups in practice</span><span class="applies-tag">APPLIES</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-8"><span class="num">08</span><span class="t">How motivational interviewing can reduce self-doubt in social work</span><span class="cat">Coaching Practice</span></a></li><li><a class="toc-link" href="#story-9"><span class="num">09</span><span class="t">AI's prescription for moral injury</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-10"><span class="num">10</span><span class="t">Healing the soul: Fort Leonard Wood chaplains receive moral injury training</span><span class="cat">Resilience &amp; Moral Injury</span></a></li></ol></section>
+
+<section id="story-1" class="spread hero">
+  <div class="big-num">01</div>
+  <div class="meta">No. 01 &middot; Psychedelic Therapy &middot; 2026-07-01</div>
+  
+  <h2 class="headline">New VA trial of MDMA for PTSD: what veterans need to know</h2>
+  <p class="framing">The VA is now running its own MDMA-assisted therapy trial rather than waiting on outside sponsors, which is the institutional shift that matters more than any single result. Note the design choices: treatment-resistant PTSD with co-occurring alcohol use disorder, both required, randomized against an active placebo with structured therapy. That is a harder and more honest test than the MAPS phase 3 designs that drew FDA criticism. Clinical territory throughout; the coaching-relevant part is what members will be reading and asking about.</p>
+  <p class="summary">The VA began enrolling veterans in May in its first-ever clinical trial of MDMA-assisted therapy, targeting treatment-resistant PTSD with co-occurring alcohol use disorder. Roughly 80 veterans will be randomized to MDMA-assisted therapy or an identical therapy structure with an active placebo, led from the Providence VA Medical Center with a second site in Connecticut. It sits inside a wider VA psychedelic research push of 19 active studies, with results not expected until around 2030.</p>
+  <div class="action">Try this: Note the 2030 results date. When a client cites this trial as a reason to seek MDMA now, that timeline is the grounding fact.</div>
+  <div class="source">Source: <a href="https://www.military.com/health-wellness/veterans-health-care/new-va-trial-of-mdma-psychedelic-for-ptsd-what-veterans-need-to-know" target="_blank" rel="noopener">Military.com</a></div>
+</section>
+
+<section id="story-2" class="spread midnight">
+  <div class="big-num">02</div>
+  <div class="meta">No. 02 &middot; Psychedelic Therapy &middot; 2026-07-01</div>
+  
+  <h2 class="headline">Bipartisan congressional bill would codify the psychedelics executive order into law</h2>
+  <p class="framing">Executive orders die with administrations; statutes do not. A bipartisan move to write the April order's accelerated-approval machinery into law would make the current trajectory durable regardless of who holds the White House in 2029. Marijuana Moment is an advocacy-adjacent outlet, so treat the bill's prospects as reported enthusiasm until it moves through committee.</p>
+  <p class="summary">A bipartisan congressional bill would codify the April executive order on psychedelic therapies, locking its fast-track review provisions into statute rather than leaving them as revocable executive action. The order it would preserve directed FDA to prioritize psychedelics with breakthrough designations for serious mental illness, a mechanism that produced three priority vouchers within a week of signing.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMirwFBVV95cUxOb0NNTVI0cHRuN3lONjRtTHQtTnZqdmtqLVRBR0NjRG5zVVFOdHozWThhT1NQNUlrY3RwVzlZQVRWX3pZMmhkczF3VEZXQUVxZWRiWHQ2amVYTFdPZTk0bjRQSzdkeGM3THJ1VUdzMl90Q1RyZUJSTS0tTXJ5eWQwQWstcGhyeXRuVHNTTWM0SDZvZXJJRzEyUzczdkRoSG15Q1pkb2FpaEpXMEFPMGdr?oc=5" target="_blank" rel="noopener">Marijuana Moment</a></div>
+</section>
+
+<section id="story-3" class="spread rose_alert">
+  <div class="alert-stamp">Dispatch</div>
+  <div class="big-num">03</div>
+  <div class="meta">No. 03 &middot; First Responder MH &middot; 2026-06-30</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">N.M. 911 authority named in lawsuit over veteran's suicide</h2>
+  <p class="framing">This is the failure mode your unit exists to prevent, laid out in a court filing. A veteran called 911 stating he had a gun and a plan, the call was classified priority-high suicidal subject, and the responding officers allegedly cancelled fire and EMS, shut off body cameras, and left without contact. A second warning call produced no response at all. Suicidality and crisis intervention are squarely clinical-adjacent ground; the coaching-relevant layer is system design, accountability, and what co-response models are for.</p>
+  <p class="summary">A wrongful death and civil rights lawsuit names the city of Las Cruces, two police officers, and the Mesilla Valley Regional Dispatch Authority in the April 2025 suicide of Army veteran Jacob Garcia, one month home from Iraq. Garcia told dispatchers he had a gun and planned to kill himself; the suit alleges the dispatched officers never made contact, cancelled incoming fire and ambulance units, and idled in a parking lot before leaving. A friend's follow-up report of a suicidal social media post allegedly generated no additional response before Garcia's brother found him dead.</p>
+  <div class="action">Try this: Worth a close read against your own dispatch-to-contact protocol. Every allegation in the complaint maps to a checkable step in a behavioral crisis response chain.</div>
+  <div class="source">Source: <a href="https://www.ems1.com/legal/n-m-911-authority-named-in-lawsuit-over-veterans-suicide" target="_blank" rel="noopener">EMS1</a></div>
+</section>
+
+<section id="story-4" class="spread terminal">
+  <div class="prompt">04</div>
+  <div class="meta">No. 04 &middot; Psychedelic Therapy &middot; 2026-06-29</div>
+  
+  <h2 class="headline">Psychedelic Bulletin #226: the ethics of psilocybin for advanced Alzheimer's; veterans' views on psychedelics</h2>
+  <p class="framing">Two useful correctives in one bulletin. The Alzheimer's item is a lesson in how a single case report becomes a headline wave: one woman in her 80s, a decade into the disease, and media outlets calling it great promise. The veterans' views piece is closer to your ground: what the population actually thinks about these treatments, as opposed to what advocates say on their behalf. Psychedelic Alpha remains one of the few outlets doing critical reading inside the field.</p>
+  <p class="summary">The bulletin dissects a Frontiers in Neuroscience case report on psilocybin in advanced Alzheimer's that drew outsized media celebration from a single patient's experience, walking through the ethical and evidentiary problems of generalizing from it. It pairs that with coverage of research on veterans' attitudes toward psychedelic treatment, and rounds up the week's field developments.</p>
+  
+  <div class="source">Source: <a href="https://psychedelicalpha.com/news/p%ce%b1-psychedelic-bulletin-226-the-ethics-of-psilocybin-for-advanced-alzheimers-veterans-views-on-psychedelics/" target="_blank" rel="noopener">Psychedelic Alpha</a></div>
+</section>
+
+<section id="story-5" class="spread academic">
+  <div class="big-num">V</div>
+  <div class="meta">No. 05 &middot; Resilience &amp; Moral Injury &middot; 2026-07-04</div>
+  
+  <h2 class="headline">Burnout, moral injury, and the healthcare system: clinical reflections on July 4th</h2>
+  <p class="framing">This sits in the structural-critique lineage, Litz and Shay rather than resilience programming: moral injury as a wound the system inflicts, not a deficit in the worker. The healthcare frame transfers cleanly to fire and EMS, where the betrayal is usually departmental rather than clinical. Useful language for the distinction coaching can hold, meaning, values, and vocational identity, versus what needs clinical repair.</p>
+  <p class="summary">A Psychiatric Times reflection uses the July 4th holiday as an entry into burnout and moral injury among healthcare workers, locating the injury in institutional constraints and betrayals of what practitioners believe medicine owes patients rather than in individual failure to cope. It presses the distinction between burnout and moral injury because the remedies differ: one calls for rest and boundaries, the other for repair of meaning and trust.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxQSjBuNGs2RnhyOE96MFdWSThseFBpNXRtLWl1aXBHZFZISDdWOWFlOW9qRkVuSEFpcHJsUTVfWjQ4SVNjTmlLMTRRb0tJTnFZb2Vid0lrUlA1VV9lZlNlVksyTWsyamNEQ0hCOEsxOXpsU2RsZWZRQ0phTWtvTTF1aGQyeWlueGxvRDlZYWFybzhRenV6TFpYdnVQZ2g5WUlyU1JkRVJBMmxEQmFlTEx5NXpmMUVnSUR1?oc=5" target="_blank" rel="noopener">Psychiatric Times</a></div>
+</section>
+
+<section id="story-6" class="spread big_stat">
+  <div class="meta">No. 06 &middot; Peer Support &middot; 2026-06-24</div>
+  <div class="mega">400+<span class="unit">EMS voices on what a career costs and what protects it</span></div>
+  
+  <h2 class="headline">The EMS Pulse: top career advice from 400+ EMS professionals</h2>
+  <p class="framing">Survey pieces like this are usually filler, but 400-plus field voices on how to survive a career is a real cultural sample. Read it less for the advice itself and more for what the aggregate reveals: what working medics believe protects them, where stoicism does the talking, and which forms of help are speakable inside the culture. That gap between what the field recommends and what the research recommends is where your coaching conversation lives.</p>
+  <p class="summary">EMS1's EMS Pulse column compiles career advice from more than 400 EMS professionals, distilling field wisdom on longevity, self-protection, mentorship, and knowing when to move on. The aggregate reads as a cultural snapshot of how working medics think about sustaining themselves across a career.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMitAFBVV95cUxOa1dxR0U1NTM5dXI0MXV3VkdZTlRqcTJaUnhhLUZMdWkySXFBNlBZQXhNdXdzdnFUY21kZkZhRk15LU1ud3YtOU1JVUVSRjI5V3NBQ2o1SVdTWld6dVNrRFd6QzRxMXp4YW5VYU5qN3p3SEJRUGZNVDF2aHJDRnVSVlBETmpQRXdhTjlSdWhyelZYZ0ZRcE9kVlFaeENiT0xZTXduT2ZublhMRTdaLVlrVWpTeTg?oc=5" target="_blank" rel="noopener">EMS1</a></div>
+</section>
+
+<section id="story-7" class="spread newsprint">
+  <div class="roman">VII</div>
+  <div class="masthead">The Waystone Dispatch</div>
+  <div class="meta">No. 07 &middot; Psychedelic Therapy &middot; 2026-06-18</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">The Psychedelic Practitioner Issue 5: groups in practice</h2>
+  <div class="cols">
+    <p>The fifth issue of Psychedelic Alpha's practitioner series takes up group formats in psychedelic practice: how practitioners are structuring group preparation and integration, the clinical and ethical considerations of moving from individual to group containers, and what the field is learning as group models spread for reasons of both access and cost.</p>
+    <div class="pullquote">The container is the intervention; the group is the container.</div>
+    <p>Group work is where psychedelic practice economics and clinical reality are converging, and this practitioner-facing series is one of the few places the craft questions get discussed plainly: screening for groups, container design, what group process does that individual work cannot. Directly relevant to the BTTY lane and to any future Waystone group offering. The facilitation skills described are practitioner craft; where they shade into group therapy, the scope line needs naming.</p>
+  </div>
+  
+  <div class="source">Source: <a href="https://psychedelicalpha.com/news/the-psychedelic-practitioner-issue-5-groups-in-practice/" target="_blank" rel="noopener">Psychedelic Alpha</a></div>
+</section>
+
+<section id="story-8" class="spread poster">
+  <div class="big-num">08</div>
+  <div class="meta">No. 08 &middot; Coaching Practice &middot; 2026-06-30</div>
+  
+  <h2 class="headline">How motivational interviewing can reduce self-doubt in social work</h2>
+  <p class="framing">The interesting move is turning motivational interviewing inward: the practitioner's own ambivalence and self-doubt as the target rather than the client's. That maps onto the non-directive spine of BTTY work, where trusting the client's inner knowing requires the coach to have met their own doubt first. Useful framing for L2P practice.</p>
+  <p class="summary">A Community Care piece argues that motivational interviewing techniques can help social workers address their own self-doubt, not just client ambivalence. The MI stance of evoking rather than instructing and treating resistance as information transfers to the practitioner's inner dialogue, loosening the paralysis that self-criticism produces in high-stakes casework.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMisAFBVV95cUxQSUotR2tKc2pDeEl1M2d1LWRoUDBJVXV1UzBHbHFfc3pnbHVQWGlzdmNjTkhwcDB3ZTRVTmJwTmpiYmtyQlM0Wm1UbTdjaHpBeEo0ejRSWlZKeHZwNGtKWUlVTm1SNmNyUlVIRWdKQW1OTXJUWEU2YnhDcTg0Y20xdGJxOTdLd3VJY3JfWGxFYWoyMnRWNzJHWDl0YzM4T3hrSWphLTFqeFNaa2MxbENDbg?oc=5" target="_blank" rel="noopener">Community Care</a></div>
+</section>
+
+<section id="story-9" class="spread field_notes">
+  <div class="big-num">ix</div>
+  <div class="meta">No. 09 &middot; Resilience &amp; Moral Injury &middot; 2026-06-17</div>
+  
+  <h2 class="headline">AI's prescription for moral injury</h2>
+  <p class="framing">Watch this one skeptically. The pitch is that AI can relieve moral injury by taking administrative burden off clinicians, which quietly reframes moral injury back into workflow burnout, exactly the move the structural-critique lineage warns against. If the injury is betrayal of what care owes people, no documentation tool touches it. The piece is useful as a specimen of how institutions prefer to talk about this wound.</p>
+  <p class="summary">A Medscape piece explores the argument that AI tools, by absorbing documentation and administrative load, could reduce the conditions producing moral injury in medicine. The framing treats moral injury largely as an efficiency and burden problem, a reading that sits in tension with the research tradition treating it as a wound of conscience and institutional betrayal.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMihgFBVV95cUxNRm1veXYtNEJvTDNZaUp1cDluYV9ZX284MFlIWFV5b0xqQmY2NDI3NXQwb2xGaTNRZE05MFBBSHc1UTZtcHR6QV9CMjE3V2VKZjIwT0YyVUk5RVB3Rzgxd2dkRk9KcXd3QlNGdVRnMDI1R0NISnhXTFZHSmtPTFJfOEdYZ2Rodw?oc=5" target="_blank" rel="noopener">Medscape</a></div>
+</section>
+
+<section id="story-10" class="spread coda">
+  <div class="roman">X</div>
+  <div class="meta">No. 10 &middot; Resilience &amp; Moral Injury &middot; 2026-06-19</div>
+  
+  <h2 class="headline">Healing the soul: Fort Leonard Wood chaplains receive moral injury training</h2>
+  <p class="framing">The Army teaching its chaplains to work with moral injury is a quiet admission that some wounds present at the altar rather than the clinic. The Fathers knew this lane: the wound of conscience needs confession, witness, and meaning, not only treatment. Read it for how an institution formally divides soul care from clinical care, a division your own work lives inside every week.</p>
+  <p class="summary">Chaplains at Fort Leonard Wood received training in recognizing and responding to moral injury, the wound that follows from actions or omissions violating one's moral convictions. The training positions chaplains as a first line for soldiers whose distress is spiritual and moral in character, working alongside rather than in place of behavioral health.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxQQnp1UHRJUk83a2dENC1IV21uS3VEVWJ4TGRMVTJ2eGdWVDBsNFRxNVJnRUhtSDZtLUJYLXVMeUh5QmQtZXlaM0dxZm5ad0xuNmxYQ2U0TzNXTl9DVXIwZlZ6eTU1WHNYR0xIYmRyS2lOMHR6ZEJHMnRNX3BJdjNOcTFTaUFJQVJ2Y3lWUVBHSE56dlB2QzhJeVJad01lU2FQa2ROU1EwRy1oZ9IBrwFBVV95cUxPODJ6bmVLeGVIbWwyWGZtMkFQakM1TWNqTXNaN0tjcE5TcFFwdG41dHR2cXMzemk1Z2hkdWNUelhteDJPWWxpYjFXNVE4b2RkNHpUTUpFaUJmakR3U2dXMFVoeTZYeWZfUUpmU2dlWnUyeW5iMnphTE1vRzN4eDh6VXVXWEN1YU9nZF9BRFdjbnNWRV9fVUo4V2JqVUV4X1dlbGxyVl9lQ29YbVFwckRR?oc=5" target="_blank" rel="noopener">army.mil</a></div>
+</section>
+</body></html>
