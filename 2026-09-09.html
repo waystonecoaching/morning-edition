@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Edition - 2026-09-09</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --cream: #f4efe6;
+    --ivory: #f8f4ec;
+    --ink: #121212;
+    --midnight: #0b1224;
+    --rose: #f0d3cb;
+    --alert: #c43a2e;
+    --terminal-bg: #0a0d0a;
+    --terminal-fg: #7cff9c;
+    --academic: #f6f1e3;
+    --newsprint: #ebe3d3;
+    --poster: #10412b;
+    --field: #e9efe6;
+    --sage: #c8d2c1;
+    --monastic: #3a3a34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .spread {
+    min-height: 100vh;
+    padding: 8vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .spread .meta {
+    font-family: var(--sans);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .spread .headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    margin: 0 0 2.4rem 0;
+  }
+  .spread .framing {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+  }
+  .spread .summary {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+  .spread .action {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    max-width: 60ch;
+    border-left: 6px solid currentColor;
+  }
+  .spread .source {
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    opacity: 0.85;
+  }
+  .spread .source a { text-decoration: none; }
+  .applies-stamp {
+    display: inline-block;
+    padding: 0.45rem 1.1rem;
+    border: 3px solid var(--alert);
+    color: var(--alert);
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    margin-bottom: 1.6rem;
+  }
+
+  /* ====== 01 HERO ====== */
+  .hero { background: var(--cream); color: var(--ink); }
+  .hero .big-num {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(180px, 28vw, 460px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    position: absolute;
+    right: -3vw; top: -4vh;
+    color: var(--ink);
+    opacity: 0.08;
+  }
+  .hero .headline { font-size: clamp(64px, 9vw, 140px); font-weight: 800; }
+
+  /* ====== 02 MIDNIGHT ====== */
+  .midnight { background: var(--midnight); color: var(--ivory); }
+  .midnight .big-num {
+    position: absolute; right: 6vw; top: 6vh;
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.9;
+    color: transparent; -webkit-text-stroke: 2px var(--ivory);
+  }
+  .midnight .headline { font-size: clamp(56px, 7.5vw, 120px); font-style: italic; }
+
+  /* ====== 03 ROSE ALERT ====== */
+  .rose_alert { background: var(--rose); color: var(--ink); }
+  .rose_alert .alert-stamp {
+    position: absolute; right: 6vw; top: 10vh;
+    border: 6px solid var(--alert); color: var(--alert);
+    padding: 1rem 2rem; transform: rotate(9deg);
+    font-family: var(--sans); font-weight: 900; font-size: 38px;
+    letter-spacing: 0.3em;
+  }
+  .rose_alert .big-num {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(140px, 20vw, 260px); color: var(--alert);
+    line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem;
+  }
+  .rose_alert .headline { font-size: clamp(54px, 7vw, 110px); font-weight: 700; }
+
+  /* ====== 04 TERMINAL ====== */
+  .terminal { background: var(--terminal-bg); color: var(--terminal-fg); font-family: var(--mono); }
+  .terminal::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    pointer-events: none;
+  }
+  .terminal .prompt {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(140px, 18vw, 260px); line-height: 1;
+    margin-bottom: 2rem; color: #ffb347;
+    letter-spacing: -0.02em;
+  }
+  .terminal .headline {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(40px, 5vw, 72px); line-height: 1.15; color: var(--terminal-fg);
+  }
+  .terminal .framing, .terminal .summary, .terminal .action {
+    font-family: var(--mono); color: #cfd8cf; font-size: 22px;
+  }
+  .terminal .summary { color: #9fe8b3; }
+  .terminal .source { color: #ffb347; }
+
+  /* ====== 05 ACADEMIC ====== */
+  .academic { background: var(--academic); color: #1a1a1a; }
+  .academic .big-num {
+    position: absolute; right: 7vw; top: 8vh;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(140px, 18vw, 260px); color: #b79b5a;
+  }
+  .academic .headline {
+    font-size: clamp(48px, 6.5vw, 100px); font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  }
+  .academic .summary::first-letter {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 6.5em; float: left; line-height: 0.8;
+    padding: 0.1em 0.15em 0 0; color: #8a6f2f;
+  }
+
+  /* ====== 06 BIG STAT ====== */
+  .big_stat { background: #ffffff; color: var(--ink); justify-content: flex-start; }
+  .big_stat .mega {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(220px, 34vw, 540px); line-height: 0.85;
+    letter-spacing: -0.05em; margin: 0; color: var(--ink);
+  }
+  .big_stat .mega .unit {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 0.25em; vertical-align: super; letter-spacing: 0.05em;
+  }
+  .big_stat .headline { font-size: clamp(40px, 5vw, 72px); font-weight: 700; max-width: 28ch; }
+
+  /* ====== 07 NEWSPRINT ====== */
+  .newsprint { background: var(--newsprint); color: #1b1b1b; padding: 6vh 5vw; }
+  .newsprint .masthead {
+    font-family: var(--serif); font-weight: 900; font-style: italic;
+    font-size: 28px; letter-spacing: 0.04em; border-bottom: 3px double #1b1b1b; padding-bottom: 0.6rem;
+    margin-bottom: 1.8rem;
+  }
+  .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
+  .newsprint .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem; row-gap: 1.6rem;
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+  }
+  .newsprint .cols p { margin: 0; }
+  .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .newsprint .cols > p:last-of-type { grid-column: 2; grid-row: 1; }
+  .newsprint .cols > .pullquote { grid-column: 1 / -1; grid-row: 2; }
+  @media (max-width: 720px) {
+    .newsprint .cols { grid-template-columns: 1fr; }
+    .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+    .newsprint .cols > .pullquote { grid-column: 1; grid-row: 2; }
+    .newsprint .cols > p:last-of-type { grid-column: 1; grid-row: 3; }
+  }
+  .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
+    border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
+  }
+  .newsprint .roman {
+    position: absolute; right: 5vw; top: 3vh;
+    font-family: var(--serif); font-style: italic; font-weight: 600;
+    font-size: 80px; color: #1b1b1b;
+  }
+
+  /* ====== 08 POSTER ====== */
+  .poster { background: var(--poster); color: #f2e9d5; }
+  .poster .big-num {
+    position: absolute; right: 4vw; top: 4vh;
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.85;
+    color: #f2e9d5; opacity: 0.12; letter-spacing: -0.05em;
+  }
+  .poster .headline {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(68px, 9vw, 150px); letter-spacing: -0.02em;
+    text-transform: uppercase; line-height: 0.92;
+  }
+
+  /* ====== 09 FIELD NOTES ====== */
+  .field_notes {
+    background: var(--field) ;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: #1a1f1a;
+  }
+  .field_notes .big-num {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(120px, 16vw, 220px); line-height: 0.9;
+    color: #4b5a44; margin-bottom: 0.5rem;
+  }
+  .field_notes .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); max-width: 22ch; line-height: 1.05;
+  }
+
+  /* ====== 10 CODA ====== */
+  .coda {
+    background: var(--sage); color: var(--monastic);
+    text-align: center; align-items: center;
+  }
+  .coda .roman {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(140px, 18vw, 240px); line-height: 1; margin-bottom: 1rem;
+  }
+  .coda .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(54px, 7vw, 110px); max-width: 22ch;
+  }
+  .coda .framing, .coda .summary { max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ====== Cover ====== */
+  .cover {
+    background: var(--ink); color: var(--ivory); text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10vh 6vw;
+  }
+  .cover .masthead {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(90px, 13vw, 220px); line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 0.15em;
+  }
+  .cover .masthead a { color: inherit; text-decoration: none; }
+  .cover .subhead a { color: inherit; text-decoration: none; opacity: 0.85; }
+  .cover .subhead {
+    font-family: var(--sans); font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 24px; margin-top: 2rem; opacity: 0.85;
+  }
+  .cover .date {
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(34px, 4vw, 60px); margin-top: 3rem;
+  }
+  .cover .editors {
+    font-family: var(--serif); font-size: 26px; line-height: 1.5;
+    max-width: 52ch; margin-top: 4rem; text-align: left;
+  }
+  .contents {
+    background: var(--ivory); color: var(--ink);
+    padding: 10vh 6vw; min-height: 100vh;
+  }
+  .contents h2 {
+    font-family: var(--serif); font-weight: 700; font-style: italic;
+    font-size: clamp(56px, 7vw, 100px); margin: 0 0 3rem 0;
+  }
+  .contents ol { list-style: none; padding: 0; margin: 0; }
+  .contents li {
+    border-top: 2px solid rgba(0,0,0,0.2);
+    font-family: var(--serif); font-size: 26px; line-height: 1.3;
+  }
+  .contents li:last-child { border-bottom: 2px solid rgba(0,0,0,0.2); }
+  .contents .toc-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.2rem 0; color: inherit; text-decoration: none;
+    transition: background 0.15s ease, padding 0.15s ease;
+  }
+  .contents .toc-link:hover {
+    background: rgba(0,0,0,0.05); padding-left: 1rem; padding-right: 1rem;
+  }
+  .contents .toc-link .t { flex: 1; }
+  html { scroll-behavior: smooth; }
+  .contents .num { font-weight: 800; min-width: 2.5ch; }
+  .contents .cat {
+    font-family: var(--sans); font-size: 20px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600; margin-left: auto; opacity: 0.7;
+  }
+  .contents .applies-tag {
+    font-family: var(--sans); font-size: 20px; font-weight: 800;
+    color: var(--alert); letter-spacing: 0.18em; margin-left: 0.8rem;
+  }
+  @media print { .spread, .cover, .contents { page-break-after: always; } }
+</style>
+</head>
+<body>
+
+
+<section class="cover">
+  <div class="subhead"><a href="https://waystonecoaching.com" target="_blank" rel="noopener">Waystone Coaching</a>&#8217;s</div>
+  <h1 class="masthead"><a href="https://waystonecoaching.github.io/morning-edition/">Morning<br>Edition</a></h1>
+  <div class="date">Wednesday, September 9, 2026</div>
+  <div class="editors">The lead story takes an axe to the root of a framework many of us use daily, and the honest response is neither defense nor abandonment. Read what the critique actually claims. Thirty-nine scholars say the wiring is wrong; none of them say the room is unchanged when a frightened person finds a steady one. Hold the map lightly and the territory closely. The rest of today's issue runs through moral injury, a regulator opening a narrow door for MDMA, and a dog in a fire bay, which between them cover most of what the work is.</div>
+</section>
+
+<section class="contents"><h2>The Ten</h2><ol><li><a class="toc-link" href="#story-1"><span class="num">01</span><span class="t">Polyvagal Theory debunked in comprehensive new study - InSight+</span><span class="applies-tag">APPLIES</span><span class="cat">Polyvagal</span></a></li><li><a class="toc-link" href="#story-2"><span class="num">02</span><span class="t">New Zealand drugs regulator approves use of MDMA to treat severe PTSD - The Guardian</span><span class="applies-tag">APPLIES</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-3"><span class="num">03</span><span class="t">Prevention and mitigation strategies for psychological disorders in European ongoing and post-war settings: lessons from the 2022 Russo-Ukrainian war</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-4"><span class="num">04</span><span class="t">Pα+ Library: Psychedelic REMS</span><span class="applies-tag">APPLIES</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-5"><span class="num">05</span><span class="t">The Swedish moral injury symptoms scale–health professional: psychometric evaluation in a sample of hospital-based healthcare professionals across Sweden - Frontiers</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-6"><span class="num">06</span><span class="t">Study: Toxic dust, PTSD may accelerate brain aging in 9/11 first responders - EMS1</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-7"><span class="num">07</span><span class="t">Healing Thyself: Managing Moral Injury in Healthcare - Psychology Today</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-8"><span class="num">08</span><span class="t">Attorney General Coleman launches peer support program for law enforcement - The Kentucky Association of Counties</span><span class="cat">Peer Support</span></a></li><li><a class="toc-link" href="#story-9"><span class="num">09</span><span class="t">Port Coquitlam, BC Local 1941 welcomes Phil, a new partner in fire fighter behavioral health</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-10"><span class="num">10</span><span class="t">Nolan’s The Odyssey is an emotive meditation on modern moral injury - durham.ac.uk</span><span class="cat">Resilience &amp; Moral Injury</span></a></li></ol></section>
+
+<section id="story-1" class="spread hero">
+  <div class="big-num">01</div>
+  <div class="meta">No. 01 &middot; Polyvagal &middot; 2026-09-01</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">Polyvagal Theory debunked in comprehensive new study - InSight+</h2>
+  <p class="framing">Your framework just took a direct hit at the level of mechanism. Grossman and thirty-eight other autonomic nervous system scholars published 'Why the Polyvagal Theory is Untenable' in Clinical Neuropsychiatry, arguing the evolutionary claims are weak, the ventral and dorsal vagal anatomy is not as clean as the theory needs, and respiratory sinus arrhythmia is an unreliable proxy for vagal tone. Read the scope carefully: the paper evaluates PVT as neurophysiology and says nothing about clinical utility. That distinction is the whole story for a coach who uses the ventral, sympathetic, dorsal map as descriptive language for felt states rather than as a claim about vagal anatomy.</p>
+  <p class="summary">A consortium paper led by Paul Grossman, who has challenged PVT for two decades, marshals the anatomical, evolutionary, and psychophysiological literature against the theory's core mechanistic claims. The authors dispute the phylogenetic ordering of the vagal circuits, the anatomical separateness of the ventral and dorsal pathways in humans, and the use of RSA as a measurement of vagal tone across conditions. Porges and clinical defenders have responded that the critique targets mechanism and leaves the clinical framework untouched, since therapists use the states as a heuristic for felt safety and threat rather than as a physiological assay. The dispute is live and public, with rebuttals already circulating in Psychology Today and clinical supervision circles.</p>
+  <div class="action">Try this: Decide before your next client session and before your next Waystone site edit whether you cite polyvagal as physiology or as phenomenology. If you can say plainly, 'this is a map of how states feel and behave, and the underlying wiring is contested,' the critique costs you nothing and buys you credibility.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMilAFBVV95cUxQTlVRWDFKRWMzRXU1NjRYTTB5eFBHZTFQNjIwd0dlSHdDZU45eFhoaHB4VWZ2Rld3TzNpSUhhazlidEVoOTA4Nk9fbEdMMVFVaUtXc01mM2MzNXExTFRRM3dqLThfWmROd0FTN1lVTXpBUXpnTDdCSXNCbTktallELW5CcDdDLTB4RnpDT0o3R2NsMWFQ?oc=5" target="_blank" rel="noopener">Polyvagal Query</a></div>
+</section>
+
+<section id="story-2" class="spread midnight">
+  <div class="big-num">02</div>
+  <div class="meta">No. 02 &middot; Psychedelic Therapy &middot; 2026-09-04</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">New Zealand drugs regulator approves use of MDMA to treat severe PTSD - The Guardian</h2>
+  <p class="framing">New Zealand's regulator cleared two psychiatrists to prescribe MDMA for severe treatment-resistant PTSD, following Australia's 2023 authorised prescriber route. Two clinicians is not a rollout. It is a controlled aperture, and it tells you the shape regulators want: named prescribers, restricted indication, heavy oversight. For anyone tracking the BTTY integration lane, watch what the aftercare requirement looks like on paper, because that is where non-clinical integration work either has a defined seat or does not.</p>
+  <p class="summary">Medsafe approved two named psychiatrists to prescribe MDMA-assisted therapy for patients with severe PTSD who have not responded to standard treatment. The pathway mirrors the Australian authorised prescriber scheme rather than a general market approval. Coverage across outlets ranged from careful reporting to party-drug framing, which is itself a signal about the public conversation practitioners will be working inside. The approval sits on a scope-of-practice edge: high-acuity PTSD, a scheduled substance, and a supervising physician holding clinical responsibility throughout.</p>
+  <div class="action">Try this: File this next to the Australian precedent. Two national regulators have now chosen the named-prescriber route over broad approval, which is the likeliest template for any US state pathway.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMilwFBVV95cUxQcDhRT3dFMzhxbTZ3N2FYTVc4S0JTOUlWRG5lYklNRXNrM3ZzNjZSWjVMY1R5SXdpNFpHSEEtcGZ2aXRIS19KTERMVFpUQUo0dkJJWmxnbDJ1aVpJbG4wd1MwTlBJVXpPcFZnOUM5U0dqenREaWpWbWYzLXk4eFZpOHFvM1kzQTd3cFBDRFpnM0laYlBOLXJV?oc=5" target="_blank" rel="noopener">Psychedelic PTSD Responder Query</a></div>
+</section>
+
+<section id="story-3" class="spread rose_alert">
+  <div class="alert-stamp">Dispatch</div>
+  <div class="big-num">03</div>
+  <div class="meta">No. 03 &middot; First Responder MH &middot; 2026-09-09</div>
+  
+  <h2 class="headline">Prevention and mitigation strategies for psychological disorders in European ongoing and post-war settings: lessons from the 2022 Russo-Ukrainian war</h2>
+  <p class="framing">Prevention rather than treatment, at population scale, in an active theater. This is the operational and applied lineage rather than the structural-critique lineage, and it should be read as such. The pre-incident inoculation question sits at the center of responder wellness programming, and the Ukrainian data is the largest natural experiment currently running.</p>
+  <p class="summary">A Frontiers in Psychology review synthesizes preventative and prophylactic measures for psychiatric disorders in ongoing and post-war European settings, drawing on the 2022 Russo-Ukrainian war. The authors examine what can be put in place before and during exposure to reduce later PTSD incidence in traumatized populations. The frame is public health and implementation rather than individual therapy. The applied bias is worth naming, since prevention research of this kind tends to treat organizational and moral conditions as background rather than as causes.</p>
+  
+  <div class="source">Source: <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2026.1934406" target="_blank" rel="noopener">Frontiers in Psychology</a></div>
+</section>
+
+<section id="story-4" class="spread terminal">
+  <div class="prompt">04</div>
+  <div class="meta">No. 04 &middot; Psychedelic Therapy &middot; 2026-09-03</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">Pα+ Library: Psychedelic REMS</h2>
+  <p class="framing">If psychedelic therapies reach approval, Risk Evaluation and Mitigation Strategies will govern how they are actually delivered. REMS decides who can administer, in what setting, with what monitoring and documentation. That is the layer where a non-clinical integration practitioner either has a defined role or is written out. Worth reading closely rather than skimming, because this is infrastructure and infrastructure is destiny.</p>
+  <p class="summary">Psychedelic Alpha compiled a library on REMS as it applies to the psychedelic pipeline, noting that a REMS is increasingly likely for any approved psychedelic therapy. REMS programs can require certified prescribers, certified healthcare settings, patient enrollment, and mandatory monitoring periods. The piece assembles the regulatory precedents and open questions rather than advocating a position. For practitioners, the operative question is whether preparation and integration sit inside the REMS-certified setting or outside it as adjunct care.</p>
+  <div class="action">Try this: Read the REMS library with one question in hand: where in the certified setting does a non-prescribing integration practitioner stand, and what documentation would that require.</div>
+  <div class="source">Source: <a href="https://psychedelicalpha.com/news/p%ce%b1-library-psychedelic-rems/" target="_blank" rel="noopener">Psychedelic Alpha</a></div>
+</section>
+
+<section id="story-5" class="spread academic">
+  <div class="big-num">V</div>
+  <div class="meta">No. 05 &middot; Resilience &amp; Moral Injury &middot; 2026-08-17</div>
+  
+  <h2 class="headline">The Swedish moral injury symptoms scale–health professional: psychometric evaluation in a sample of hospital-based healthcare professionals across Sweden - Frontiers</h2>
+  <p class="framing">A validated moral injury instrument for health professionals, psychometrically evaluated across a national hospital sample. Measurement is where a construct either earns its keep or stays rhetoric. Moral injury has spent a decade as a powerful word with thin instrumentation outside military populations, and scales like this are how it becomes something you can track over a treatment or coaching arc.</p>
+  <p class="summary">Researchers evaluated the Swedish Moral Injury Symptoms Scale, health professional version, in a sample of hospital-based clinicians across Sweden. The study reports factor structure, internal consistency, and construct validity relative to related measures. Adapting a military-origin construct to healthcare requires establishing that the items still measure moral injury rather than burnout or general distress. Instruments of this kind matter for first responder work because the same adaptation problem applies to fire and EMS.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMikgFBVV95cUxPT3R1dTZQcnJ6U0NPVnZRclI4WDRZd0VrNTJQdmxRVVNMWnc5RVJOSmp5eG5sR1ZTSmNqTlNvZF9KZFZWUDlUbzMwYUpaMTFEWUl5TnJwZWtlcXBBRWNZNk02RTVlVUdtWkZfTF9rcExsenpOQ3Z6YW9PbU94U0Zickd4QTRiSHpWQjdNNmd1UllZdw?oc=5" target="_blank" rel="noopener">Moral Injury Research Query</a></div>
+</section>
+
+<section id="story-6" class="spread big_stat">
+  <div class="meta">No. 06 &middot; First Responder MH &middot; 2026-09-07</div>
+  <div class="mega">3<span class="unit">years of added brain age in WTC responders with PTSD</span></div>
+  
+  <h2 class="headline">Study: Toxic dust, PTSD may accelerate brain aging in 9/11 first responders - EMS1</h2>
+  <p class="framing">Twenty-five years on, the responders who worked the pile are showing measurable structural cost. This is the long tail every firefighter half-suspects and rarely says out loud, now with MRI behind it. Handle it carefully with anyone still on the job: the finding is about cumulative exposure plus untreated PTSD, and it argues for treatment rather than for fatalism.</p>
+  <p class="summary">FIU researchers using MRI and an AI brain-age model found that World Trade Center responders with PTSD had brains appearing roughly three years older than their chronological age, while responders without PTSD tracked their actual age. Around twenty-three percent of WTC responders have received a PTSD diagnosis, far above general population rates. The work sits alongside a growing literature tying WTC dust exposure and PTSD to cognitive decline and dementia risk. The authors extend the relevance to current responders facing comparable disaster exposures.</p>
+  <div class="action">Try this: The finding that matters clinically is the gap between responders with and without PTSD. Untreated PTSD, not exposure alone, carried the accelerated aging signal.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMioAFBVV95cUxONm5xSF9rZGcxWE1QaElEYko5cFJsd2pNR3Q4QXZnTGlSOUt0TEM1LTRjV0NVV0NvQWdtUDZhVGkwd2FzT19CeUxRenNEYmxvYVlEMHRXMnhzS3ktTEFUeFhNTHRmNS1ZUDFVU0lfZjRkcXVUQVF1eTBUSmp2ekxiRWFOMXhuMVBCV3pYVVkxcWtZZUo3OFBDaDFqcC1HRzVO?oc=5" target="_blank" rel="noopener">EMS1</a></div>
+</section>
+
+<section id="story-7" class="spread newsprint">
+  <div class="roman">VII</div>
+  <div class="masthead">The Waystone Dispatch</div>
+  <div class="meta">No. 07 &middot; Resilience &amp; Moral Injury &middot; 2026-09-01</div>
+  
+  <h2 class="headline">Healing Thyself: Managing Moral Injury in Healthcare - Psychology Today</h2>
+  <div class="cols">
+    <p>A Psychology Today piece on managing moral injury among healthcare workers, framed around what the injured clinician can do for themselves. It distinguishes moral injury from burnout, locating the harm in violated moral expectation rather than in depleted resources. The recommendations run toward self-compassion, disclosure to trusted others, and restoring a sense of moral agency. The structural critique lineage would argue that self-management of an institutionally caused injury quietly relocates responsibility onto the injured.</p>
+    <div class="pullquote">Moral injury is not depletion. It is the residue of a violated expectation about how the world was supposed to work.</div>
+    <p>Healthcare's version of the same wound you see on the engine and in the crisis car. The piece stays in the applied register, which is its strength and its limit: it gives the individual something to do while leaving the organizational conditions that generated the injury largely unexamined. Litz and Shay would push back on that, and the tension is worth holding rather than resolving.</p>
+  </div>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiuAFBVV95cUxOb29zOFBMNUpmOUtkM1RWdXBYQkdGVjJrbGl6S3ppd0xxb1kwbDcwcXluQk9hZFFPSzBFQmd3bnhtS1VBbU53dEZralhDRzdsM04wWFZzcGxxdExreG0wT0xUMXhOZ05jVWE4bGVQZlE5QTR3RnNxVjZuTEdkZTRwX3h2OUZDR3M3VTBSbUxrMU5JVFdfb3UzbVFWaHFDLVdlYUJaLTRJX1p5TGtUeGhTc2dHYTNEajF4?oc=5" target="_blank" rel="noopener">Moral Injury Research Query</a></div>
+</section>
+
+<section id="story-8" class="spread poster">
+  <div class="big-num">08</div>
+  <div class="meta">No. 08 &middot; Peer Support &middot; 2026-09-02</div>
+  
+  <h2 class="headline">Attorney General Coleman launches peer support program for law enforcement - The Kentucky Association of Counties</h2>
+  <p class="framing">Another state attorney general standing up a formal peer support program for law enforcement. The pattern to track is not the launch but the structure: who trains the peers, what confidentiality protection exists in statute, and what the referral path to clinical care looks like. Programs that skip those three questions become well-meaning phone trees.</p>
+  <p class="summary">Kentucky Attorney General Coleman announced a statewide peer support program for law enforcement officers. Coverage from the Kentucky Association of Counties frames it as an access and destigmatization effort across departments that lack in-house behavioral health resources. State-level peer programs have become the default policy response to responder mental health over the past five years. The durable question is whether peer confidentiality is legally protected in that state, since without it participation stays low regardless of program quality.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxPQUpqSmthY0Vad3VvNi02WlhmZ2JBX1l2X21CbzVSTzF0eWVTNG1yVmdsWXd6bm5OZzlPb0ZKZFJETTNzWDRyUnhOcV9vTnktbUdwdVRXYlVZOUxrRDFIYUZVZ0J0MjdiVFo1SUV3NFZNbExqd1BDcFkzZ0RSRGttRXQ1N05ZVVg2SEF1aERiTjBVQklpckx2S3NZZzJqV2Y5UGNN?oc=5" target="_blank" rel="noopener">Peer Support Query</a></div>
+</section>
+
+<section id="story-9" class="spread field_notes">
+  <div class="big-num">ix</div>
+  <div class="meta">No. 09 &middot; First Responder MH &middot; 2026-08-29</div>
+  
+  <h2 class="headline">Port Coquitlam, BC Local 1941 welcomes Phil, a new partner in fire fighter behavioral health</h2>
+  <p class="framing">An occupational stress intervention dog placed with an IAFF local. Easy to file as soft news, and worth a second look: the mechanism is co-regulation, and it works on the crew that will not sit with a counselor. Whatever the vagal wiring debate resolves to, a dog in the bay after a bad call changes the room.</p>
+  <p class="summary">IAFF Local 1941 in Port Coquitlam, British Columbia introduced Phil, an occupational stress intervention dog, as a support resource following high-stress incidents and traumatic calls. The placement adds a low-barrier option alongside existing peer and clinical supports. Programs of this kind lower the cost of entry to help-seeking, which is often the actual bottleneck rather than availability of services. The evidence base is thinner than the enthusiasm, and it is worth saying so.</p>
+  
+  <div class="source">Source: <a href="https://www.iaff.org/news/port-coquitlam-bc-local-1941-welcomes-phil-a-new-partner-in-fire-fighter-behavioral-health-partner/" target="_blank" rel="noopener">IAFF</a></div>
+</section>
+
+<section id="story-10" class="spread coda">
+  <div class="roman">X</div>
+  <div class="meta">No. 10 &middot; Resilience &amp; Moral Injury &middot; 2026-08-26</div>
+  
+  <h2 class="headline">Nolan’s The Odyssey is an emotive meditation on modern moral injury - durham.ac.uk</h2>
+  <p class="framing">Homer got there first. The nostos, the long return, the man who survives the war and cannot come home the same: that is moral injury before there was a phrase for it, and Shay built two books on the observation. Close the issue here, because the work you do is a return story more often than a trauma story.</p>
+  <p class="summary">A Durham University essay reads Nolan's adaptation of The Odyssey as a meditation on modern moral injury, tracing the gap between the warrior's return and his reintegration. The argument draws the through-line from Homeric epic to Jonathan Shay's clinical use of the same texts with Vietnam veterans. Odysseus does not come home healed. He comes home changed, and the poem spends its final books on whether the household can receive him. The essay treats the ancient text as diagnostic rather than decorative.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiywFBVV95cUxNaG4tSEhzYlFHNFRzWXA3dm1KejY2RlJNQmxJdlVaQi1zbkNOdEIzb09LWjFqNE1yUktaaUFsVDN1OTVDYXltWmZjWGZTRU8yZklpWkUxbV9CNTlJTzhxSkFQendTNWF6WS1pa2cwOW9TenYzclYwVUhDaW13V0RVanNib0VjQzRodUFYZHR0UFlPcFBDMzM3dzg4SGVaZHhzQTdiUUtFMHhEWllGN0lkLW5KcUpYQnJnVXZBUVNtSDNoV2V3Nmo3VGpUOA?oc=5" target="_blank" rel="noopener">Moral Injury Research Query</a></div>
+</section>
+</body></html>
