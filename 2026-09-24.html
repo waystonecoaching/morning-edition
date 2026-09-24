@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Edition - 2026-09-24</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --cream: #f4efe6;
+    --ivory: #f8f4ec;
+    --ink: #121212;
+    --midnight: #0b1224;
+    --rose: #f0d3cb;
+    --alert: #c43a2e;
+    --terminal-bg: #0a0d0a;
+    --terminal-fg: #7cff9c;
+    --academic: #f6f1e3;
+    --newsprint: #ebe3d3;
+    --poster: #10412b;
+    --field: #e9efe6;
+    --sage: #c8d2c1;
+    --monastic: #3a3a34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .spread {
+    min-height: 100vh;
+    padding: 8vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .spread .meta {
+    font-family: var(--sans);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .spread .headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    margin: 0 0 2.4rem 0;
+  }
+  .spread .framing {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+  }
+  .spread .summary {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+  .spread .action {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    max-width: 60ch;
+    border-left: 6px solid currentColor;
+  }
+  .spread .source {
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    opacity: 0.85;
+  }
+  .spread .source a { text-decoration: none; }
+  .applies-stamp {
+    display: inline-block;
+    padding: 0.45rem 1.1rem;
+    border: 3px solid var(--alert);
+    color: var(--alert);
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    margin-bottom: 1.6rem;
+  }
+
+  /* ====== 01 HERO ====== */
+  .hero { background: var(--cream); color: var(--ink); }
+  .hero .big-num {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(180px, 28vw, 460px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    position: absolute;
+    right: -3vw; top: -4vh;
+    color: var(--ink);
+    opacity: 0.08;
+  }
+  .hero .headline { font-size: clamp(64px, 9vw, 140px); font-weight: 800; }
+
+  /* ====== 02 MIDNIGHT ====== */
+  .midnight { background: var(--midnight); color: var(--ivory); }
+  .midnight .big-num {
+    position: absolute; right: 6vw; top: 6vh;
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.9;
+    color: transparent; -webkit-text-stroke: 2px var(--ivory);
+  }
+  .midnight .headline { font-size: clamp(56px, 7.5vw, 120px); font-style: italic; }
+
+  /* ====== 03 ROSE ALERT ====== */
+  .rose_alert { background: var(--rose); color: var(--ink); }
+  .rose_alert .alert-stamp {
+    position: absolute; right: 6vw; top: 10vh;
+    border: 6px solid var(--alert); color: var(--alert);
+    padding: 1rem 2rem; transform: rotate(9deg);
+    font-family: var(--sans); font-weight: 900; font-size: 38px;
+    letter-spacing: 0.3em;
+  }
+  .rose_alert .big-num {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(140px, 20vw, 260px); color: var(--alert);
+    line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem;
+  }
+  .rose_alert .headline { font-size: clamp(54px, 7vw, 110px); font-weight: 700; }
+
+  /* ====== 04 TERMINAL ====== */
+  .terminal { background: var(--terminal-bg); color: var(--terminal-fg); font-family: var(--mono); }
+  .terminal::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    pointer-events: none;
+  }
+  .terminal .prompt {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(140px, 18vw, 260px); line-height: 1;
+    margin-bottom: 2rem; color: #ffb347;
+    letter-spacing: -0.02em;
+  }
+  .terminal .headline {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(40px, 5vw, 72px); line-height: 1.15; color: var(--terminal-fg);
+  }
+  .terminal .framing, .terminal .summary, .terminal .action {
+    font-family: var(--mono); color: #cfd8cf; font-size: 22px;
+  }
+  .terminal .summary { color: #9fe8b3; }
+  .terminal .source { color: #ffb347; }
+
+  /* ====== 05 ACADEMIC ====== */
+  .academic { background: var(--academic); color: #1a1a1a; }
+  .academic .big-num {
+    position: absolute; right: 7vw; top: 8vh;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(140px, 18vw, 260px); color: #b79b5a;
+  }
+  .academic .headline {
+    font-size: clamp(48px, 6.5vw, 100px); font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  }
+  .academic .summary::first-letter {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 6.5em; float: left; line-height: 0.8;
+    padding: 0.1em 0.15em 0 0; color: #8a6f2f;
+  }
+
+  /* ====== 06 BIG STAT ====== */
+  .big_stat { background: #ffffff; color: var(--ink); justify-content: flex-start; }
+  .big_stat .mega {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(220px, 34vw, 540px); line-height: 0.85;
+    letter-spacing: -0.05em; margin: 0; color: var(--ink);
+  }
+  .big_stat .mega .unit {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 0.25em; vertical-align: super; letter-spacing: 0.05em;
+  }
+  .big_stat .headline { font-size: clamp(40px, 5vw, 72px); font-weight: 700; max-width: 28ch; }
+
+  /* ====== 07 NEWSPRINT ====== */
+  .newsprint { background: var(--newsprint); color: #1b1b1b; padding: 6vh 5vw; }
+  .newsprint .masthead {
+    font-family: var(--serif); font-weight: 900; font-style: italic;
+    font-size: 28px; letter-spacing: 0.04em; border-bottom: 3px double #1b1b1b; padding-bottom: 0.6rem;
+    margin-bottom: 1.8rem;
+  }
+  .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
+  .newsprint .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem; row-gap: 1.6rem;
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+  }
+  .newsprint .cols p { margin: 0; }
+  .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .newsprint .cols > p:last-of-type { grid-column: 2; grid-row: 1; }
+  .newsprint .cols > .pullquote { grid-column: 1 / -1; grid-row: 2; }
+  @media (max-width: 720px) {
+    .newsprint .cols { grid-template-columns: 1fr; }
+    .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+    .newsprint .cols > .pullquote { grid-column: 1; grid-row: 2; }
+    .newsprint .cols > p:last-of-type { grid-column: 1; grid-row: 3; }
+  }
+  .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
+    border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
+  }
+  .newsprint .roman {
+    position: absolute; right: 5vw; top: 3vh;
+    font-family: var(--serif); font-style: italic; font-weight: 600;
+    font-size: 80px; color: #1b1b1b;
+  }
+
+  /* ====== 08 POSTER ====== */
+  .poster { background: var(--poster); color: #f2e9d5; }
+  .poster .big-num {
+    position: absolute; right: 4vw; top: 4vh;
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.85;
+    color: #f2e9d5; opacity: 0.12; letter-spacing: -0.05em;
+  }
+  .poster .headline {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(68px, 9vw, 150px); letter-spacing: -0.02em;
+    text-transform: uppercase; line-height: 0.92;
+  }
+
+  /* ====== 09 FIELD NOTES ====== */
+  .field_notes {
+    background: var(--field) ;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: #1a1f1a;
+  }
+  .field_notes .big-num {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(120px, 16vw, 220px); line-height: 0.9;
+    color: #4b5a44; margin-bottom: 0.5rem;
+  }
+  .field_notes .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); max-width: 22ch; line-height: 1.05;
+  }
+
+  /* ====== 10 CODA ====== */
+  .coda {
+    background: var(--sage); color: var(--monastic);
+    text-align: center; align-items: center;
+  }
+  .coda .roman {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(140px, 18vw, 240px); line-height: 1; margin-bottom: 1rem;
+  }
+  .coda .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(54px, 7vw, 110px); max-width: 22ch;
+  }
+  .coda .framing, .coda .summary { max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ====== Cover ====== */
+  .cover {
+    background: var(--ink); color: var(--ivory); text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10vh 6vw;
+  }
+  .cover .masthead {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(90px, 13vw, 220px); line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 0.15em;
+  }
+  .cover .masthead a { color: inherit; text-decoration: none; }
+  .cover .subhead a { color: inherit; text-decoration: none; opacity: 0.85; }
+  .cover .subhead {
+    font-family: var(--sans); font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 24px; margin-top: 2rem; opacity: 0.85;
+  }
+  .cover .date {
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(34px, 4vw, 60px); margin-top: 3rem;
+  }
+  .cover .editors {
+    font-family: var(--serif); font-size: 26px; line-height: 1.5;
+    max-width: 52ch; margin-top: 4rem; text-align: left;
+  }
+  .contents {
+    background: var(--ivory); color: var(--ink);
+    padding: 10vh 6vw; min-height: 100vh;
+  }
+  .contents h2 {
+    font-family: var(--serif); font-weight: 700; font-style: italic;
+    font-size: clamp(56px, 7vw, 100px); margin: 0 0 3rem 0;
+  }
+  .contents ol { list-style: none; padding: 0; margin: 0; }
+  .contents li {
+    border-top: 2px solid rgba(0,0,0,0.2);
+    font-family: var(--serif); font-size: 26px; line-height: 1.3;
+  }
+  .contents li:last-child { border-bottom: 2px solid rgba(0,0,0,0.2); }
+  .contents .toc-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.2rem 0; color: inherit; text-decoration: none;
+    transition: background 0.15s ease, padding 0.15s ease;
+  }
+  .contents .toc-link:hover {
+    background: rgba(0,0,0,0.05); padding-left: 1rem; padding-right: 1rem;
+  }
+  .contents .toc-link .t { flex: 1; }
+  html { scroll-behavior: smooth; }
+  .contents .num { font-weight: 800; min-width: 2.5ch; }
+  .contents .cat {
+    font-family: var(--sans); font-size: 20px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600; margin-left: auto; opacity: 0.7;
+  }
+  .contents .applies-tag {
+    font-family: var(--sans); font-size: 20px; font-weight: 800;
+    color: var(--alert); letter-spacing: 0.18em; margin-left: 0.8rem;
+  }
+  @media print { .spread, .cover, .contents { page-break-after: always; } }
+</style>
+</head>
+<body>
+
+
+<section class="cover">
+  <div class="subhead"><a href="https://waystonecoaching.com" target="_blank" rel="noopener">Waystone Coaching</a>&#8217;s</div>
+  <h1 class="masthead"><a href="https://waystonecoaching.github.io/morning-edition/">Morning<br>Edition</a></h1>
+  <div class="date">Thursday, September 24, 2026</div>
+  <div class="editors">Quieter feeds today, so we left the week's big psychedelic headline alone and went looking for the ground. Unarmed crisis teams are in nearly a hundred cities now. Medics are arguing about the few callers who fill their shifts. And somewhere a chaplain hands a burned-out deputy a bow. The work is less in the headline than in who shows up and stays.</div>
+</section>
+
+<section class="contents"><h2>The Ten</h2><ol><li><a class="toc-link" href="#story-1"><span class="num">01</span><span class="t">Unarmed 911 Teams Now Run in Nearly 100 Cities</span><span class="applies-tag">APPLIES</span><span class="cat">Peer Support</span></a></li><li><a class="toc-link" href="#story-2"><span class="num">02</span><span class="t">Psychedelics in D.C., the FDA Framework, and New Zealand's MDMA Prescribers</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-3"><span class="num">03</span><span class="t">“It's Okay Not to Be Okay”: Eastern Shore Holds Its First Responder Peer Support Symposium</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-4"><span class="num">04</span><span class="t">VA Approves a Community Ketamine Provider for Veterans With PTSD</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-5"><span class="num">05</span><span class="t">How Moral Injury Can Delay Peace in Conflict-Affected Societies</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-6"><span class="num">06</span><span class="t">Medics Split Over 911's High Utilizer Problem</span><span class="applies-tag">APPLIES</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-7"><span class="num">07</span><span class="t">Royal College of Psychiatrists Calls for Better Trauma Care. Could Psychedelics Help?</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-8"><span class="num">08</span><span class="t">Moral Injury and the Digital Pathways to Adolescent Targeted Violence</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-9"><span class="num">09</span><span class="t">When AI Works, Employees Worry: The Vigilance Cost of Delegation</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-10"><span class="num">10</span><span class="t">Archery as a Door to Mental Health Care for First Responders</span><span class="cat">Peer Support</span></a></li></ol></section>
+
+<section id="story-1" class="spread hero">
+  <div class="big-num">01</div>
+  <div class="meta">No. 01 &middot; Peer Support &middot; 2026-09-22</div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">Unarmed 911 Teams Now Run in Nearly 100 Cities</h2>
+  <p class="framing">This is your lane, grown up and gone national. Six programs in 2020, close to a hundred now. Every city that stands one up is working the same questions Phoenix has worked: who goes, who is safe to send, and what a crisis call needs besides a badge. Watch how the field is naming the role, because that language will shape how your work gets funded and judged.</p>
+  <p class="summary">NPR reports that alternative or community response programs, which send unarmed responders to some 911 calls in place of police, have grown from six in 2020 to nearly 100 cities. The piece follows Durham's HEART program, where a peer support specialist and a mental health clinician resolved a trespassing call with water, clean socks, and conversation. The growth traces to the reckoning after 2020 and a city-by-city judgment that some calls do not need an armed officer. It is reporting, not outcome research, so read the anecdotes as texture and look for the data behind them.</p>
+  <div class="action">Try this: Pull the Durham HEART team pairing (peer specialist plus clinician) and set it beside your own unit's staffing model. Note where they match and where they split.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxNNXRZNkMwMmR4SklLekFqdkdyM0w1N28ycnEtX2hUeHptV2hOU0c0cEZtX0pKeUV5dUZnNWM4MVhsbWJUeDJsSndPTExqSGh2VWtJNTA1Z0cxXzFEc1ZtelpXazNRbEl1TFR4eHBOWW5yYmFmdEpfTTRiVGUxaFk2NjhsaG9OQkwy?oc=5" target="_blank" rel="noopener">NPR</a></div>
+</section>
+
+<section id="story-2" class="spread midnight">
+  <div class="big-num">02</div>
+  <div class="meta">No. 02 &middot; Psychedelic Therapy &middot; 2026-09-21</div>
+  
+  <h2 class="headline">Psychedelics in D.C., the FDA Framework, and New Zealand's MDMA Prescribers</h2>
+  <p class="framing">A trade podcast, not a paper, but it ties three live threads in one place: the Washington push, the agency's new framework, and a country that has already let doctors prescribe MDMA. New Zealand is the one to watch. Real prescribing outside a trial will show the field what happens when the controlled setting falls away.</p>
+  <p class="summary">Psychedelic Alpha's podcast episode covers the political activity around psychedelics in Washington, the FDA framework staff recently laid out in NEJM, and New Zealand's move to allow MDMA prescribing. The feed carried no transcript summary, so the specifics of the discussion are unverified here. Psychedelic Alpha covers the industry closely and sits closer to the business side than the clinic.</p>
+  
+  <div class="source">Source: <a href="https://psychedelicalpha.com/news/podcast-psychedelics-in-d-c-fdas-framework-and-new-zealands-mdma-prescribers/" target="_blank" rel="noopener">Psychedelic Alpha</a></div>
+</section>
+
+<section id="story-3" class="spread rose_alert">
+  <div class="alert-stamp">Dispatch</div>
+  <div class="big-num">03</div>
+  <div class="meta">No. 03 &middot; First Responder MH &middot; 2026-09-19</div>
+  
+  <h2 class="headline">“It's Okay Not to Be Okay”: Eastern Shore Holds Its First Responder Peer Support Symposium</h2>
+  <p class="framing">Regional peer support getting organized is the ground-level work that outlasts any grant cycle. The symposium sat with a father who lost his son, a deputy and Army veteran, to suicide. Scope note: this is suicidality ground, and the gathering pairs peers with behavioral health professionals for good reason. Peer work carries weight it cannot carry alone.</p>
+  <p class="summary">Public safety officials, peer support leaders, and behavioral health professionals met at Chesapeake College in Wye Mills, Maryland on September 17 for the first Eastern Shore First Responder Peer Support Symposium, hosted by For All Seasons. Physician and author Annie Brewster spoke on storytelling and shared vulnerability as a route to healing. Milton Nagel, who founded a foundation after his son died by suicide in 2022, spoke as well. Local agencies laid out their peer programs and resources and named the gap between what exists and who it reaches.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiiAJBVV95cUxQN1dNTmstdzBZeUZra0hPQ2pUVTRhT1lsWEtLcF9SVS16djVPZThHR0hfRWZ5WlRfMEQ3ZUpkem1YeDBFcWJFV1VOQlZGYTVMSFliaTdqRWpfVnB1SHNqaFhFblpXdjN2aUIwcXJiU0tQbXZOMFlkVWg0TlNLR3hJbVZOVE1fb05VVWVkRmNYLWR2MjBqaklpRVAwZFhaWWd2cTJCMVFrdVkwYnVGVWt6Z0xOdmZMLU1jeVZ6VXlFTF95YXlyQTZ2WjJQWERfZmRWY2dBai1MTk9SZDNKUFhsXzVFeEtBY2tpMzA0aWg1YUtVYmNKdU1KeW9ZQlJBQ2ZGLXpldTdNUzI?oc=5" target="_blank" rel="noopener">MyEasternShoreMD</a></div>
+</section>
+
+<section id="story-4" class="spread terminal">
+  <div class="prompt">04</div>
+  <div class="meta">No. 04 &middot; Psychedelic Therapy &middot; 2026-09-23</div>
+  
+  <h2 class="headline">VA Approves a Community Ketamine Provider for Veterans With PTSD</h2>
+  <p class="framing">Read this with a cold eye. A ketamine clinic won approval to take VA benefits after an eight-month process, and the outcome figures in the coverage come from the clinic itself. PTSD is not an FDA-approved indication for ketamine or esketamine. Scope note: this is clinical and substance-adjacent, and the men you coach will ask you about it. Know what is approved and what is marketing.</p>
+  <p class="summary">Coverage reports that Derive, a ketamine treatment provider, is now approved to accept VA benefits after an eight-month application. The provider says it has treated over 1,000 patients, with about three quarters seeing a 50 percent symptom reduction; those numbers are self-reported, not trial data. VA criteria published in July 2026 cover IV ketamine for treatment-resistant depression and depression with severe suicidal ideation at select sites and through Community Care. The story's PTSD framing runs ahead of the formal indications.</p>
+  <div class="action">Try this: When a client raises ketamine, separate three things out loud: FDA indication, VA coverage, and clinic claims. Refer the medical question out.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMingFBVV95cUxOWlFRSHRxSlQ1OFg4bHNLcEZhazk2Q3pLNEVoS1Z1R1Zad2FRLWVTZ0JaZ0lfTUp6QWFja3BhZTlLUzVZbU5pTS0tWFd6Y3I2THdmYVotSjBGel84OUxyeEwwWU9sd281RWRsQkk4WThzTkc0N09uSDExcG1yRTNIUHBaT2lNYzlzQjN1RGcwTzlFRnRjNkRLbDEzLTZEQQ?oc=5" target="_blank" rel="noopener">Yahoo News</a></div>
+</section>
+
+<section id="story-5" class="spread academic">
+  <div class="big-num">V</div>
+  <div class="meta">No. 05 &middot; Resilience &amp; Moral Injury &middot; 2026-09-16</div>
+  
+  <h2 class="headline">How Moral Injury Can Delay Peace in Conflict-Affected Societies</h2>
+  <p class="framing">This is the structural lineage of moral injury, not the wellness-program one. Moral injury here belongs to whole communities, and it outlasts the shooting. That frame fits a department that went through a betrayal together as well as it fits a nation. It is a conversation, not a study, so take the frame and leave the conclusions open.</p>
+  <p class="summary">King's College London hosted Dr Fiona McEwen and Dr Craig Larkin on how moral injury among people in conflict-affected societies can hold back peace after violence ends. Only the title and speakers came through the feed; the argument's details are unverified here. The framing places moral injury at the community level, where betrayal and violated trust shape what a society can rebuild. It sits with the Shay and Litz tradition that treats moral injury as a wound done to people by institutions, not a personal resilience deficit.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMi6gFBVV95cUxPdkhTbjgyZFhodkFxWGdtOXR6dVNnT0lYMnQxNVFaZ3NCZVFGMi10UVFOM1Y2MVRQZ1N0ckY5RG9qZmppdERGd2tRT1hLdVpZVUk3ZkFnbXVtdzBJOFJCMnJRdk1CNmUzVE9VcnJ5NFkzaFItZXpRUFREZlRMb2tCLU0yemJRRDNvSnlnR01KOVo2RVpsc2pmX3RjOTFCdG5sM3ZTRlFnMmNMY21xWlRoYVkyOXpSZWx5YkxOcnJPLWV0ZjAzS21JUHptOF80b0N2NXZUTnNUZnRySXpwT01KekZFOUo1VU45MkE?oc=5" target="_blank" rel="noopener">King's College London</a></div>
+</section>
+
+<section id="story-6" class="spread big_stat">
+  <div class="meta">No. 06 &middot; First Responder MH &middot; 2026-09-22</div>
+  <div class="mega">3%<span class="unit">of patients make 16% of EMS calls</span></div>
+  <div class="applies-stamp">Directly applies</div>
+  <h2 class="headline">Medics Split Over 911's High Utilizer Problem</h2>
+  <p class="framing">Frequent callers are your people. The study behind this piece says they are poorer, sicker, and more often on Medicaid, which reads as unmet need, not abuse. The comment section is the real story: medics worn thin, arguing it out. That split is moral injury in slow motion. The job asks you to treat every call the same while the system gives you nowhere to send anyone.</p>
+  <p class="summary">A study found that 3 percent of patients account for 16 percent of EMS calls, and that these patients skew toward Medicaid, disadvantaged neighborhoods, and chronic illness. EMS1 readers split hard: some defended the vulnerable people behind the numbers, others described ambulances used as free taxis. Most landed in between. With tangled refusal protocols, few diversion options, and real liability, most medics work every high utilizer call like any other, just in case.</p>
+  <div class="action">Try this: Bring the 3 percent / 16 percent figure to your next crew conversation and ask what those calls cost them, not the budget.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMimAFBVV95cUxQSTM4akpjYmRkel9ja3ZtalQ5RlRxOVM0ZWVEazZ3cGt4VjcycHhRLTBoQ1NoLUxNeTA5d3hwMDV3Nm0yVGtQSlMyX09BR0o5Z01WZWp0TEZWVjZUbEQ5OGxHQkpzeEsxdVZLR3JEenRLMklrQ1dOSUF1Qk9HU29EdVdYMW5SOEVkZjRYQ053ZUlRV1lSanlicw?oc=5" target="_blank" rel="noopener">EMS1</a></div>
+</section>
+
+<section id="story-7" class="spread newsprint">
+  <div class="roman">VII</div>
+  <div class="masthead">The Waystone Dispatch</div>
+  <div class="meta">No. 07 &middot; Psychedelic Therapy &middot; 2026-09-24</div>
+  
+  <h2 class="headline">Royal College of Psychiatrists Calls for Better Trauma Care. Could Psychedelics Help?</h2>
+  <div class="cols">
+    <p>The Royal College of Psychiatrists issued a position statement in late August on the mental health of adults abused as children. It says the NHS lacks the skills to spot abuse, handle disclosures safely, and deliver trauma-informed care, and that it often retraumatizes survivors with poor treatment plans and unhelpful diagnoses. The statement briefly acknowledged emerging evidence for psychedelic-assisted therapy in PTSD. Drug Science builds on that nod to argue for the approach and against Schedule 1 barriers to research in the UK.</p>
+    <div class="pullquote">Know who is talking. Drug Science is an advocacy body for drug policy reform, and this piece reads the Royal College's statement through that lens. The College's actual statement is about survivors of childhood sexual abuse being retraumatized by services that lack trauma skill. The psychedelic thread is a brief nod in their text and the headline in Drug Science's.</div>
+    <p>Know who is talking. Drug Science is an advocacy body for drug policy reform, and this piece reads the Royal College's statement through that lens. The College's actual statement is about survivors of childhood sexual abuse being retraumatized by services that lack trauma skill. The psychedelic thread is a brief nod in their text and the headline in Drug Science's.</p>
+  </div>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiygFBVV95cUxNVmdNZ3ZJZUViREZNYXBQNkVFZFNPdGZfSURsekFxcU9nMVdrTnFFeUlyQXV3NFVwRmQtSm12OW5odlhOMTkxbUkxRHRfU1FrM1g3VzJzWGhIVzU0eEJrNThPQk51VnFQbklWWnh0dDRxTHpQQXJBWjAxRW9CaGs1VS0yLWNLMGtnWXozbFFHWjRvM3hmLUJmaUo2X3FqYW5SWjFRUjJ2dXRTa0pmSEtXYS1zSlgwUHNkdG5oUzBEY0pNN045VkNCREN3?oc=5" target="_blank" rel="noopener">Drug Science</a></div>
+</section>
+
+<section id="story-8" class="spread poster">
+  <div class="big-num">08</div>
+  <div class="meta">No. 08 &middot; Resilience &amp; Moral Injury &middot; 2026-09-22</div>
+  
+  <h2 class="headline">Moral Injury and the Digital Pathways to Adolescent Targeted Violence</h2>
+  <p class="framing">An operational-frame piece: moral injury used as a lens for threat assessment. That is a different camp from the clinical and structural work, and it is worth knowing the word is traveling there. Responders who work school threats and youth crisis calls will meet this framing. Scope note: this is high-acuity ground and a perspective essay, not research.</p>
+  <p class="summary">A perspective in Homeland Security Today applies the moral injury concept to young people who move toward targeted violence, with attention to online pathways. Only the headline came through the feed, so the argument's details are unverified here. The piece reflects a growing use of moral injury language in security and threat assessment work, well outside its origins in combat veterans.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMi8AFBVV95cUxQNzJ4NkpMTUhWbHhRZmVja3ZNQ1pCdnNOazRUX2xYRW0zS1VBNENucnJRNlV2LW9OX2t6LXRnWEU3Wmo4bDZ2cUhRQUVWZ3UxeFVNdXh1NDJwWTgtamVMVC1obWNEWllqMEVwUlRiYUJ4T0gwTTVQRGdxVVc1OXZwWGtDTEp6TVQxYlk0b25hcTlMdHVwMFNMTUZNSG1KTGRha2IxeDlleVV1TjJfSE9iSEhsZ0JNMThrOE9VYktFREdTeXhTRFBkZ0tROVhXZzdNTVhOdWxFLWJ2dThOOEhqd0pxS0UwU25vdDBHbGlLNHc?oc=5" target="_blank" rel="noopener">Homeland Security Today</a></div>
+</section>
+
+<section id="story-9" class="spread field_notes">
+  <div class="big-num">ix</div>
+  <div class="meta">No. 09 &middot; First Responder MH &middot; 2026-09-24</div>
+  
+  <h2 class="headline">When AI Works, Employees Worry: The Vigilance Cost of Delegation</h2>
+  <p class="framing">Not a responder study, but it names something shift people know in the body: the job that will not switch off after the shift ends. The authors call it vigilance, work staying psychologically active after hours. Read it as a nervous system question. Handing tasks off does not settle the system if you still have to watch them.</p>
+  <p class="summary">The study proposes an AI delegation paradox in hybrid work. AI can take work off employees' plates, but monitoring what the AI does keeps work psychologically active after formal hours. The authors frame this as a vigilance cost that cuts against the relief delegation is supposed to bring. It is peer-reviewed organizational psychology, not a clinical trial.</p>
+  
+  <div class="source">Source: <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2026.1914119" target="_blank" rel="noopener">Frontiers in Psychology</a></div>
+</section>
+
+<section id="story-10" class="spread coda">
+  <div class="roman">X</div>
+  <div class="meta">No. 10 &middot; Peer Support &middot; 2026-09-23</div>
+  
+  <h2 class="headline">Archery as a Door to Mental Health Care for First Responders</h2>
+  <p class="framing">Close the week with the people who asked responders what they wanted and then listened. They did not want a clinic. They wanted something outdoors, in their own community, low-key. That is a design brief for any coach who works this population. Sometimes the way in is a bow and a quiet line of targets.</p>
+  <p class="summary">Two years after an ambush in east Charlotte killed four officers, former CMPD officer Dee John launched the Pulse Renewal Project. A survey found first responders did not want clinical settings and preferred outdoor, community-based, low-key activities. The first program pairs archery with therapy and peer support, through a curriculum called Center Shot Blue built by a former sheriff's chaplain who uses archery as a metaphor for responder stress.</p>
+  <div class="action">Try this: Look at your own intake path. Count how many steps a man has to take into a clinical-feeling space before you meet him.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMingFBVV95cUxPdHFTT24zZ1JtOWNiNXdoVXI2V3J6Y2hScFYza2g3Z1VLeGhRMk5Wa3E5LXZhOG1CcmpocDRCQmJxc1RTOXppQTlxczV3U2ZPWEl2anljYklGSlNLcTNZSzVvTjlxU056cVUzWnNrNzVFMnZmTk1KWUZJdGJFWU9tVU9rSlZHczEyZC1SbkxCV1pNVHcwS0N6alNNTFFoUQ?oc=5" target="_blank" rel="noopener">WWNY</a></div>
+</section>
+</body></html>
