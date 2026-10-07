@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Edition - 2026-10-07</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --cream: #f4efe6;
+    --ivory: #f8f4ec;
+    --ink: #121212;
+    --midnight: #0b1224;
+    --rose: #f0d3cb;
+    --alert: #c43a2e;
+    --terminal-bg: #0a0d0a;
+    --terminal-fg: #7cff9c;
+    --academic: #f6f1e3;
+    --newsprint: #ebe3d3;
+    --poster: #10412b;
+    --field: #e9efe6;
+    --sage: #c8d2c1;
+    --monastic: #3a3a34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .spread {
+    min-height: 100vh;
+    padding: 8vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .spread .meta {
+    font-family: var(--sans);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .spread .headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    margin: 0 0 2.4rem 0;
+  }
+  .spread .framing {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+  }
+  .spread .summary {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+  .spread .action {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    max-width: 60ch;
+    border-left: 6px solid currentColor;
+  }
+  .spread .source {
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    opacity: 0.85;
+  }
+  .spread .source a { text-decoration: none; }
+  /* ====== 01 HERO ====== */
+  .hero { background: var(--cream); color: var(--ink); }
+  .hero .big-num {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(180px, 28vw, 460px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    position: absolute;
+    right: -3vw; top: -4vh;
+    color: var(--ink);
+    opacity: 0.08;
+  }
+  .hero .headline { font-size: clamp(64px, 9vw, 140px); font-weight: 800; }
+
+  /* ====== 02 MIDNIGHT ====== */
+  .midnight { background: var(--midnight); color: var(--ivory); }
+  .midnight .big-num {
+    position: absolute; right: 6vw; top: 6vh;
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.9;
+    color: transparent; -webkit-text-stroke: 2px var(--ivory);
+  }
+  .midnight .headline { font-size: clamp(56px, 7.5vw, 120px); font-style: italic; }
+
+  /* ====== 03 ROSE ALERT ====== */
+  .rose_alert { background: var(--rose); color: var(--ink); }
+  .rose_alert .alert-stamp {
+    position: absolute; right: 6vw; top: 10vh;
+    border: 6px solid var(--alert); color: var(--alert);
+    padding: 1rem 2rem; transform: rotate(9deg);
+    font-family: var(--sans); font-weight: 900; font-size: 38px;
+    letter-spacing: 0.3em;
+  }
+  .rose_alert .big-num {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(140px, 20vw, 260px); color: var(--alert);
+    line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem;
+  }
+  .rose_alert .headline { font-size: clamp(54px, 7vw, 110px); font-weight: 700; }
+
+  /* ====== 04 TERMINAL ====== */
+  .terminal { background: var(--terminal-bg); color: var(--terminal-fg); font-family: var(--mono); }
+  .terminal::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    pointer-events: none;
+  }
+  .terminal .prompt {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(140px, 18vw, 260px); line-height: 1;
+    margin-bottom: 2rem; color: #ffb347;
+    letter-spacing: -0.02em;
+  }
+  .terminal .headline {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(40px, 5vw, 72px); line-height: 1.15; color: var(--terminal-fg);
+  }
+  .terminal .framing, .terminal .summary, .terminal .action {
+    font-family: var(--mono); color: #cfd8cf; font-size: 22px;
+  }
+  .terminal .summary { color: #9fe8b3; }
+  .terminal .source { color: #ffb347; }
+
+  /* ====== 05 ACADEMIC ====== */
+  .academic { background: var(--academic); color: #1a1a1a; }
+  .academic .big-num {
+    position: absolute; right: 7vw; top: 8vh;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(140px, 18vw, 260px); color: #b79b5a;
+  }
+  .academic .headline {
+    font-size: clamp(48px, 6.5vw, 100px); font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  }
+  .academic .summary::first-letter {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 6.5em; float: left; line-height: 0.8;
+    padding: 0.1em 0.15em 0 0; color: #8a6f2f;
+  }
+
+  /* ====== 06 BIG STAT ====== */
+  .big_stat { background: #ffffff; color: var(--ink); justify-content: flex-start; }
+  .big_stat .mega {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(220px, 34vw, 540px); line-height: 0.85;
+    letter-spacing: -0.05em; margin: 0; color: var(--ink);
+  }
+  .big_stat .mega .unit {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 0.25em; vertical-align: super; letter-spacing: 0.05em;
+  }
+  .big_stat .headline { font-size: clamp(40px, 5vw, 72px); font-weight: 700; max-width: 28ch; }
+
+  /* ====== 07 NEWSPRINT ====== */
+  .newsprint { background: var(--newsprint); color: #1b1b1b; padding: 6vh 5vw; }
+  .newsprint .masthead {
+    font-family: var(--serif); font-weight: 900; font-style: italic;
+    font-size: 28px; letter-spacing: 0.04em; border-bottom: 3px double #1b1b1b; padding-bottom: 0.6rem;
+    margin-bottom: 1.8rem;
+  }
+  .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
+  .newsprint .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem; row-gap: 1.6rem;
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+  }
+  .newsprint .cols p { margin: 0; }
+  .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .newsprint .cols > p:last-of-type { grid-column: 2; grid-row: 1; }
+  .newsprint .cols > .pullquote { grid-column: 1 / -1; grid-row: 2; }
+  @media (max-width: 720px) {
+    .newsprint .cols { grid-template-columns: 1fr; }
+    .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+    .newsprint .cols > .pullquote { grid-column: 1; grid-row: 2; }
+    .newsprint .cols > p:last-of-type { grid-column: 1; grid-row: 3; }
+  }
+  .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
+    border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
+  }
+  .newsprint .roman {
+    position: absolute; right: 5vw; top: 3vh;
+    font-family: var(--serif); font-style: italic; font-weight: 600;
+    font-size: 80px; color: #1b1b1b;
+  }
+
+  /* ====== 08 POSTER ====== */
+  .poster { background: var(--poster); color: #f2e9d5; }
+  .poster .big-num {
+    position: absolute; right: 4vw; top: 4vh;
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.85;
+    color: #f2e9d5; opacity: 0.12; letter-spacing: -0.05em;
+  }
+  .poster .headline {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(68px, 9vw, 150px); letter-spacing: -0.02em;
+    text-transform: uppercase; line-height: 0.92;
+  }
+
+  /* ====== 09 FIELD NOTES ====== */
+  .field_notes {
+    background: var(--field) ;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: #1a1f1a;
+  }
+  .field_notes .big-num {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(120px, 16vw, 220px); line-height: 0.9;
+    color: #4b5a44; margin-bottom: 0.5rem;
+  }
+  .field_notes .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); max-width: 22ch; line-height: 1.05;
+  }
+
+  /* ====== 10 CODA ====== */
+  .coda {
+    background: var(--sage); color: var(--monastic);
+    text-align: center; align-items: center;
+  }
+  .coda .roman {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(140px, 18vw, 240px); line-height: 1; margin-bottom: 1rem;
+  }
+  .coda .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(54px, 7vw, 110px); max-width: 22ch;
+  }
+  .coda .framing, .coda .summary { max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ====== Cover ====== */
+  .cover {
+    background: var(--ink); color: var(--ivory); text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10vh 6vw;
+  }
+  .cover .masthead {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(90px, 13vw, 220px); line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 0.15em;
+  }
+  .cover .masthead a { color: inherit; text-decoration: none; }
+  .cover .subhead a { color: inherit; text-decoration: none; opacity: 0.85; }
+  .cover .subhead {
+    font-family: var(--sans); font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 24px; margin-top: 2rem; opacity: 0.85;
+  }
+  .cover .date {
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(34px, 4vw, 60px); margin-top: 3rem;
+  }
+  .cover .editors {
+    font-family: var(--serif); font-size: 26px; line-height: 1.5;
+    max-width: 52ch; margin-top: 4rem; text-align: left;
+  }
+  .contents {
+    background: var(--ivory); color: var(--ink);
+    padding: 10vh 6vw; min-height: 100vh;
+  }
+  .contents h2 {
+    font-family: var(--serif); font-weight: 700; font-style: italic;
+    font-size: clamp(56px, 7vw, 100px); margin: 0 0 3rem 0;
+  }
+  .contents ol { list-style: none; padding: 0; margin: 0; }
+  .contents li {
+    border-top: 2px solid rgba(0,0,0,0.2);
+    font-family: var(--serif); font-size: 26px; line-height: 1.3;
+  }
+  .contents li:last-child { border-bottom: 2px solid rgba(0,0,0,0.2); }
+  .contents .toc-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.2rem 0; color: inherit; text-decoration: none;
+    transition: background 0.15s ease, padding 0.15s ease;
+  }
+  .contents .toc-link:hover {
+    background: rgba(0,0,0,0.05); padding-left: 1rem; padding-right: 1rem;
+  }
+  .contents .toc-link .t { flex: 1; }
+  html { scroll-behavior: smooth; }
+  .contents .num { font-weight: 800; min-width: 2.5ch; }
+  .contents .cat {
+    font-family: var(--sans); font-size: 20px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600; margin-left: auto; opacity: 0.7;
+  }
+  @media print { .spread, .cover, .contents { page-break-after: always; } }
+</style>
+</head>
+<body>
+
+
+<section class="cover">
+  <div class="subhead"><a href="https://waystonecoaching.com" target="_blank" rel="noopener">Waystone Coaching</a>&#8217;s</div>
+  <h1 class="masthead"><a href="https://waystonecoaching.github.io/morning-edition/">Morning<br>Edition</a></h1>
+  <div class="date">Wednesday, October 7, 2026</div>
+  <div class="editors">Thin water this morning. Coaching feeds gave press releases and rehab ads, so none made the cut, and there is no contemplative piece to close on. Ten fit the rubric and they are here. Several abstracts sat behind a paywall, and the summaries say so. Read the primaries before you repeat a number.</div>
+</section>
+
+<section class="contents"><h2>The Ten</h2><ol><li><a class="toc-link" href="#story-1"><span class="num">01</span><span class="t">A systematic review of the prevalence, risk factors, and protective factors of posttraumatic stress disorder among paramedics</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-2"><span class="num">02</span><span class="t">Pα+ Psychedelic Bulletin #231: Compass Shares 52 Week Follow-Up, Training Grant Recipients; Xylo Enters the Clinic; RFK Jr. Hosts Hubbard</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-3"><span class="num">03</span><span class="t">Adverse Health Outcomes of Psilocybin, LSD, MDMA, Ibogaine, and 5-MeO-DMT - JAMA</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-4"><span class="num">04</span><span class="t">Effects of a brief resonance frequency breathing intervention on heart rate variability and perceived stress in postgraduate students: a pilot and feasibility study</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-5"><span class="num">05</span><span class="t">Assessing the feasibility and acceptability of training first responder peer supporters in trauma risk management (TRiM)</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-6"><span class="num">06</span><span class="t">The promise and the $45,000 price of MDMA-assisted therapy for PTSD - PharmacyToday.co.nz</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-7"><span class="num">07</span><span class="t">The Bench 988: A different approach to firefighter peer support - FireRescue1</span><span class="cat">Peer Support</span></a></li><li><a class="toc-link" href="#story-8"><span class="num">08</span><span class="t">Ketamine for Stress-Related Psychopathology and Suicidality: A Brief Update - Psychiatric Times</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-9"><span class="num">09</span><span class="t">Veterans’ positive parenting practices and satisfaction over time: Examining the impact of moral injury, posttraumatic stress, and internalizing symptoms</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-10"><span class="num">10</span><span class="t">Healing Moral Injury Among Veterans - RAND.org</span><span class="cat">Resilience &amp; Moral Injury</span></a></li></ol></section>
+
+<section id="story-1" class="spread hero">
+  <div class="big-num">01</div>
+  <div class="meta">No. 01 &middot; First Responder MH &middot; 2026-10-06</div>
+  
+  <h2 class="headline">A systematic review of the prevalence, risk factors, and protective factors of posttraumatic stress disorder among paramedics</h2>
+  <p class="framing">Paramedic-specific PTSD numbers, pooled, with risk and protective factors. Peer-reviewed in the Journal of Traumatic Stress, which makes it usable when a responder asks what the base rate actually is. Clinical-adjacent: prevalence and risk data inform screening conversations, but diagnosis and treatment sit outside coaching scope.</p>
+  <p class="summary">The Journal of Traumatic Stress carries a systematic review of PTSD prevalence, risk factors, and protective factors among paramedics (Vol. 39, Issue 5, October 2026). The abstract was not retrievable from here, so read the paper for the pooled prevalence figure and which protective factors held up.</p>
+  <div class="action">Try this: Pull the full text and check the protective-factor findings against what you already ask paramedic clients about.</div>
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70086?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+
+<section id="story-2" class="spread midnight">
+  <div class="big-num">02</div>
+  <div class="meta">No. 02 &middot; Psychedelic Therapy &middot; 2026-09-16</div>
+  
+  <h2 class="headline">Pα+ Psychedelic Bulletin #231: Compass Shares 52 Week Follow-Up, Training Grant Recipients; Xylo Enters the Clinic; RFK Jr. Hosts Hubbard</h2>
+  <p class="framing">Read this one for the credibility question, not the headline. COMP005 is psilocybin for treatment-resistant depression, not PTSD, so it does not move the first responder standard of care. It does show what durable-effect claims look like when a trial runs open-label after the blind breaks. Psychedelic-adjacent, clinical scope.</p>
+  <p class="summary">Compass Pathways reported Part C of COMP005, a 258-patient placebo-controlled Phase 3 trial of 25 mg COMP360 in treatment-resistant depression. Participants who got the active dose first showed an average 13-point MADRS reduction from baseline at Week 52 after a second dose. About 70 percent (179 of 258) entered the open-label Part C, dropout was roughly equal across groups, and the reasons for discontinuation have not been disclosed. Psychedelic Alpha also covers five training grant recipients.</p>
+  <div class="action">Try this: When a client quotes a 52-week number, ask whether it came from the blinded phase or the open-label one.</div>
+  <div class="source">Source: <a href="https://psychedelicalpha.com/news/p%ce%b1-psychedelic-bulletin-231-compass-shares-52-week-follow-up-training-grant-recipients-xylo-enters-the-clinic-rfk-jr-hosts-hubbard/" target="_blank" rel="noopener">Psychedelic Alpha</a></div>
+</section>
+
+<section id="story-3" class="spread rose_alert">
+  <div class="alert-stamp">Dispatch</div>
+  <div class="big-num">03</div>
+  <div class="meta">No. 03 &middot; Psychedelic Therapy &middot; 2026-09-29</div>
+  
+  <h2 class="headline">Adverse Health Outcomes of Psilocybin, LSD, MDMA, Ibogaine, and 5-MeO-DMT - JAMA</h2>
+  <p class="framing">JAMA putting adverse outcomes across psilocybin, LSD, MDMA, ibogaine, and 5-MeO-DMT in one place is the counterweight the field needs while advocacy press runs ahead of the data. Directly relevant to anyone doing integration work, where the client may arrive after an unsupported or poorly screened experience. Scope edge: high-acuity psychiatric risk, referral territory.</p>
+  <p class="summary">JAMA published a review of adverse health outcomes across five psychedelic compounds. Only the headline and source reached the feed, so the specific outcome categories and effect sizes need the full text before anyone quotes them.</p>
+  <div class="action">Try this: Read the paper before your next integration intake and update your screening questions and referral triggers.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxQUmpSNEcwbnI2cng5b2hlb2JvenlRUVFvY2V6bnV1bDgtQUc2VmlkelVubjNENmhpc0dhVml2cjZJeFlZWmxDU254eWlnLVVvckUyVlhtUTZIamI1TWw3VmJlYmtfZW5XQWRYdGZ3cmk0MmVVcjk4R0FzTDN3cTB4QUFhX3pMVlNvZUtjazlOZHpfMlF1Y2duWGh1dTlwWVZUZWRpLXZQSlk1c1hzTDVMa0Vacw?oc=5" target="_blank" rel="noopener">JAMA Psychedelic</a></div>
+</section>
+
+<section id="story-4" class="spread terminal">
+  <div class="prompt">04</div>
+  <div class="meta">No. 04 &middot; First Responder MH &middot; 2026-10-07</div>
+  
+  <h2 class="headline">Effects of a brief resonance frequency breathing intervention on heart rate variability and perceived stress in postgraduate students: a pilot and feasibility study</h2>
+  <p class="framing">A small, honest pilot on slow-paced breathing and autonomic regulation. HRV moved, felt stress did not reach significance. That gap is the useful part: the body can shift before the story does. Polyvagal-adjacent, though the paper is about HRV, not polyvagal theory.</p>
+  <p class="summary">Twelve postgraduate students were randomized to six or six. The intervention group did ten minutes a day of app-guided resonance frequency breathing for three weeks. Between-group differences favored breathing on SDNN at weeks 2 and 3 and on RMSSD at week 3. Perceived stress showed no significant difference (p=0.199), though the intervention group dropped about 6 points while controls rose 4.5. Limits: tiny sample, no active control, no follow-up, self-reported adherence.</p>
+  <div class="action">Try this: Try ten minutes of paced breathing yourself for a week and note what changes in the body before the story changes.</div>
+  <div class="source">Source: <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2026.1787922" target="_blank" rel="noopener">Frontiers in Psychology</a></div>
+</section>
+
+<section id="story-5" class="spread academic">
+  <div class="big-num">V</div>
+  <div class="meta">No. 05 &middot; First Responder MH &middot; 2026-09-30</div>
+  
+  <h2 class="headline">Assessing the feasibility and acceptability of training first responder peer supporters in trauma risk management (TRiM)</h2>
+  <p class="framing">Peer supporter training built on Trauma Risk Management, tested for feasibility with first responders. TRiM is a structured model, so the question is how it sits next to non-directive, relationship-first peer support. Touches the behavioral crisis and peer support lane. Scope edge: peer supporters screen for risk, and that line matters.</p>
+  <p class="summary">An early-view Journal of Traumatic Stress paper assesses how feasible and acceptable it is to train first responder peer supporters in TRiM. The abstract was not retrievable from here, so the sample, setting, and acceptability findings need the full text.</p>
+  <div class="action">Try this: Read the methods section and compare TRiM's screening step with how your own peer programs handle risk.</div>
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70130?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+
+<section id="story-6" class="spread big_stat">
+  <div class="meta">No. 06 &middot; Psychedelic Therapy &middot; 2026-09-24</div>
+  <div class="mega">$45,000<span class="unit">price tag cited for MDMA-assisted therapy for PTSD</span></div>
+  
+  <h2 class="headline">The promise and the $45,000 price of MDMA-assisted therapy for PTSD - PharmacyToday.co.nz</h2>
+  <p class="framing">Access is the other half of the credibility story. If a course of MDMA-assisted therapy prices near the figure in the headline, first responders on department insurance are not the people it reaches. Read it with the FDA history in mind and watch who is selling the promise.</p>
+  <p class="summary">PharmacyToday.co.nz covers the promise of MDMA-assisted therapy for PTSD against a $45,000 price tag, as the headline states. The article text was not retrievable here, so check which currency and which cost components it counts.</p>
+  <div class="action">Try this: Ask any client weighing this path what their realistic access route is, and what integration support exists afterward.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxQVktxNW9CMC12UTJNNW04R3B5U2pzZkFHU25WN2xQRG9reGFPTkVHV2xzcEhfWjduTTBOdzBhVkpoWWlJSk9XYWY4UFY3Y2g2SEl1ZkhXYnBLeXJNeGFBV2FEdlpKU3BLVElYWmpjcFZTMUlMbS05NDdlWGtYSEx0SEpsR1J2RnBTa29nblBPSVpmZ1p6NElRUVJwSUdNZXpZWGxBang5YWU2UQ?oc=5" target="_blank" rel="noopener">Psychedelic PTSD Responder Query</a></div>
+</section>
+
+<section id="story-7" class="spread newsprint">
+  <div class="roman">VII</div>
+  <div class="masthead">The Waystone Dispatch</div>
+  <div class="meta">No. 07 &middot; Peer Support &middot; 2026-10-01</div>
+  
+  <h2 class="headline">The Bench 988: A different approach to firefighter peer support - FireRescue1</h2>
+  <div class="cols">
+    <p>FireRescue1 describes The Bench 988 as a different approach to firefighter peer support. Only the headline reached the feed, so details on structure, staffing, and results are unknown until you read it.</p>
+    <div class="pullquote">A firefighter peer support model built around the 988 line, from FireRescue1, a trade outlet. Trade press, so read for program design, not outcomes. This is the lane you work in. Scope edge: any 988-linked model touches suicidality, which is a clinical referral line, not a coaching one.</div>
+    <p>A firefighter peer support model built around the 988 line, from FireRescue1, a trade outlet. Trade press, so read for program design, not outcomes. This is the lane you work in. Scope edge: any 988-linked model touches suicidality, which is a clinical referral line, not a coaching one.</p>
+  </div>
+  <div class="action">Try this: Read it for how it hands off from peer to clinician, and note what you would borrow for a Phoenix-style program.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxNNDZsVWpydVN1MWxnanhzc25PNTA1TkduaEJnMjA3V3FfSmljdjAyaHpxNUQ5MmRQUDNsVTRjUV9kd0FHZ1VocjBkbU5GWkduVy04b1EySEpvZnR1b3l6X29Fc0RJc1l0STVpVVVzQWNteXNpZzhzMDF3UkRXNjM3dUlUUm1qb195NjNITDBTMjR4Y2lhVUROc08wR21FSEhhc2JIdnVkRTk0Zw?oc=5" target="_blank" rel="noopener">Peer Support Query</a></div>
+</section>
+
+<section id="story-8" class="spread poster">
+  <div class="big-num">08</div>
+  <div class="meta">No. 08 &middot; Psychedelic Therapy &middot; 2026-09-30</div>
+  
+  <h2 class="headline">Ketamine for Stress-Related Psychopathology and Suicidality: A Brief Update - Psychiatric Times</h2>
+  <p class="framing">Psychiatric Times brief update on ketamine for stress-related conditions and suicidality. Not a primary source, so treat it as a map to the primary literature. Hard scope edge: suicidality plus a controlled substance means this is for context and referral, never coaching ground.</p>
+  <p class="summary">Psychiatric Times offers a brief update on ketamine for stress-related psychopathology and suicidality. Only the headline reached the feed. Pull the cited trials before leaning on any claim.</p>
+  <div class="action">Try this: Use it to find the primary studies, then read those.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxQMGdNOXA1YUotQ0hLRUpKVS01THp6dDhPc1Izcm1QWXpieG9WTndIYUNBZFNieS00UUlXYmF4Z1NSOVB3RTRUZXFmREVQcHA3NzR1ZnNBZjVtVTA2Tzh3bU9YUjN3a1F2enQtektiR0lnRzNpOTVIMlQyREpGQWRDT1lDanFuUUQ1WkhBNjNjYmpVQVZXN25kSTd6bFRWTG9UV3FuUUJRQ0o0Zw?oc=5" target="_blank" rel="noopener">Psychedelic PTSD Responder Query</a></div>
+</section>
+
+<section id="story-9" class="spread field_notes">
+  <div class="big-num">ix</div>
+  <div class="meta">No. 09 &middot; First Responder MH &middot; 2026-10-06</div>
+  
+  <h2 class="headline">Veterans’ positive parenting practices and satisfaction over time: Examining the impact of moral injury, posttraumatic stress, and internalizing symptoms</h2>
+  <p class="framing">Moral injury shows up here as a family system problem, not only an individual one. This sits in the structural-critique lineage, where harm comes from what was done or witnessed, not from a faulty mind. Useful for responders whose home life carries the weight. Veterans, not first responders, so check transfer.</p>
+  <p class="summary">A Journal of Traumatic Stress paper tracks veterans' positive parenting practices and satisfaction over time, examining the effects of moral injury, posttraumatic stress, and internalizing symptoms. The abstract was not retrievable from here, so the direction and size of the moral injury effect need the full text.</p>
+  <div class="action">Try this: Ask a client how the thing they carry shows up at the kitchen table, not only on shift.</div>
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70083?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+
+<section id="story-10" class="spread coda">
+  <div class="roman">X</div>
+  <div class="meta">No. 10 &middot; Resilience &amp; Moral Injury &middot; 2026-10-06</div>
+  
+  <h2 class="headline">Healing Moral Injury Among Veterans - RAND.org</h2>
+  <p class="framing">RAND on healing moral injury, which puts it in the policy and applied-research camp. Read it next to Litz and Shay and name the difference: one frame treats it as an injury to be treated, the other as a betrayal to be answered. Close on this one and let it sit.</p>
+  <p class="summary">RAND published work on healing moral injury among veterans. Only the headline reached the feed, so the specific interventions and evidence base are unconfirmed.</p>
+  <div class="action">Try this: Sit with one question today: what did the institution ask of you that you have not forgiven yourself or it for?</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE9DaHVQODRHOWNuVW5qVkdDMS1ZSEtXWDNaMnFxSW1EVk9vaVNaZk5hbjNZVjJSOUdkdUw3M2hBUkVsRHl5ZUxhQ0tiMFZUTHRwWmFESUZ1QmY4aW55UHNzcFhxZ2dZMTFO?oc=5" target="_blank" rel="noopener">Moral Injury Research Query</a></div>
+</section>
+</body></html>
