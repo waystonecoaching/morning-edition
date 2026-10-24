@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Edition - 2026-10-24</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --cream: #f4efe6;
+    --ivory: #f8f4ec;
+    --ink: #121212;
+    --midnight: #0b1224;
+    --rose: #f0d3cb;
+    --alert: #c43a2e;
+    --terminal-bg: #0a0d0a;
+    --terminal-fg: #7cff9c;
+    --academic: #f6f1e3;
+    --newsprint: #ebe3d3;
+    --poster: #10412b;
+    --field: #e9efe6;
+    --sage: #c8d2c1;
+    --monastic: #3a3a34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .spread {
+    min-height: 100vh;
+    padding: 8vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .spread .meta {
+    font-family: var(--sans);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .spread .headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    margin: 0 0 2.4rem 0;
+  }
+  .spread .framing {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+  }
+  .spread .summary {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+  .spread .action {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    max-width: 60ch;
+    border-left: 6px solid currentColor;
+  }
+  .spread .source {
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    opacity: 0.85;
+  }
+  .spread .source a { text-decoration: none; }
+  /* ====== 01 HERO ====== */
+  .hero { background: var(--cream); color: var(--ink); }
+  .hero .big-num {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(180px, 28vw, 460px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    position: absolute;
+    right: -3vw; top: -4vh;
+    color: var(--ink);
+    opacity: 0.08;
+  }
+  .hero .headline { font-size: clamp(64px, 9vw, 140px); font-weight: 800; }
+
+  /* ====== 02 MIDNIGHT ====== */
+  .midnight { background: var(--midnight); color: var(--ivory); }
+  .midnight .big-num {
+    position: absolute; right: 6vw; top: 6vh;
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.9;
+    color: transparent; -webkit-text-stroke: 2px var(--ivory);
+  }
+  .midnight .headline { font-size: clamp(56px, 7.5vw, 120px); font-style: italic; }
+
+  /* ====== 03 ROSE ALERT ====== */
+  .rose_alert { background: var(--rose); color: var(--ink); }
+  .rose_alert .alert-stamp {
+    position: absolute; right: 6vw; top: 10vh;
+    border: 6px solid var(--alert); color: var(--alert);
+    padding: 1rem 2rem; transform: rotate(9deg);
+    font-family: var(--sans); font-weight: 900; font-size: 38px;
+    letter-spacing: 0.3em;
+  }
+  .rose_alert .big-num {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(140px, 20vw, 260px); color: var(--alert);
+    line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem;
+  }
+  .rose_alert .headline { font-size: clamp(54px, 7vw, 110px); font-weight: 700; }
+
+  /* ====== 04 TERMINAL ====== */
+  .terminal { background: var(--terminal-bg); color: var(--terminal-fg); font-family: var(--mono); }
+  .terminal::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    pointer-events: none;
+  }
+  .terminal .prompt {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(140px, 18vw, 260px); line-height: 1;
+    margin-bottom: 2rem; color: #ffb347;
+    letter-spacing: -0.02em;
+  }
+  .terminal .headline {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(40px, 5vw, 72px); line-height: 1.15; color: var(--terminal-fg);
+  }
+  .terminal .framing, .terminal .summary, .terminal .action {
+    font-family: var(--mono); color: #cfd8cf; font-size: 22px;
+  }
+  .terminal .summary { color: #9fe8b3; }
+  .terminal .source { color: #ffb347; }
+
+  /* ====== 05 ACADEMIC ====== */
+  .academic { background: var(--academic); color: #1a1a1a; }
+  .academic .big-num {
+    position: absolute; right: 7vw; top: 8vh;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(140px, 18vw, 260px); color: #b79b5a;
+  }
+  .academic .headline {
+    font-size: clamp(48px, 6.5vw, 100px); font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  }
+  .academic .summary::first-letter {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 6.5em; float: left; line-height: 0.8;
+    padding: 0.1em 0.15em 0 0; color: #8a6f2f;
+  }
+
+  /* ====== 06 BIG STAT ====== */
+  .big_stat { background: #ffffff; color: var(--ink); justify-content: flex-start; }
+  .big_stat .mega {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(220px, 34vw, 540px); line-height: 0.85;
+    letter-spacing: -0.05em; margin: 0; color: var(--ink);
+  }
+  .big_stat .mega .unit {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 0.25em; vertical-align: super; letter-spacing: 0.05em;
+  }
+  .big_stat .headline { font-size: clamp(40px, 5vw, 72px); font-weight: 700; max-width: 28ch; }
+
+  /* ====== 07 NEWSPRINT ====== */
+  .newsprint { background: var(--newsprint); color: #1b1b1b; padding: 6vh 5vw; }
+  .newsprint .masthead {
+    font-family: var(--serif); font-weight: 900; font-style: italic;
+    font-size: 28px; letter-spacing: 0.04em; border-bottom: 3px double #1b1b1b; padding-bottom: 0.6rem;
+    margin-bottom: 1.8rem;
+  }
+  .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
+  .newsprint .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem; row-gap: 1.6rem;
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+  }
+  .newsprint .cols p { margin: 0; }
+  .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .newsprint .cols > p:last-of-type { grid-column: 2; grid-row: 1; }
+  .newsprint .cols > .pullquote { grid-column: 1 / -1; grid-row: 2; }
+  @media (max-width: 720px) {
+    .newsprint .cols { grid-template-columns: 1fr; }
+    .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+    .newsprint .cols > .pullquote { grid-column: 1; grid-row: 2; }
+    .newsprint .cols > p:last-of-type { grid-column: 1; grid-row: 3; }
+  }
+  .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
+    border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
+  }
+  .newsprint .roman {
+    position: absolute; right: 5vw; top: 3vh;
+    font-family: var(--serif); font-style: italic; font-weight: 600;
+    font-size: 80px; color: #1b1b1b;
+  }
+
+  /* ====== 08 POSTER ====== */
+  .poster { background: var(--poster); color: #f2e9d5; }
+  .poster .big-num {
+    position: absolute; right: 4vw; top: 4vh;
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.85;
+    color: #f2e9d5; opacity: 0.12; letter-spacing: -0.05em;
+  }
+  .poster .headline {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(68px, 9vw, 150px); letter-spacing: -0.02em;
+    text-transform: uppercase; line-height: 0.92;
+  }
+
+  /* ====== 09 FIELD NOTES ====== */
+  .field_notes {
+    background: var(--field) ;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: #1a1f1a;
+  }
+  .field_notes .big-num {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(120px, 16vw, 220px); line-height: 0.9;
+    color: #4b5a44; margin-bottom: 0.5rem;
+  }
+  .field_notes .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); max-width: 22ch; line-height: 1.05;
+  }
+
+  /* ====== 10 CODA ====== */
+  .coda {
+    background: var(--sage); color: var(--monastic);
+    text-align: center; align-items: center;
+  }
+  .coda .roman {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(140px, 18vw, 240px); line-height: 1; margin-bottom: 1rem;
+  }
+  .coda .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(54px, 7vw, 110px); max-width: 22ch;
+  }
+  .coda .framing, .coda .summary { max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ====== Cover ====== */
+  .cover {
+    background: var(--ink); color: var(--ivory); text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10vh 6vw;
+  }
+  .cover .masthead {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(90px, 13vw, 220px); line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 0.15em;
+  }
+  .cover .masthead a { color: inherit; text-decoration: none; }
+  .cover .subhead a { color: inherit; text-decoration: none; opacity: 0.85; }
+  .cover .subhead {
+    font-family: var(--sans); font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 24px; margin-top: 2rem; opacity: 0.85;
+  }
+  .cover .date {
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(34px, 4vw, 60px); margin-top: 3rem;
+  }
+  .cover .editors {
+    font-family: var(--serif); font-size: 26px; line-height: 1.5;
+    max-width: 52ch; margin-top: 4rem; text-align: left;
+  }
+  .contents {
+    background: var(--ivory); color: var(--ink);
+    padding: 10vh 6vw; min-height: 100vh;
+  }
+  .contents h2 {
+    font-family: var(--serif); font-weight: 700; font-style: italic;
+    font-size: clamp(56px, 7vw, 100px); margin: 0 0 3rem 0;
+  }
+  .contents ol { list-style: none; padding: 0; margin: 0; }
+  .contents li {
+    border-top: 2px solid rgba(0,0,0,0.2);
+    font-family: var(--serif); font-size: 26px; line-height: 1.3;
+  }
+  .contents li:last-child { border-bottom: 2px solid rgba(0,0,0,0.2); }
+  .contents .toc-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.2rem 0; color: inherit; text-decoration: none;
+    transition: background 0.15s ease, padding 0.15s ease;
+  }
+  .contents .toc-link:hover {
+    background: rgba(0,0,0,0.05); padding-left: 1rem; padding-right: 1rem;
+  }
+  .contents .toc-link .t { flex: 1; }
+  html { scroll-behavior: smooth; }
+  .contents .num { font-weight: 800; min-width: 2.5ch; }
+  .contents .cat {
+    font-family: var(--sans); font-size: 20px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600; margin-left: auto; opacity: 0.7;
+  }
+  @media print { .spread, .cover, .contents { page-break-after: always; } }
+</style>
+</head>
+<body>
+
+
+<section class="cover">
+  <div class="subhead"><a href="https://waystonecoaching.com" target="_blank" rel="noopener">Waystone Coaching</a>&#8217;s</div>
+  <h1 class="masthead"><a href="https://waystonecoaching.github.io/morning-edition/">Morning<br>Edition</a></h1>
+  <div class="date">Saturday, October 24, 2026</div>
+  <div class="editors">Thin day, and most of it arrived as bare headlines, so I marked what is unread. Nothing in the feed spoke to coaching practice and I did not reach to fill the slot. Most items carry a headline or a citation and nothing more. Open the paper before you trust the paper.</div>
+</section>
+
+<section class="contents"><h2>The Ten</h2><ol><li><a class="toc-link" href="#story-1"><span class="num">01</span><span class="t">A living systematic review, meta-analysis, and open data resource of trials of MDMA-assisted therapy for PTSD - Nature</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-2"><span class="num">02</span><span class="t">Ten VA Sites, REMS and Ibogaine’s “Uphill Battle”: Feds Weigh In on Psychedelic Access</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-3"><span class="num">03</span><span class="t">A systematic review of the prevalence, risk factors, and protective factors of posttraumatic stress disorder among paramedics</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-4"><span class="num">04</span><span class="t">Healthcare cost watchdog to scrutinize Compass’s synthetic psilocybin, and Study links enhanced feelings of connection to lighter depression following psilocybin - The Microdose</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-5"><span class="num">05</span><span class="t">Psychosocial interventions for adult survivors and responders exposed to mass casualty events: A systematic review and network meta‐analysis</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-6"><span class="num">06</span><span class="t">MDMA (Molly) for PTSD: Hope, Hype, and Hard Evidence - Psychology Today</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-7"><span class="num">07</span><span class="t">Healing Moral Injury Among Veterans - RAND</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-8"><span class="num">08</span><span class="t">So the Body Doesn't Really Keep the Score? - Psychology Today</span><span class="cat">Polyvagal</span></a></li><li><a class="toc-link" href="#story-9"><span class="num">09</span><span class="t">Veterans’ positive parenting practices and satisfaction over time: Examining the impact of moral injury, posttraumatic stress, and internalizing symptoms</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-10"><span class="num">10</span><span class="t">Safety, stability, and connection: Facilitator perspectives from a youth peer support group for immigrant survivors of trauma and trafficking in Baltimore</span><span class="cat">Peer Support</span></a></li></ol></section>
+
+<section id="story-1" class="spread hero">
+  <div class="big-num">01</div>
+  <div class="meta">No. 01 &middot; Psychedelic Therapy &middot; 2026-10-11</div>
+  
+  <h2 class="headline">A living systematic review, meta-analysis, and open data resource of trials of MDMA-assisted therapy for PTSD - Nature</h2>
+  <p class="framing">Primary literature, and a living review with open data is the right format for a field under credibility stress. Check how it handles unblinding, expectancy and the Lykos-era trial problems before you quote any pooled effect size to a client. Scope note: MDMA for PTSD is clinical and high-acuity. Your lane is preparation and integration.</p>
+  <p class="summary">A living systematic review and meta-analysis of MDMA-assisted therapy trials for PTSD, published in Nature's Neuropsychopharmacology, with the underlying trial data released as an open resource. The feed carried only the title, so effect sizes and bias ratings are unread. Open the paper before relying on any of it.</p>
+  <div class="action">Try this: Skim risk of bias and unblinding first, then bookmark the open dataset.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTE9MM294aG9BOU5xZHIzWmFFMk9VZ2RIdGFic2haeGtzSW9WQ0ZTN2F1TGxPZDZqd0hlb3h2MGJKT0IwM01hN2t5Tld0YTlHMXRXRzVkRGlQWFlFQ0lnSlRR?oc=5" target="_blank" rel="noopener">Psychedelic PTSD Responder Query</a></div>
+</section>
+
+<section id="story-2" class="spread midnight">
+  <div class="big-num">02</div>
+  <div class="meta">No. 02 &middot; Psychedelic Therapy &middot; 2026-10-22</div>
+  
+  <h2 class="headline">Ten VA Sites, REMS and Ibogaine’s “Uphill Battle”: Feds Weigh In on Psychedelic Access</h2>
+  <p class="framing">Federal officials speaking in public about veteran access is the closest thing to a standard-of-care signal for responder PTSD. Read it as a panel recap from a trade outlet that co-hosted the event, not as policy. Scope note: access, REMS and ibogaine all sit in clinical territory, outside coaching.</p>
+  <p class="summary">Psychedelic Alpha recaps a panel of federal officials at the Psychedelic Healthcare Forum in New York, moderated by POLITICO's Erin Schumaker. The headline points to ten VA sites, a possible REMS framework, and an uphill road for ibogaine. The feed carried only the opening paragraph, so specifics are in the full piece.</p>
+  <div class="action">Try this: Read the recap and note any timeline for VA sites and any facilitator training requirement under a REMS.</div>
+  <div class="source">Source: <a href="https://psychedelicalpha.com/news/ten-va-sites-rems-and-ibogaines-uphill-battle-feds-weigh-in-on-psychedelic-access/" target="_blank" rel="noopener">Psychedelic Alpha</a></div>
+</section>
+
+<section id="story-3" class="spread rose_alert">
+  <div class="alert-stamp">Dispatch</div>
+  <div class="big-num">03</div>
+  <div class="meta">No. 03 &middot; First Responder MH &middot; 2026-10-06</div>
+  
+  <h2 class="headline">A systematic review of the prevalence, risk factors, and protective factors of posttraumatic stress disorder among paramedics</h2>
+  <p class="framing">Peer-reviewed and about your own people. Paramedics carry a different exposure profile than the fire-side numbers most programs borrow. Scope note: prevalence and risk work informs screening, which is clinical. What you can use is the protective-factor half.</p>
+  <p class="summary">A systematic review in the Journal of Traumatic Stress covering prevalence, risk factors and protective factors for PTSD among paramedics (Volume 39, Issue 5, October 2026). The feed carried only the citation, so the pooled prevalence and the protective factors named are unread.</p>
+  <div class="action">Try this: Pull the protective-factor section and set it against what you already ask responders in a first session.</div>
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70086?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+
+<section id="story-4" class="spread terminal">
+  <div class="prompt">04</div>
+  <div class="meta">No. 04 &middot; Psychedelic Therapy &middot; 2026-10-23</div>
+  
+  <h2 class="headline">Healthcare cost watchdog to scrutinize Compass’s synthetic psilocybin, and Study links enhanced feelings of connection to lighter depression following psilocybin - The Microdose</h2>
+  <p class="framing">Two items in one headline. The connection finding is the one for you: felt connection tied to lighter depression after psilocybin points at the relational side of integration. The cost-watchdog item is payer news about Compass. Newsletter digest, so treat both as pointers, not findings.</p>
+  <p class="summary">The Microdose reports that a healthcare cost watchdog will scrutinize Compass's synthetic psilocybin, and that a study links enhanced feelings of connection to lighter depression after psilocybin. The feed carried only the headline, so the study design and effect size are unread. Depression, not PTSD, so the transfer to responders is an inference.</p>
+  <div class="action">Try this: Find the connection study behind the digest and check whether connection was measured or self-reported in hindsight.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMif0FVX3lxTFBtZnUzVV9GbVdid2dZMzJOMW9XbFBmMHNpOVE1MmlHSk9jN1liR0owaWV1RUdLakxJZTg3d1lJUkhuME4wSGFtM2NvbGRrRDFmZ3FiWTdTRERHTzBCS3YtdTFTdm1XVV9QcGtyaTNjcFdISm5Fa05lSlFOS2ZXV0U?oc=5" target="_blank" rel="noopener">Psychedelic PTSD Responder Query</a></div>
+</section>
+
+<section id="story-5" class="spread academic">
+  <div class="big-num">V</div>
+  <div class="meta">No. 05 &middot; First Responder MH &middot; 2026-10-22</div>
+  
+  <h2 class="headline">Psychosocial interventions for adult survivors and responders exposed to mass casualty events: A systematic review and network meta‐analysis</h2>
+  <p class="framing">A network meta-analysis across survivors and responders exposed to mass casualty events. This is the evidence base peer support teams lean on after a bad event, so check whether it ranks anything above plain support. Scope note: post-event intervention is clinical-adjacent and high-acuity.</p>
+  <p class="summary">A systematic review and network meta-analysis in the Journal of Traumatic Stress comparing psychosocial interventions for adult survivors and responders exposed to mass casualty events (EarlyView). The feed carried only the title, so which interventions ranked best is unread.</p>
+  <div class="action">Try this: Check how many included studies were responders versus survivors before applying it to a shift crew.</div>
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70128?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+
+<section id="story-6" class="spread big_stat">
+  <div class="meta">No. 06 &middot; Psychedelic Therapy &middot; 2026-10-19</div>
+  <div class="mega">06</div>
+  
+  <h2 class="headline">MDMA (Molly) for PTSD: Hope, Hype, and Hard Evidence - Psychology Today</h2>
+  <p class="framing">A mainstream, skeptic-friendly read on MDMA for PTSD, which is the framing a client's spouse or chief will see first. Useful for knowing what the public is being told. The headline promises hard evidence, so see whether it names the functional unblinding problem or skips it.</p>
+  <p class="summary">Psychology Today piece on MDMA for PTSD, framed as hope, hype and hard evidence. The feed carried only the headline, so the evidence it cites and its stance on the trial problems are unread.</p>
+  <div class="action">Try this: Read it as a gauge of the public narrative, then compare against the Nature review in slot one.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMisgFBVV95cUxQa1k2ZDlobXBESG9jLVM5bnFSM3MtRklUOE4wbTJzSDV6bHJyb3lHSElhbzBXbUJEeHlCOHNCU2tEV1F6M2EtV1YtQWhRNUxXeHFnZl9tWUpQOW4xY0lCTnlUZ0RtY0JfVW9naEV3TGVFblp0Y0RpdFh0bU1EdTNzQTNFTXRMdzZSX1JMTFRmM1ptTm9PcDBDSW5LNnlQUExGQWk1TGllalFySVNHbjFaMUNB?oc=5" target="_blank" rel="noopener">Psychedelic PTSD Responder Query</a></div>
+</section>
+
+<section id="story-7" class="spread newsprint">
+  <div class="roman">VII</div>
+  <div class="masthead">The Waystone Dispatch</div>
+  <div class="meta">No. 07 &middot; Resilience &amp; Moral Injury &middot; 2026-10-06</div>
+  
+  <h2 class="headline">Healing Moral Injury Among Veterans - RAND</h2>
+  <div class="cols">
+    <p>RAND piece on healing moral injury among veterans (published 6 October). The feed carried only the headline, so the interventions and evidence it covers are unread.</p>
+    <div class="pullquote">RAND sits in the applied, program-oriented lineage. Name that when you read it. If it treats moral injury as an individual treatment target, set it against Litz and Shay, who put leadership betrayal at the center. Veterans, not responders, but the mechanism transfers. Scope note: treatment of moral injury is clinical.</div>
+    <p>RAND sits in the applied, program-oriented lineage. Name that when you read it. If it treats moral injury as an individual treatment target, set it against Litz and Shay, who put leadership betrayal at the center. Veterans, not responders, but the mechanism transfers. Scope note: treatment of moral injury is clinical.</p>
+  </div>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE9DaHVQODRHOWNuVW5qVkdDMS1ZSEtXWDNaMnFxSW1EVk9vaVNaZk5hbjNZVjJSOUdkdUw3M2hBUkVsRHl5ZUxhQ0tiMFZUTHRwWmFESUZ1QmY4aW55UHNzcFhxZ2dZMTFO?oc=5" target="_blank" rel="noopener">Moral Injury Research Query</a></div>
+</section>
+
+<section id="story-8" class="spread poster">
+  <div class="big-num">08</div>
+  <div class="meta">No. 08 &middot; Polyvagal &middot; 2026-10-14</div>
+  
+  <h2 class="headline">So the Body Doesn't Really Keep the Score? - Psychology Today</h2>
+  <p class="framing">The body-keeps-the-score claim has been under critique for a while, and polyvagal work gets pulled into the same fight. Read it for what it concedes and what it attacks. If it goes after Porges directly, that changes how you describe autonomic state to clients, so mark it.</p>
+  <p class="summary">Psychology Today asks whether the body really keeps the score, a challenge to the popular trauma-and-body framing. The feed carried only the headline, so which claims it contests and whether polyvagal theory is named are unread.</p>
+  <div class="action">Try this: Decide whether your client-facing language says 'the body keeps the score' or something narrower, and write the narrower sentence down.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMipwFBVV95cUxPaEhaUXpVNHdXT0VXUTc0Q2JSUTRLU1ZvRk5nMUtTNlduUXdmZzhIc2FMQWFBdlUyYkhlamNycEtoR2cyYTlXME8wTUZIVndMeG1RQjJfTEVEMVd2V3Q3ZEIxVHZNM2RrbWtmSGVNVEpYRi1pcXhNNTM5NTJsX2VsajdjZjRZM3NaRldJU1QyNjAxSHVPTG9PNnJ2UzlkckNoQi1BY3plbw?oc=5" target="_blank" rel="noopener">Polyvagal Query</a></div>
+</section>
+
+<section id="story-9" class="spread field_notes">
+  <div class="big-num">ix</div>
+  <div class="meta">No. 09 &middot; Resilience &amp; Moral Injury &middot; 2026-10-06</div>
+  
+  <h2 class="headline">Veterans’ positive parenting practices and satisfaction over time: Examining the impact of moral injury, posttraumatic stress, and internalizing symptoms</h2>
+  <p class="framing">Peer-reviewed work linking moral injury and PTSD to how veterans parent over time. It is the home-front end of the moral injury story, which is where responders' families live too. Scope note: internalizing symptoms are clinical, so keep it as context for coaching conversations.</p>
+  <p class="summary">A Journal of Traumatic Stress study (Volume 39, Issue 5, October 2026) examining how moral injury, posttraumatic stress and internalizing symptoms affect veterans' positive parenting practices and satisfaction over time. The feed carried only the citation, so the effect directions are unread.</p>
+  
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70083?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+
+<section id="story-10" class="spread coda">
+  <div class="roman">X</div>
+  <div class="meta">No. 10 &middot; Peer Support &middot; 2026-10-16</div>
+  
+  <h2 class="headline">Safety, stability, and connection: Facilitator perspectives from a youth peer support group for immigrant survivors of trauma and trafficking in Baltimore</h2>
+  <p class="framing">Facilitators of a peer support group for young immigrant survivors of trauma and trafficking name safety, stability and connection as what the group runs on. Different population, same order of operations you work in: felt safety first, then the rest. Scope note: trafficking survivors are high-acuity and well outside coaching, so take the structure, not the method.</p>
+  <p class="summary">A Journal of Traumatic Stress qualitative study of facilitator perspectives on a youth peer support group in Baltimore for immigrant survivors of trauma and trafficking (EarlyView). The feed carried only the title and journal line, so the specific facilitator findings are unread.</p>
+  
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70127?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+</body></html>
