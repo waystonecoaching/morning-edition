@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Edition - 2026-10-30</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --cream: #f4efe6;
+    --ivory: #f8f4ec;
+    --ink: #121212;
+    --midnight: #0b1224;
+    --rose: #f0d3cb;
+    --alert: #c43a2e;
+    --terminal-bg: #0a0d0a;
+    --terminal-fg: #7cff9c;
+    --academic: #f6f1e3;
+    --newsprint: #ebe3d3;
+    --poster: #10412b;
+    --field: #e9efe6;
+    --sage: #c8d2c1;
+    --monastic: #3a3a34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .spread {
+    min-height: 100vh;
+    padding: 8vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .spread .meta {
+    font-family: var(--sans);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .spread .headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    margin: 0 0 2.4rem 0;
+  }
+  .spread .framing {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+  }
+  .spread .summary {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+  .spread .action {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    max-width: 60ch;
+    border-left: 6px solid currentColor;
+  }
+  .spread .source {
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    opacity: 0.85;
+  }
+  .spread .source a { text-decoration: none; }
+  /* ====== 01 HERO ====== */
+  .hero { background: var(--cream); color: var(--ink); }
+  .hero .big-num {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(180px, 28vw, 460px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    position: absolute;
+    right: -3vw; top: -4vh;
+    color: var(--ink);
+    opacity: 0.08;
+  }
+  .hero .headline { font-size: clamp(64px, 9vw, 140px); font-weight: 800; }
+
+  /* ====== 02 MIDNIGHT ====== */
+  .midnight { background: var(--midnight); color: var(--ivory); }
+  .midnight .big-num {
+    position: absolute; right: 6vw; top: 6vh;
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.9;
+    color: transparent; -webkit-text-stroke: 2px var(--ivory);
+  }
+  .midnight .headline { font-size: clamp(56px, 7.5vw, 120px); font-style: italic; }
+
+  /* ====== 03 ROSE ALERT ====== */
+  .rose_alert { background: var(--rose); color: var(--ink); }
+  .rose_alert .alert-stamp {
+    position: absolute; right: 6vw; top: 10vh;
+    border: 6px solid var(--alert); color: var(--alert);
+    padding: 1rem 2rem; transform: rotate(9deg);
+    font-family: var(--sans); font-weight: 900; font-size: 38px;
+    letter-spacing: 0.3em;
+  }
+  .rose_alert .big-num {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(140px, 20vw, 260px); color: var(--alert);
+    line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem;
+  }
+  .rose_alert .headline { font-size: clamp(54px, 7vw, 110px); font-weight: 700; }
+
+  /* ====== 04 TERMINAL ====== */
+  .terminal { background: var(--terminal-bg); color: var(--terminal-fg); font-family: var(--mono); }
+  .terminal::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    pointer-events: none;
+  }
+  .terminal .prompt {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(140px, 18vw, 260px); line-height: 1;
+    margin-bottom: 2rem; color: #ffb347;
+    letter-spacing: -0.02em;
+  }
+  .terminal .headline {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(40px, 5vw, 72px); line-height: 1.15; color: var(--terminal-fg);
+  }
+  .terminal .framing, .terminal .summary, .terminal .action {
+    font-family: var(--mono); color: #cfd8cf; font-size: 22px;
+  }
+  .terminal .summary { color: #9fe8b3; }
+  .terminal .source { color: #ffb347; }
+
+  /* ====== 05 ACADEMIC ====== */
+  .academic { background: var(--academic); color: #1a1a1a; }
+  .academic .big-num {
+    position: absolute; right: 7vw; top: 8vh;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(140px, 18vw, 260px); color: #b79b5a;
+  }
+  .academic .headline {
+    font-size: clamp(48px, 6.5vw, 100px); font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  }
+  .academic .summary::first-letter {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 6.5em; float: left; line-height: 0.8;
+    padding: 0.1em 0.15em 0 0; color: #8a6f2f;
+  }
+
+  /* ====== 06 BIG STAT ====== */
+  .big_stat { background: #ffffff; color: var(--ink); justify-content: flex-start; }
+  .big_stat .mega {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(220px, 34vw, 540px); line-height: 0.85;
+    letter-spacing: -0.05em; margin: 0; color: var(--ink);
+  }
+  .big_stat .mega .unit {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 0.25em; vertical-align: super; letter-spacing: 0.05em;
+  }
+  .big_stat .headline { font-size: clamp(40px, 5vw, 72px); font-weight: 700; max-width: 28ch; }
+
+  /* ====== 07 NEWSPRINT ====== */
+  .newsprint { background: var(--newsprint); color: #1b1b1b; padding: 6vh 5vw; }
+  .newsprint .masthead {
+    font-family: var(--serif); font-weight: 900; font-style: italic;
+    font-size: 28px; letter-spacing: 0.04em; border-bottom: 3px double #1b1b1b; padding-bottom: 0.6rem;
+    margin-bottom: 1.8rem;
+  }
+  .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
+  .newsprint .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem; row-gap: 1.6rem;
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+  }
+  .newsprint .cols p { margin: 0; }
+  .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .newsprint .cols > p:last-of-type { grid-column: 2; grid-row: 1; }
+  .newsprint .cols > .pullquote { grid-column: 1 / -1; grid-row: 2; }
+  @media (max-width: 720px) {
+    .newsprint .cols { grid-template-columns: 1fr; }
+    .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+    .newsprint .cols > .pullquote { grid-column: 1; grid-row: 2; }
+    .newsprint .cols > p:last-of-type { grid-column: 1; grid-row: 3; }
+  }
+  .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
+    border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
+  }
+  .newsprint .roman {
+    position: absolute; right: 5vw; top: 3vh;
+    font-family: var(--serif); font-style: italic; font-weight: 600;
+    font-size: 80px; color: #1b1b1b;
+  }
+
+  /* ====== 08 POSTER ====== */
+  .poster { background: var(--poster); color: #f2e9d5; }
+  .poster .big-num {
+    position: absolute; right: 4vw; top: 4vh;
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.85;
+    color: #f2e9d5; opacity: 0.12; letter-spacing: -0.05em;
+  }
+  .poster .headline {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(68px, 9vw, 150px); letter-spacing: -0.02em;
+    text-transform: uppercase; line-height: 0.92;
+  }
+
+  /* ====== 09 FIELD NOTES ====== */
+  .field_notes {
+    background: var(--field) ;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: #1a1f1a;
+  }
+  .field_notes .big-num {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(120px, 16vw, 220px); line-height: 0.9;
+    color: #4b5a44; margin-bottom: 0.5rem;
+  }
+  .field_notes .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); max-width: 22ch; line-height: 1.05;
+  }
+
+  /* ====== 10 CODA ====== */
+  .coda {
+    background: var(--sage); color: var(--monastic);
+    text-align: center; align-items: center;
+  }
+  .coda .roman {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(140px, 18vw, 240px); line-height: 1; margin-bottom: 1rem;
+  }
+  .coda .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(54px, 7vw, 110px); max-width: 22ch;
+  }
+  .coda .framing, .coda .summary { max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ====== Cover ====== */
+  .cover {
+    background: var(--ink); color: var(--ivory); text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10vh 6vw;
+  }
+  .cover .masthead {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(90px, 13vw, 220px); line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 0.15em;
+  }
+  .cover .masthead a { color: inherit; text-decoration: none; }
+  .cover .subhead a { color: inherit; text-decoration: none; opacity: 0.85; }
+  .cover .subhead {
+    font-family: var(--sans); font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 24px; margin-top: 2rem; opacity: 0.85;
+  }
+  .cover .date {
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(34px, 4vw, 60px); margin-top: 3rem;
+  }
+  .cover .editors {
+    font-family: var(--serif); font-size: 26px; line-height: 1.5;
+    max-width: 52ch; margin-top: 4rem; text-align: left;
+  }
+  .contents {
+    background: var(--ivory); color: var(--ink);
+    padding: 10vh 6vw; min-height: 100vh;
+  }
+  .contents h2 {
+    font-family: var(--serif); font-weight: 700; font-style: italic;
+    font-size: clamp(56px, 7vw, 100px); margin: 0 0 3rem 0;
+  }
+  .contents ol { list-style: none; padding: 0; margin: 0; }
+  .contents li {
+    border-top: 2px solid rgba(0,0,0,0.2);
+    font-family: var(--serif); font-size: 26px; line-height: 1.3;
+  }
+  .contents li:last-child { border-bottom: 2px solid rgba(0,0,0,0.2); }
+  .contents .toc-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.2rem 0; color: inherit; text-decoration: none;
+    transition: background 0.15s ease, padding 0.15s ease;
+  }
+  .contents .toc-link:hover {
+    background: rgba(0,0,0,0.05); padding-left: 1rem; padding-right: 1rem;
+  }
+  .contents .toc-link .t { flex: 1; }
+  html { scroll-behavior: smooth; }
+  .contents .num { font-weight: 800; min-width: 2.5ch; }
+  .contents .cat {
+    font-family: var(--sans); font-size: 20px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600; margin-left: auto; opacity: 0.7;
+  }
+  @media print { .spread, .cover, .contents { page-break-after: always; } }
+</style>
+</head>
+<body>
+
+
+<section class="cover">
+  <div class="subhead"><a href="https://waystonecoaching.com" target="_blank" rel="noopener">Waystone Coaching</a>&#8217;s</div>
+  <h1 class="masthead"><a href="https://waystonecoaching.github.io/morning-edition/">Morning<br>Edition</a></h1>
+  <div class="date">Friday, October 30, 2026</div>
+  <div class="editors">Eight today, and I stopped there. Most of it came as headlines, so I marked what I did not read. Nothing on polyvagal, peer support or coaching earned a place, and no contemplative piece surfaced, so there is no quiet close. Go to the papers before the press.</div>
+</section>
+
+<section class="contents"><h2>The Ten</h2><ol><li><a class="toc-link" href="#story-1"><span class="num">01</span><span class="t">A living systematic review, meta-analysis, and open data resource of trials of MDMA-assisted therapy for PTSD</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-2"><span class="num">02</span><span class="t">The impact of antidepressant use on MDMA fatalities: A matched case-control study using a post-mortem database</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-3"><span class="num">03</span><span class="t">The Psychedelic Practitioner Issue 7: Preparedness (Systems)</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-4"><span class="num">04</span><span class="t">How Moral Injury Worsens Burnout - Psychology Today</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-5"><span class="num">05</span><span class="t">Nearly Seven in Ten Nurses Show Signs of Moral Injury, German Study Finds - Bioengineer.org</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-6"><span class="num">06</span><span class="t">Veterans’ positive parenting practices and satisfaction over time: Examining the impact of moral injury, posttraumatic stress, and internalizing symptoms</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-7"><span class="num">07</span><span class="t">Impaired but now diagnosable: Combining analytic frameworks for incorporating symptom weighting in the classification of full‐threshold and subthreshold posttraumatic stress disorder</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-8"><span class="num">08</span><span class="t">‘Deep, profound anguish’: moral injury behind teachers’ decision to quit - EducationHQ</span><span class="cat">Resilience &amp; Moral Injury</span></a></li></ol></section>
+
+<section id="story-1" class="spread hero">
+  <div class="big-num">01</div>
+  <div class="meta">No. 01 &middot; Psychedelic Therapy &middot; 2026-10-11</div>
+  
+  <h2 class="headline">A living systematic review, meta-analysis, and open data resource of trials of MDMA-assisted therapy for PTSD</h2>
+  <p class="framing">Peer-reviewed, and a living review is the right instrument for a field under credibility stress, since it can be updated as trials are corrected, withdrawn or added. Read it for how it handles the MAPS-era trial problems and how much weight the pooled effect carries. Scope edge: this is clinical evidence, outside the coaching lane. It sets the standard of care that any integration work sits next to.</p>
+  <p class="summary">Neuropsychopharmacology published a living systematic review and meta-analysis of MDMA-assisted therapy trials for PTSD, with an open data resource attached. The feed carried only the title and citation, so the pooled effect size, risk-of-bias findings and handling of the functional-unblinding problem are unread.</p>
+  <div class="action">Try this: Open the paper and check the risk-of-bias section and how unblinding is handled before you cite any effect size to a client.</div>
+  <div class="source">Source: <a href="https://www.nature.com/articles/s41386-026-02575-z" target="_blank" rel="noopener">Neuropsychopharmacology (Nature)</a></div>
+</section>
+
+<section id="story-2" class="spread midnight">
+  <div class="big-num">02</div>
+  <div class="meta">No. 02 &middot; Psychedelic Therapy &middot; 2026-04-07</div>
+  
+  <h2 class="headline">The impact of antidepressant use on MDMA fatalities: A matched case-control study using a post-mortem database</h2>
+  <p class="framing">Safety data cuts against the hype, which is why it belongs here. Antidepressants are first-line for PTSD, so many responders arrive on them. Scope edge: medication, interactions and fatality risk are medical territory. Your move is a referral and a clear line, not advice.</p>
+  <p class="summary">A matched case-control study in the Journal of Psychopharmacology uses a post-mortem database to ask whether antidepressant use changes the odds of MDMA-related fatality. The background frames MDMA as a PTSD therapy under investigation and antidepressants as first-line treatment. Only the abstract opening was in the feed, so the direction and size of the finding are unread. Post-mortem designs also carry selection limits.</p>
+  <div class="action">Try this: Note the intake question: any client considering MDMA work who is on an SSRI or SNRI goes to a prescriber before anything else.</div>
+  <div class="source">Source: <a href="https://journals.sagepub.com/doi/abs/10.1177/02698811261436573?af=R" target="_blank" rel="noopener">Journal of Psychopharmacology (SAGE)</a></div>
+</section>
+
+<section id="story-3" class="spread rose_alert">
+  <div class="alert-stamp">Dispatch</div>
+  <div class="big-num">03</div>
+  <div class="meta">No. 03 &middot; Psychedelic Therapy &middot; 2026-10-14</div>
+  
+  <h2 class="headline">The Psychedelic Practitioner Issue 7: Preparedness (Systems)</h2>
+  <p class="framing">Practitioner-facing, from a trade outlet, so read it as field signal and not as evidence. Preparedness and systems is the integration-side question: what a practitioner has in place before a client comes apart in session or afterward.</p>
+  <p class="summary">Psychedelic Alpha's practitioner newsletter, issue 7, takes up preparedness at the systems level. The feed carried no text, so the contents are unread beyond the title.</p>
+  <div class="action">Try this: Skim it for protocols you could borrow into your own integration intake and referral map.</div>
+  <div class="source">Source: <a href="https://psychedelicalpha.com/news/the-psychedelic-practitioner-issue-7-preparedness-systems/" target="_blank" rel="noopener">Psychedelic Alpha</a></div>
+</section>
+
+<section id="story-4" class="spread terminal">
+  <div class="prompt">04</div>
+  <div class="meta">No. 04 &middot; Resilience &amp; Moral Injury &middot; 2026-10-16</div>
+  
+  <h2 class="headline">How Moral Injury Worsens Burnout - Psychology Today</h2>
+  <p class="framing">This is the structural-critique lineage: burnout framed as the downstream of moral injury, not of workload alone. That is a different claim from the operational wellness frame, and the two disagree about where the fix lives. Popular press, so check whether it cites Litz or Shay.</p>
+  <p class="summary">Psychology Today argues that moral injury worsens burnout, treating the injury of being made to act against your values as a driver and not a side effect. The feed carried only the headline, so the evidence the piece leans on is unread.</p>
+  <div class="action">Try this: Next time a responder says burnout, ask where the values conflict is, before you ask about sleep or schedule.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMingFBVV95cUxPMUZ4VUlTZlIwX3pQVWlSdnBXY3FsZERMSlVCMEZHLVdxN2pqd3VNUmhOd0FuR3JqdzZmWTkwVmo3UTJpQWtVc0ItWEljRGNEN0hKMG1YUHZ4a1AzYTM3bVZmcW1sc1RuQUFUMm9fN0NpejFPcmRiLURkUjVGYmNuZWxvMXVLRDFxVnBaMHg0aDlhS1hDSTAzaV9SM1Rxdw?oc=5" target="_blank" rel="noopener">Moral Injury Research Query</a></div>
+</section>
+
+<section id="story-5" class="spread academic">
+  <div class="big-num">V</div>
+  <div class="meta">No. 05 &middot; Resilience &amp; Moral Injury &middot; 2026-10-18</div>
+  
+  <h2 class="headline">Nearly Seven in Ten Nurses Show Signs of Moral Injury, German Study Finds - Bioengineer.org</h2>
+  <p class="framing">Structural frame again, with a number that moves. Nurses are not responders, but the shape of the finding, injury produced by system constraints on care, maps onto EMS. Sample, instrument and the cutoff for 'signs of' matter a lot. Bioengineer.org is a rewrite site, so go to the original paper.</p>
+  <p class="summary">Bioengineer.org reports a German study finding nearly seven in ten nurses show signs of moral injury. The feed carried only the headline, so the sample size, the screening instrument and the threshold are unread.</p>
+  <div class="action">Try this: Find the source paper and see which instrument they used. Screening tools inflate prevalence if the threshold is loose.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMingFBVV95cUxOd3ZuSWJBODVGVU1mUXJ6RHprVVU1OGdad2dIZlRXcldJR0tDbVFob20yOE9aQVJJSENzeFFudTlrTF9pTlBzRHowSzJkRzRKSUI1eTg5aGVnMUxINHh0TTIwaXhmeU1ZeV92M3lHNGplMzN1WDlsYXlESF8yMGpEeENkYnFMZnZFeVg3dU1nMEdGTW1IdzY5YVJjN2laQQ?oc=5" target="_blank" rel="noopener">Moral Injury Research Query</a></div>
+</section>
+
+<section id="story-6" class="spread big_stat">
+  <div class="meta">No. 06 &middot; First Responder MH &middot; 2026-10-06</div>
+  <div class="mega">06</div>
+  
+  <h2 class="headline">Veterans’ positive parenting practices and satisfaction over time: Examining the impact of moral injury, posttraumatic stress, and internalizing symptoms</h2>
+  <p class="framing">Peer-reviewed, and it follows moral injury and PTSD into the home, which is where responders usually lose ground first. Veterans, not responders, but the mechanism travels. Scope edge: family systems and parenting sit near clinical territory, so hold it as context for the conversation and not as a treatment target.</p>
+  <p class="summary">The Journal of Traumatic Stress reports a longitudinal look at veterans' positive parenting practices and parenting satisfaction over time, examining how moral injury, posttraumatic stress and internalizing symptoms each relate to them. The feed carried only the citation, so which factor carries the effect is unread.</p>
+  <div class="action">Try this: Add one question to intake: how is this showing up at home with the kids.</div>
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70083?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+
+<section id="story-7" class="spread newsprint">
+  <div class="roman">VII</div>
+  <div class="masthead">The Waystone Dispatch</div>
+  <div class="meta">No. 07 &middot; First Responder MH &middot; 2026-10-06</div>
+  
+  <h2 class="headline">Impaired but now diagnosable: Combining analytic frameworks for incorporating symptom weighting in the classification of full‐threshold and subthreshold posttraumatic stress disorder</h2>
+  <div class="cols">
+    <p>The Journal of Traumatic Stress carries a paper combining analytic frameworks to weight symptoms when classifying full-threshold and subthreshold PTSD, with a title that signals people who are impaired but would now meet criteria. The feed carried only the citation, so the method and the reclassification rate are unread.</p>
+    <div class="pullquote">Subthreshold PTSD is where most responders actually live: impaired, working, undiagnosed. How a diagnosis is drawn decides who gets care and who gets told they are fine. Scope edge: diagnosis is outside the coaching lane, but the boundary is the thing to understand.</div>
+    <p>Subthreshold PTSD is where most responders actually live: impaired, working, undiagnosed. How a diagnosis is drawn decides who gets care and who gets told they are fine. Scope edge: diagnosis is outside the coaching lane, but the boundary is the thing to understand.</p>
+  </div>
+  <div class="action">Try this: Read the abstract for the reclassification rate. It tells you how many of your clients sit just below the line.</div>
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70112?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+
+<section id="story-8" class="spread poster">
+  <div class="big-num">08</div>
+  <div class="meta">No. 08 &middot; Resilience &amp; Moral Injury &middot; 2026-10-19</div>
+  
+  <h2 class="headline">‘Deep, profound anguish’: moral injury behind teachers’ decision to quit - EducationHQ</h2>
+  <p class="framing">Another structural case, from teaching, where people leave because they cannot do the job they signed up for. That is the exit story many responders tell in career transition. Popular press from an education outlet, so treat it as testimony and not data.</p>
+  <p class="summary">EducationHQ reports on moral injury as a reason teachers decide to quit, quoting the 'deep, profound anguish' of being unable to work to their own standards. The feed carried only the headline, so the underlying study, if there is one, is unread.</p>
+  <div class="action">Try this: For clients in career transition, ask what they could no longer do the way they believed it should be done.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMipwFBVV95cUxPTExiQ0xHbVNGcS1LM1oxdGEzMXZyV2g2RV95a0pqN2F0YW40SFBUNWkta2t2bldxbDNfeE82NHhub0ZSVGZLWTN4ZE1UWDBBanRqYzhmWjdwODF5SWd0eGcyVmV5ejBXay1GVGl0WVE0bFlQN0psb3RxMHR4VHFQaklQSGd2S2NScjJJMDI0bGNZQk1zMlJ3eDJ5LVdhdmczMi1mT3dGMA?oc=5" target="_blank" rel="noopener">Moral Injury Research Query</a></div>
+</section>
+</body></html>
