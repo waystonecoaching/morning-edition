@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Edition - 2026-11-12</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --cream: #f4efe6;
+    --ivory: #f8f4ec;
+    --ink: #121212;
+    --midnight: #0b1224;
+    --rose: #f0d3cb;
+    --alert: #c43a2e;
+    --terminal-bg: #0a0d0a;
+    --terminal-fg: #7cff9c;
+    --academic: #f6f1e3;
+    --newsprint: #ebe3d3;
+    --poster: #10412b;
+    --field: #e9efe6;
+    --sage: #c8d2c1;
+    --monastic: #3a3a34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .spread {
+    min-height: 100vh;
+    padding: 8vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .spread .meta {
+    font-family: var(--sans);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .spread .headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    margin: 0 0 2.4rem 0;
+  }
+  .spread .framing {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+  }
+  .spread .summary {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+  .spread .action {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    max-width: 60ch;
+    border-left: 6px solid currentColor;
+  }
+  .spread .source {
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    opacity: 0.85;
+  }
+  .spread .source a { text-decoration: none; }
+  /* ====== 01 HERO ====== */
+  .hero { background: var(--cream); color: var(--ink); }
+  .hero .big-num {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(180px, 28vw, 460px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    position: absolute;
+    right: -3vw; top: -4vh;
+    color: var(--ink);
+    opacity: 0.08;
+  }
+  .hero .headline { font-size: clamp(64px, 9vw, 140px); font-weight: 800; }
+
+  /* ====== 02 MIDNIGHT ====== */
+  .midnight { background: var(--midnight); color: var(--ivory); }
+  .midnight .big-num {
+    position: absolute; right: 6vw; top: 6vh;
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.9;
+    color: transparent; -webkit-text-stroke: 2px var(--ivory);
+  }
+  .midnight .headline { font-size: clamp(56px, 7.5vw, 120px); font-style: italic; }
+
+  /* ====== 03 ROSE ALERT ====== */
+  .rose_alert { background: var(--rose); color: var(--ink); }
+  .rose_alert .alert-stamp {
+    position: absolute; right: 6vw; top: 10vh;
+    border: 6px solid var(--alert); color: var(--alert);
+    padding: 1rem 2rem; transform: rotate(9deg);
+    font-family: var(--sans); font-weight: 900; font-size: 38px;
+    letter-spacing: 0.3em;
+  }
+  .rose_alert .big-num {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(140px, 20vw, 260px); color: var(--alert);
+    line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem;
+  }
+  .rose_alert .headline { font-size: clamp(54px, 7vw, 110px); font-weight: 700; }
+
+  /* ====== 04 TERMINAL ====== */
+  .terminal { background: var(--terminal-bg); color: var(--terminal-fg); font-family: var(--mono); }
+  .terminal::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    pointer-events: none;
+  }
+  .terminal .prompt {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(140px, 18vw, 260px); line-height: 1;
+    margin-bottom: 2rem; color: #ffb347;
+    letter-spacing: -0.02em;
+  }
+  .terminal .headline {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(40px, 5vw, 72px); line-height: 1.15; color: var(--terminal-fg);
+  }
+  .terminal .framing, .terminal .summary, .terminal .action {
+    font-family: var(--mono); color: #cfd8cf; font-size: 22px;
+  }
+  .terminal .summary { color: #9fe8b3; }
+  .terminal .source { color: #ffb347; }
+
+  /* ====== 05 ACADEMIC ====== */
+  .academic { background: var(--academic); color: #1a1a1a; }
+  .academic .big-num {
+    position: absolute; right: 7vw; top: 8vh;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(140px, 18vw, 260px); color: #b79b5a;
+  }
+  .academic .headline {
+    font-size: clamp(48px, 6.5vw, 100px); font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  }
+  .academic .summary::first-letter {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 6.5em; float: left; line-height: 0.8;
+    padding: 0.1em 0.15em 0 0; color: #8a6f2f;
+  }
+
+  /* ====== 06 BIG STAT ====== */
+  .big_stat { background: #ffffff; color: var(--ink); justify-content: flex-start; }
+  .big_stat .mega {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(220px, 34vw, 540px); line-height: 0.85;
+    letter-spacing: -0.05em; margin: 0; color: var(--ink);
+  }
+  .big_stat .mega .unit {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 0.25em; vertical-align: super; letter-spacing: 0.05em;
+  }
+  .big_stat .headline { font-size: clamp(40px, 5vw, 72px); font-weight: 700; max-width: 28ch; }
+
+  /* ====== 07 NEWSPRINT ====== */
+  .newsprint { background: var(--newsprint); color: #1b1b1b; padding: 6vh 5vw; }
+  .newsprint .masthead {
+    font-family: var(--serif); font-weight: 900; font-style: italic;
+    font-size: 28px; letter-spacing: 0.04em; border-bottom: 3px double #1b1b1b; padding-bottom: 0.6rem;
+    margin-bottom: 1.8rem;
+  }
+  .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
+  .newsprint .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem; row-gap: 1.6rem;
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+  }
+  .newsprint .cols p { margin: 0; }
+  .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .newsprint .cols > p:last-of-type { grid-column: 2; grid-row: 1; }
+  .newsprint .cols > .pullquote { grid-column: 1 / -1; grid-row: 2; }
+  @media (max-width: 720px) {
+    .newsprint .cols { grid-template-columns: 1fr; }
+    .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+    .newsprint .cols > .pullquote { grid-column: 1; grid-row: 2; }
+    .newsprint .cols > p:last-of-type { grid-column: 1; grid-row: 3; }
+  }
+  .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
+    border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
+  }
+  .newsprint .roman {
+    position: absolute; right: 5vw; top: 3vh;
+    font-family: var(--serif); font-style: italic; font-weight: 600;
+    font-size: 80px; color: #1b1b1b;
+  }
+
+  /* ====== 08 POSTER ====== */
+  .poster { background: var(--poster); color: #f2e9d5; }
+  .poster .big-num {
+    position: absolute; right: 4vw; top: 4vh;
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.85;
+    color: #f2e9d5; opacity: 0.12; letter-spacing: -0.05em;
+  }
+  .poster .headline {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(68px, 9vw, 150px); letter-spacing: -0.02em;
+    text-transform: uppercase; line-height: 0.92;
+  }
+
+  /* ====== 09 FIELD NOTES ====== */
+  .field_notes {
+    background: var(--field) ;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: #1a1f1a;
+  }
+  .field_notes .big-num {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(120px, 16vw, 220px); line-height: 0.9;
+    color: #4b5a44; margin-bottom: 0.5rem;
+  }
+  .field_notes .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); max-width: 22ch; line-height: 1.05;
+  }
+
+  /* ====== 10 CODA ====== */
+  .coda {
+    background: var(--sage); color: var(--monastic);
+    text-align: center; align-items: center;
+  }
+  .coda .roman {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(140px, 18vw, 240px); line-height: 1; margin-bottom: 1rem;
+  }
+  .coda .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(54px, 7vw, 110px); max-width: 22ch;
+  }
+  .coda .framing, .coda .summary { max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ====== Cover ====== */
+  .cover {
+    background: var(--ink); color: var(--ivory); text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10vh 6vw;
+  }
+  .cover .masthead {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(90px, 13vw, 220px); line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 0.15em;
+  }
+  .cover .masthead a { color: inherit; text-decoration: none; }
+  .cover .subhead a { color: inherit; text-decoration: none; opacity: 0.85; }
+  .cover .subhead {
+    font-family: var(--sans); font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 24px; margin-top: 2rem; opacity: 0.85;
+  }
+  .cover .date {
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(34px, 4vw, 60px); margin-top: 3rem;
+  }
+  .cover .editors {
+    font-family: var(--serif); font-size: 26px; line-height: 1.5;
+    max-width: 52ch; margin-top: 4rem; text-align: left;
+  }
+  .contents {
+    background: var(--ivory); color: var(--ink);
+    padding: 10vh 6vw; min-height: 100vh;
+  }
+  .contents h2 {
+    font-family: var(--serif); font-weight: 700; font-style: italic;
+    font-size: clamp(56px, 7vw, 100px); margin: 0 0 3rem 0;
+  }
+  .contents ol { list-style: none; padding: 0; margin: 0; }
+  .contents li {
+    border-top: 2px solid rgba(0,0,0,0.2);
+    font-family: var(--serif); font-size: 26px; line-height: 1.3;
+  }
+  .contents li:last-child { border-bottom: 2px solid rgba(0,0,0,0.2); }
+  .contents .toc-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.2rem 0; color: inherit; text-decoration: none;
+    transition: background 0.15s ease, padding 0.15s ease;
+  }
+  .contents .toc-link:hover {
+    background: rgba(0,0,0,0.05); padding-left: 1rem; padding-right: 1rem;
+  }
+  .contents .toc-link .t { flex: 1; }
+  html { scroll-behavior: smooth; }
+  .contents .num { font-weight: 800; min-width: 2.5ch; }
+  .contents .cat {
+    font-family: var(--sans); font-size: 20px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600; margin-left: auto; opacity: 0.7;
+  }
+  @media print { .spread, .cover, .contents { page-break-after: always; } }
+</style>
+</head>
+<body>
+
+
+<section class="cover">
+  <div class="subhead"><a href="https://waystonecoaching.com" target="_blank" rel="noopener">Waystone Coaching</a>&#8217;s</div>
+  <h1 class="masthead"><a href="https://waystonecoaching.github.io/morning-edition/">Morning<br>Edition</a></h1>
+  <div class="date">Thursday, November 12, 2026</div>
+  <div class="editors">Thin feed again, and most of what came through ran here three days running, so it stays on the shelf. Six fresh pieces, no padding. No polyvagal work worth the name, nothing new on moral injury, no coaching or ICF news. The thread that runs through what is left: how much of healing is the medicine and how much is the one sitting with you. The fathers would say the cell teaches, but only if someone keeps the door.</div>
+</section>
+
+<section class="contents"><h2>The Ten</h2><ol><li><a class="toc-link" href="#story-1"><span class="num">01</span><span class="t">Mental health outcomes and intervention strategies for first responders exposed to disasters and occupational trauma: a scoping review</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-2"><span class="num">02</span><span class="t">PharmAla Biotech Signs Supply and Data Agreement with Aalborg University Hospital for Danish Randomized Trial of MDMA-Assisted Treatment for Service-Related PTSD</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-3"><span class="num">03</span><span class="t">Long Island veterans turn to ketamine treatment for PTSD</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-4"><span class="num">04</span><span class="t">Psychometric properties of the Chinese version of the Posttraumatic Cognitions Inventory (PTCI) in male first responders</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-5"><span class="num">05</span><span class="t">From text to touch: choosing how artificial intelligence communicates empathy in healthcare</span><span class="cat">Communication</span></a></li><li><a class="toc-link" href="#story-6"><span class="num">06</span><span class="t">Ontario investing over $7.1 million to support veterans, military personnel and first responders</span><span class="cat">Resilience &amp; Moral Injury</span></a></li></ol></section>
+
+<section id="story-1" class="spread hero">
+  <div class="big-num">01</div>
+  <div class="meta">No. 01 &middot; First Responder MH &middot; 2026-11-12</div>
+  
+  <h2 class="headline">Mental health outcomes and intervention strategies for first responders exposed to disasters and occupational trauma: a scoping review</h2>
+  <p class="framing">This is the map of where your work sits. The authors lay interventions on one line from preparedness through early support to therapy, and a coach working with responders lives in the first two thirds of that line. Useful language for drawing scope-of-practice boundaries out loud, with clients and with chiefs. Thin evidence base, so read it as a frame and hold the claims loosely.</p>
+  <p class="summary">A scoping review of 14 studies published 2017 to 2024 on first responders and public safety personnel exposed to disaster deployments or cumulative occupational trauma. Nine of the fourteen are cross-sectional; there is one RCT. Exposure intensity, social isolation, maladaptive coping, lack of preparatory training and lower education tracked with worse outcomes, while social support, optimism, perceived preparedness and organisational factors looked protective. The authors sort interventions into preparedness and resilience building, early supportive approaches including peer and digital formats, and therapy, which carries the strongest evidence for established symptoms. They name the gaps plainly: few controlled trials, poor intervention reporting, outcomes measured every which way.</p>
+  <div class="action">Try this: Sketch your own one-page continuum: what Waystone does at preparedness, what it does at early support, and the hand-off point where a client goes to a clinician. Use it on your next intake.</div>
+  <div class="source">Source: <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2026.1998415" target="_blank" rel="noopener">Frontiers in Psychology</a></div>
+</section>
+
+<section id="story-2" class="spread midnight">
+  <div class="big-num">02</div>
+  <div class="meta">No. 02 &middot; Psychedelic Therapy &middot; 2026-11-09</div>
+  
+  <h2 class="headline">PharmAla Biotech Signs Supply and Data Agreement with Aalborg University Hospital for Danish Randomized Trial of MDMA-Assisted Treatment for Service-Related PTSD</h2>
+  <p class="framing">Strip off the press-release wrapper and there is one question here worth your attention. The Danish MIRROR trial compares MDMA with psychotherapy against MDMA with music-assisted relaxation. That design goes straight at the sore spot in this field: how much of the effect is the drug and how much is the room, the therapist, the relationship. The release says nothing about sample size, who counts as service-related, or when enrollment starts.</p>
+  <p class="summary">Aalborg University Hospital, through the North Denmark Region's psychiatric research unit, is sponsoring MIRROR, a randomized, open-label, rater-blinded trial for service-related PTSD. One arm gets MDMA plus psychotherapy; the comparison arm gets MDMA plus a much lighter music-assisted relaxation protocol. PharmAla supplies the MDMA capsules as sole supplier, receives an undisclosed cash payment, and gets a perpetual worldwide royalty-free licence to the anonymised dosing, safety and outcome data after database lock. The release does not state whether participants are military veterans, police or other responders, and gives no enrollment numbers or dates.</p>
+  <div class="action">Try this: Watch for the registry entry. The thing to read when it posts is what the therapy arm actually contains, since that is what integration work is built on.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMilwJBVV95cUxQa2Vwd1pEcWpKbjE2ZlctUnN4dFpNQUVoQTd5d2c5Mm5KRTFTTXVYUU53Z1R2MGJtZTNpSDVHNTFkTE5ZTldXcjJ1Ym4tbkJQZTdMRWpWempIX3dDeUg5WVE1aGpwTTR6eV9KN1pyWUNtVXk4WnlBRkhmOGRZa0pmUk9PeXRIMkFQNW1xZDJwa0czaU1ROWxrS19KN0o5RWk3b2NiN0VKV2NnN2dPVFQ3TFJKMVRQQ3hELUFGWDFfOEtndWRldUNvQm4yTXNvZXV4TlFJbHRGakdsM2pTMEdTdmVBejc2QUREZWNYMm1iX3g1bmpwYm81T08zLVlSRUk2MVU4dmVpRVdEMEwzV2k5N3ZDRFVBRWc?oc=5" target="_blank" rel="noopener">Investing News Network (PharmAla press release)</a></div>
+</section>
+
+<section id="story-3" class="spread rose_alert">
+  <div class="alert-stamp">Dispatch</div>
+  <div class="big-num">03</div>
+  <div class="meta">No. 03 &middot; Psychedelic Therapy &middot; 2026-11-11</div>
+  
+  <h2 class="headline">Long Island veterans turn to ketamine treatment for PTSD</h2>
+  <p class="framing">Scope edge, and a credulous piece. It is a clinic story: one therapist at a private ketamine centre, no studies cited, no critics quoted, no word on cost. The line to sit with is her claim that the neuroplastic effect happens regardless of what the patient experiences in the chair. If that were true it would undercut the very integration work she pairs it with. Your clients will ask about ketamine clinics before they ask about MDMA; know where you stand.</p>
+  <p class="summary">WSHU profiles veterans using ketamine for PTSD at a private clinic in Garden City, New York. Treatment is given by IV or nasal spray in sessions of about 45 minutes, followed by a meeting with a trained therapist. The clinic's psychotherapist explains the effect through glutamate and neuroplasticity. The article notes that ketamine is not FDA-approved specifically for PTSD and that its effectiveness for the condition is still under investigation, but cites no trial data.</p>
+  <div class="action">Try this: Write a two-line answer for when a client asks whether they should try a ketamine clinic, one that stays in your lane and names who they should talk to first.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiqAFBVV95cUxQakxBUGk1MGc4Qk51QnMwTTBtbUw1dkF3RnFEcE9uOVBoMDM3RTVMNTdMRE1XMVNkcjJkMmJTVzM4SXltV2NGWWo5R0ZoLVVqUzFyWnRlbHY4eG4wNFRycjIyRTFrWklFNG5aXzNkU2lJTVd4N0drZThrek44RDhGYWNzNGgyd3ctSUNLcWxCODFwNTVjR3gwZThrM1RFQnBFMXdvd3JmM20?oc=5" target="_blank" rel="noopener">WSHU</a></div>
+</section>
+
+<section id="story-4" class="spread terminal">
+  <div class="prompt">04</div>
+  <div class="meta">No. 04 &middot; First Responder MH &middot; 2026-10-06</div>
+  
+  <h2 class="headline">Psychometric properties of the Chinese version of the Posttraumatic Cognitions Inventory (PTCI) in male first responders</h2>
+  <p class="framing">A measurement paper, dry on its face. Underneath is the story layer, in Campbell's terms: the beliefs about self, world and blame that trauma leaves behind. The finding that nine items do the work of thirty-three matters because those nine are short enough to hear in an ordinary conversation. Large sample, all men, all Chinese responders, so carry it across with care.</p>
+  <p class="summary">Researchers tested the Chinese 33-item PTCI and its nine-item short form in 1,448 male first responders, alongside the LEC-5 and PCL-5. The original three-factor and an alternative four-factor structure fit poorly. The PTCI-9 fit well, held up across those with and without interpersonal trauma exposure, and correlated with PTSD symptoms as strongly as the full version. Suggested cutoffs are 53 for the full PTCI and 16 for the PTCI-9.</p>
+  <div class="action">Try this: Pull the English PTCI-9 items and read them as listening cues, the sort of sentences a client says out loud when the story has hardened. Leave the scoring to clinicians.</div>
+  <div class="source">Source: <a href="https://onlinelibrary.wiley.com/doi/10.1002/jts.70079?af=R" target="_blank" rel="noopener">Journal of Traumatic Stress</a></div>
+</section>
+
+<section id="story-5" class="spread academic">
+  <div class="big-num">V</div>
+  <div class="meta">No. 05 &middot; Communication &middot; 2026-11-12</div>
+  
+  <h2 class="headline">From text to touch: choosing how artificial intelligence communicates empathy in healthcare</h2>
+  <p class="framing">Read this as a mirror. The authors line up text, voice, visual cues and touch by how embodied each is, and concede that text alone strips out most of what carries empathy. That is the polyvagal argument in engineering language: safety travels by face, voice and presence. It is a sharp case for why your clients need a person in the room, and a fair warning about what an app can and cannot hold.</p>
+  <p class="summary">A perspective piece arguing that most AI-empathy research fixes on text, which drops the nonverbal channels people rely on. The authors place modalities on a spectrum from text, through voice and visual expression, to touch, running roughly from most scalable to most embodied. They say more embodiment does not automatically feel more empathic, that patient preferences vary, and that touch remains the hardest channel to build and study. They note critics who call text-based AI responses empty empathy talk, and leave open whether machines can have empathy or only imitate it.</p>
+  
+  <div class="source">Source: <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2026.2010347" target="_blank" rel="noopener">Frontiers in Psychology</a></div>
+</section>
+
+<section id="story-6" class="spread big_stat">
+  <div class="meta">No. 06 &middot; Resilience &amp; Moral Injury &middot; 2026-11-09</div>
+  <div class="mega">$747K<span class="unit">of $7.1M went to wellness</span></div>
+  
+  <h2 class="headline">Ontario investing over $7.1 million to support veterans, military personnel and first responders</h2>
+  <p class="framing">Read the line items before the headline. Of the $7.1 million, the one project aimed at mental health is $747,000 to Canada Beyond the Blue and the Police Association of Ontario. The rest is training and job placement. Wellness gets announced in the press release and funded in the footnote; worth knowing when you pitch a department.</p>
+  <p class="summary">Ontario's Skills Development Fund is putting just over $7.1 million into four projects for more than 1,800 workers. The largest share, over $3.45 million, trains 1,550 firefighters in advanced emergency medical response. Smaller grants fund tech training for 100 Armed Forces members and security-sector placements for 60 retired military and responders. The police wellness project gets $747,000 for clinical supports, trauma-informed leadership training and return-to-work planning, with a digital hub planned for small and remote services.</p>
+  <div class="action">Try this: Note the Beyond the Blue design point: support that still works when only two or three members in a remote post sign up. Same problem as small Arizona districts.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMizgFBVV95cUxOQVg0WGJYQ1dYTENUYTY1OTRaeXZoY0Z0MVR1RkQ3VEMwb1VJakZJVDFpMVFzWTlMMzR6UGRfVXBZbk5CTXAycElRbENtcmF5cWJNYi1GSVRZdmw1al8xMW43LVc1cXNFUU5hUk5vZjRab3R5YXlHNDNJRllhdjRYMDRraENTajFSVGVDajdJTEFyQV85X2hGdFozYlRhTGtMX2JwT1pSRlVyX3RBRGlHZ3pLbWFFRjBNT2hvbHdQa1ZfQ3BwRDlUcHI1YkNBdw?oc=5" target="_blank" rel="noopener">Quinte News</a></div>
+</section>
+</body></html>
