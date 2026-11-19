@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Edition - 2026-11-19</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --cream: #f4efe6;
+    --ivory: #f8f4ec;
+    --ink: #121212;
+    --midnight: #0b1224;
+    --rose: #f0d3cb;
+    --alert: #c43a2e;
+    --terminal-bg: #0a0d0a;
+    --terminal-fg: #7cff9c;
+    --academic: #f6f1e3;
+    --newsprint: #ebe3d3;
+    --poster: #10412b;
+    --field: #e9efe6;
+    --sage: #c8d2c1;
+    --monastic: #3a3a34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .spread {
+    min-height: 100vh;
+    padding: 8vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .spread .meta {
+    font-family: var(--sans);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .spread .headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    margin: 0 0 2.4rem 0;
+  }
+  .spread .framing {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+  }
+  .spread .summary {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+  .spread .action {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    max-width: 60ch;
+    border-left: 6px solid currentColor;
+  }
+  .spread .source {
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    opacity: 0.85;
+  }
+  .spread .source a { text-decoration: none; }
+  /* ====== 01 HERO ====== */
+  .hero { background: var(--cream); color: var(--ink); }
+  .hero .big-num {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(180px, 28vw, 460px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    position: absolute;
+    right: -3vw; top: -4vh;
+    color: var(--ink);
+    opacity: 0.08;
+  }
+  .hero .headline { font-size: clamp(64px, 9vw, 140px); font-weight: 800; }
+
+  /* ====== 02 MIDNIGHT ====== */
+  .midnight { background: var(--midnight); color: var(--ivory); }
+  .midnight .big-num {
+    position: absolute; right: 6vw; top: 6vh;
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.9;
+    color: transparent; -webkit-text-stroke: 2px var(--ivory);
+  }
+  .midnight .headline { font-size: clamp(56px, 7.5vw, 120px); font-style: italic; }
+
+  /* ====== 03 ROSE ALERT ====== */
+  .rose_alert { background: var(--rose); color: var(--ink); }
+  .rose_alert .alert-stamp {
+    position: absolute; right: 6vw; top: 10vh;
+    border: 6px solid var(--alert); color: var(--alert);
+    padding: 1rem 2rem; transform: rotate(9deg);
+    font-family: var(--sans); font-weight: 900; font-size: 38px;
+    letter-spacing: 0.3em;
+  }
+  .rose_alert .big-num {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(140px, 20vw, 260px); color: var(--alert);
+    line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem;
+  }
+  .rose_alert .headline { font-size: clamp(54px, 7vw, 110px); font-weight: 700; }
+
+  /* ====== 04 TERMINAL ====== */
+  .terminal { background: var(--terminal-bg); color: var(--terminal-fg); font-family: var(--mono); }
+  .terminal::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    pointer-events: none;
+  }
+  .terminal .prompt {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(140px, 18vw, 260px); line-height: 1;
+    margin-bottom: 2rem; color: #ffb347;
+    letter-spacing: -0.02em;
+  }
+  .terminal .headline {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(40px, 5vw, 72px); line-height: 1.15; color: var(--terminal-fg);
+  }
+  .terminal .framing, .terminal .summary, .terminal .action {
+    font-family: var(--mono); color: #cfd8cf; font-size: 22px;
+  }
+  .terminal .summary { color: #9fe8b3; }
+  .terminal .source { color: #ffb347; }
+
+  /* ====== 05 ACADEMIC ====== */
+  .academic { background: var(--academic); color: #1a1a1a; }
+  .academic .big-num {
+    position: absolute; right: 7vw; top: 8vh;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(140px, 18vw, 260px); color: #b79b5a;
+  }
+  .academic .headline {
+    font-size: clamp(48px, 6.5vw, 100px); font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  }
+  .academic .summary::first-letter {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 6.5em; float: left; line-height: 0.8;
+    padding: 0.1em 0.15em 0 0; color: #8a6f2f;
+  }
+
+  /* ====== 06 BIG STAT ====== */
+  .big_stat { background: #ffffff; color: var(--ink); justify-content: flex-start; }
+  .big_stat .mega {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(220px, 34vw, 540px); line-height: 0.85;
+    letter-spacing: -0.05em; margin: 0; color: var(--ink);
+  }
+  .big_stat .mega .unit {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 0.25em; vertical-align: super; letter-spacing: 0.05em;
+  }
+  .big_stat .headline { font-size: clamp(40px, 5vw, 72px); font-weight: 700; max-width: 28ch; }
+
+  /* ====== 07 NEWSPRINT ====== */
+  .newsprint { background: var(--newsprint); color: #1b1b1b; padding: 6vh 5vw; }
+  .newsprint .masthead {
+    font-family: var(--serif); font-weight: 900; font-style: italic;
+    font-size: 28px; letter-spacing: 0.04em; border-bottom: 3px double #1b1b1b; padding-bottom: 0.6rem;
+    margin-bottom: 1.8rem;
+  }
+  .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
+  .newsprint .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem; row-gap: 1.6rem;
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+  }
+  .newsprint .cols p { margin: 0; }
+  .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .newsprint .cols > p:last-of-type { grid-column: 2; grid-row: 1; }
+  .newsprint .cols > .pullquote { grid-column: 1 / -1; grid-row: 2; }
+  @media (max-width: 720px) {
+    .newsprint .cols { grid-template-columns: 1fr; }
+    .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+    .newsprint .cols > .pullquote { grid-column: 1; grid-row: 2; }
+    .newsprint .cols > p:last-of-type { grid-column: 1; grid-row: 3; }
+  }
+  .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
+    border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
+  }
+  .newsprint .roman {
+    position: absolute; right: 5vw; top: 3vh;
+    font-family: var(--serif); font-style: italic; font-weight: 600;
+    font-size: 80px; color: #1b1b1b;
+  }
+
+  /* ====== 08 POSTER ====== */
+  .poster { background: var(--poster); color: #f2e9d5; }
+  .poster .big-num {
+    position: absolute; right: 4vw; top: 4vh;
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.85;
+    color: #f2e9d5; opacity: 0.12; letter-spacing: -0.05em;
+  }
+  .poster .headline {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(68px, 9vw, 150px); letter-spacing: -0.02em;
+    text-transform: uppercase; line-height: 0.92;
+  }
+
+  /* ====== 09 FIELD NOTES ====== */
+  .field_notes {
+    background: var(--field) ;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: #1a1f1a;
+  }
+  .field_notes .big-num {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(120px, 16vw, 220px); line-height: 0.9;
+    color: #4b5a44; margin-bottom: 0.5rem;
+  }
+  .field_notes .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); max-width: 22ch; line-height: 1.05;
+  }
+
+  /* ====== 10 CODA ====== */
+  .coda {
+    background: var(--sage); color: var(--monastic);
+    text-align: center; align-items: center;
+  }
+  .coda .roman {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(140px, 18vw, 240px); line-height: 1; margin-bottom: 1rem;
+  }
+  .coda .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(54px, 7vw, 110px); max-width: 22ch;
+  }
+  .coda .framing, .coda .summary { max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ====== Cover ====== */
+  .cover {
+    background: var(--ink); color: var(--ivory); text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10vh 6vw;
+  }
+  .cover .masthead {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(90px, 13vw, 220px); line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 0.15em;
+  }
+  .cover .masthead a { color: inherit; text-decoration: none; }
+  .cover .subhead a { color: inherit; text-decoration: none; opacity: 0.85; }
+  .cover .subhead {
+    font-family: var(--sans); font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 24px; margin-top: 2rem; opacity: 0.85;
+  }
+  .cover .date {
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(34px, 4vw, 60px); margin-top: 3rem;
+  }
+  .cover .editors {
+    font-family: var(--serif); font-size: 26px; line-height: 1.5;
+    max-width: 52ch; margin-top: 4rem; text-align: left;
+  }
+  .contents {
+    background: var(--ivory); color: var(--ink);
+    padding: 10vh 6vw; min-height: 100vh;
+  }
+  .contents h2 {
+    font-family: var(--serif); font-weight: 700; font-style: italic;
+    font-size: clamp(56px, 7vw, 100px); margin: 0 0 3rem 0;
+  }
+  .contents ol { list-style: none; padding: 0; margin: 0; }
+  .contents li {
+    border-top: 2px solid rgba(0,0,0,0.2);
+    font-family: var(--serif); font-size: 26px; line-height: 1.3;
+  }
+  .contents li:last-child { border-bottom: 2px solid rgba(0,0,0,0.2); }
+  .contents .toc-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.2rem 0; color: inherit; text-decoration: none;
+    transition: background 0.15s ease, padding 0.15s ease;
+  }
+  .contents .toc-link:hover {
+    background: rgba(0,0,0,0.05); padding-left: 1rem; padding-right: 1rem;
+  }
+  .contents .toc-link .t { flex: 1; }
+  html { scroll-behavior: smooth; }
+  .contents .num { font-weight: 800; min-width: 2.5ch; }
+  .contents .cat {
+    font-family: var(--sans); font-size: 20px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600; margin-left: auto; opacity: 0.7;
+  }
+  @media print { .spread, .cover, .contents { page-break-after: always; } }
+</style>
+</head>
+<body>
+
+
+<section class="cover">
+  <div class="subhead"><a href="https://waystonecoaching.com" target="_blank" rel="noopener">Waystone Coaching</a>&#8217;s</div>
+  <h1 class="masthead"><a href="https://waystonecoaching.github.io/morning-edition/">Morning<br>Edition</a></h1>
+  <div class="date">Thursday, November 19, 2026</div>
+  <div class="editors">Five this morning, not ten. The feeds came back mostly with what we already set before you this week, and a short table is better than a padded one. Read the last one slow. It argues with the words you use for the work, and a man should be able to hear that without flinching or folding. The rest is the same lesson from different doors: trust is built upstream, a little at a time, before anyone needs it.</div>
+</section>
+
+<section class="contents"><h2>The Ten</h2><ol><li><a class="toc-link" href="#story-1"><span class="num">01</span><span class="t">Kennesaw State's AMES Center: Military and First Responder Research That Works Upstream of the Crisis</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-2"><span class="num">02</span><span class="t">Maine's Union-Run Peer Support Team Works the Stigma One Call at a Time</span><span class="cat">Peer Support</span></a></li><li><a class="toc-link" href="#story-3"><span class="num">03</span><span class="t">Moral Injury and Coach Burnout: A Thin Definition That Keeps Accountability Intact</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-4"><span class="num">04</span><span class="t">Psychiatry Wire: AI Flags PTSD Risk in the ED, a Psilocin Trial With Three Serious Adverse Events, and a Federal Push on Faith-Based Recovery</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-5"><span class="num">05</span><span class="t">Healing From Trauma Is Natural: Karla McLaren Takes Aim at Nervous-System Talk and Polyvagal Theory</span><span class="cat">Polyvagal</span></a></li></ol></section>
+
+<section id="story-1" class="spread hero">
+  <div class="big-num">01</div>
+  <div class="meta">No. 01 &middot; First Responder MH &middot; 2026-11-18</div>
+  
+  <h2 class="headline">Kennesaw State's AMES Center: Military and First Responder Research That Works Upstream of the Crisis</h2>
+  <p class="framing">This is a university telling its own story, so weigh it that way. The 70 percent drop in suicidal ideation is the center's claim with no paper linked in the piece, and you would want the design before you repeat it to a chief. What earns it the front page is the method, not the number: clinicians embedded in a police department to have non-clinical conversations first, and a program that almost never says the word suicide. It works the upstream load instead, sleep, money, housing, family conflict. That sits on the suicidality edge, and it also sits close to where a coach lives.</p>
+  <p class="summary">A Newswise feature on Kennesaw State's Center for the Advancement of Military and Emergency Services (AMES) Research, led by Brian Moore, a former Army infantry officer turned psychologist. Since 2021 the center reports more than $15 million in external funding, more than 70 peer-reviewed papers, and partnerships with over 50 agencies. A CDC-funded first responder initiative is credited with reductions in suicidal ideation of up to 70 percent against a 10 percent goal. In Smyrna, Georgia, after two officer suicides in about six months, AMES ran an organizational health assessment and has delivered well-being programming for four years, building trust slowly through embedded clinicians and training on sleep, substance use and financial health.</p>
+  <div class="action">Try this: Pull the AMES publication list and find the paper behind the 70 percent figure before citing it. Then look at their organizational health assessment as a template for how an outside party earns a department's trust.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiwAFBVV95cUxOU2ItQU5ZS1BCcFM5Uk9Ceml5VHFPMGpubHNYLVVlVWtWMTI4SXZvY2F1ZXQ2bWxPaFFwcGZhMENXZ0F4bWEtN09xSnUyUVlGbkd1b2ZZbWxxekswaXJFMjVXRmJ1LUZWSUFQWmxVOUFvSGhUY0R1Zy1JUU5sTXYwQXUzZmUwdmxyaDBpaGhnNjBKSXVYd3VxOUlheF9UT01oaXN6Z0VnZjFRUlktLTdZVnlsNGNmTENUbllOVklROHjSAcABQVVfeXFMTlNiLUFOWUtQQnBTOVJPQnppeVRxTzBqbmxzWC1VZVVrVjEyOEl2b2NhdWV0Nm1sT2hRcHBmYTBDV2dBeG1hLTdPcUp1MlFZRm5HdW9mWW1scXpLMGlyRTI1V0ZidS1GVklBUFpsVTlBb0hoVGNEdWctSVFObE12MEF1M2ZlMHZscmgwaWhoZzYwSkl1WHd1cTlJYXhfVE9NaGlzemdFZ2YxUVJZLS03WVZ5bDRjZkxDVG5ZTlZJUTh4?oc=5" target="_blank" rel="noopener">Newswise / Kennesaw State University</a></div>
+</section>
+
+<section id="story-2" class="spread midnight">
+  <div class="big-num">02</div>
+  <div class="meta">No. 02 &middot; Peer Support &middot; 2026-11-18</div>
+  
+  <h2 class="headline">Maine's Union-Run Peer Support Team Works the Stigma One Call at a Time</h2>
+  <p class="framing">A firefighters' union, not the department, owns this team. That matters. Peer support housed in labor carries a different trust load than peer support housed in admin, and the guys on the floor know the difference. Small story, field-level signal: about 50 peers covering a whole state, and a secretary still saying the stigma is out there.</p>
+  <p class="summary">The Professional Firefighters of Maine run a peer support team of nearly 50 trained members, all first responders with their own trauma histories, who respond statewide. Team secretary Michael Crouse says trust comes quickly because the peers already know behavioral health and the available resources, and he wants more chiefs and local officers to stand up their own teams to catch early signs of distress. Kittery Fire is building a staff wellness initiative in its early stages. The team runs a peer line at 207-752-1520, with 988 named for anyone in crisis.</p>
+  <div class="action">Try this: Note the structure, union-owned and statewide, as a comparison point the next time someone asks how Phoenix peer support should sit relative to admin.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMikAFBVV95cUxPQkVkUG9wZTB1cl9QdmZPOURGTGhrY3NTYUh0U0dLY01UNkRBWVdFUUpfeS12VGV3QWk5dVV5elkzS3lfZTgzbkVabGlQbmFzSkU4X2l2ME0wc3BEZHhBdERmTGN3STBaRE5NLVRWalYyYkZBUkM0ZEFOUUJjYnZ6dTJaT0lIa2dteVc2UWItZVc?oc=5" target="_blank" rel="noopener">WMTW</a></div>
+</section>
+
+<section id="story-3" class="spread rose_alert">
+  <div class="alert-stamp">Dispatch</div>
+  <div class="big-num">03</div>
+  <div class="meta">No. 03 &middot; Resilience &amp; Moral Injury &middot; 2026-11-18</div>
+  
+  <h2 class="headline">Moral Injury and Coach Burnout: A Thin Definition That Keeps Accountability Intact</h2>
+  <p class="framing">Sport coaching, not your kind of coaching, but the frame travels. This one sits plainly in the structural-critique camp: it says burnout models miss betrayal and broken trust, and that cynicism toward an untrustworthy institution can be a sane response rather than a symptom. It also refuses to let the concept become an excuse. Purely conceptual, no data, so read it as a map, not a finding.</p>
+  <p class="summary">Subaru Shintani's paper in Frontiers in Sports and Active Living argues that workload-and-recovery burnout models can miss moral experience: a damaged sense of one's own moral standing and eroded trust in institutions. It offers a deliberately thin, non-diagnostic definition of moral injury and four boundary conditions: real moral significance, personal implication, persistence beyond ordinary distress, and a lasting shift in moral orientation. It holds that the lived injury must be kept separate from whether the person's actions were justified, so culpable coaches still owe honest appraisal, apology and changed practice. Repair after institutional betrayal is said to need acknowledgment, investigation and procedural fixes, not individual support alone.</p>
+  <div class="action">Try this: Borrow the four boundary conditions as a quiet screen when a client names betrayal: is this moral injury, or ordinary distress wearing its clothes?</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxOblA5bXRPZGM4WndYckN5VWU2eVlGcldmeFJpR3hqUHh1djViZGZkT2VBS3dlNFQ4elZBVEFhaHRvU1dqdVdEUW8zR2ZqUlZuVHBaZnNST1pvMEtRY0tTaU1LSGVMdFFabnhnbWFBM0d2bWtYUWprNGFEZFdCLWhPamp5bVpaWmNYZWxvRDFOMGIzVHRuSXRULS1Oa3ZaQk83Wmlr?oc=5" target="_blank" rel="noopener">Bioengineer.org (on Shintani, Frontiers in Sports and Active Living)</a></div>
+</section>
+
+<section id="story-4" class="spread terminal">
+  <div class="prompt">04</div>
+  <div class="meta">No. 04 &middot; Psychedelic Therapy &middot; 2026-11-18</div>
+  
+  <h2 class="headline">Psychiatry Wire: AI Flags PTSD Risk in the ED, a Psilocin Trial With Three Serious Adverse Events, and a Federal Push on Faith-Based Recovery</h2>
+  <p class="framing">A roundup, so treat each line as a pointer, not a story. Three lines matter to you. An AI tool predicted who would develop PTSD about as well as PTSD-specialist emergency clinicians, which brings early identification closer to the scene. Helus Pharma reported a deuterated psilocin hit its depression endpoints by day two, alongside three treatment-related serious adverse events; the field keeps getting fast efficacy press with the safety line buried. And the HHS push to fund faith-based addiction recovery has experts worried about access to proven medications. That last one is on the substance use edge and sits near your own faith, so hold both.</p>
+  <p class="summary">MedPage Today's November 18 psychiatry roundup collects short items. An AI tool performed similarly to PTSD-specialized emergency clinicians at predicting which patients would develop PTSD (Nature Communications). Helus Pharma said its investigational deuterated psilocin, as adjunctive therapy for major depressive disorder, met primary and key secondary endpoints from day two, with three treatment-related serious adverse events. HHS Secretary Robert F. Kennedy Jr. is pushing federal funding for faith-based addiction recovery groups, raising concerns about restricted access to addiction medications (STAT). It also notes Washington Post reporting on veterans using ayahuasca retreats for PTSD, and a 20-year study linking chronic loneliness to a 38 percent higher dementia risk.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMickFVX3lxTE4yOVFjVXI0blhOV1dzamYxMjI1c1I3MDVWUVRKYjViRWNDMXR4aHZaMWhZcmhLQ1cwLWI5dUFrM1BVMUdZcThkVkdkVWYwM0NxVmFJT0duSHMtNFNxM0JYN2s1cU9wZTZ5bE90eE4xZXJwQQ?oc=5" target="_blank" rel="noopener">MedPage Today</a></div>
+</section>
+
+<section id="story-5" class="spread academic">
+  <div class="big-num">V</div>
+  <div class="meta">No. 05 &middot; Polyvagal &middot; 2026-11-17</div>
+  
+  <h2 class="headline">Healing From Trauma Is Natural: Karla McLaren Takes Aim at Nervous-System Talk and Polyvagal Theory</h2>
+  <p class="framing">This one goes straight at the vocabulary on your own site. McLaren leans on Bonanno: most people recover from potentially traumatic events without treatment, and the trauma industry's language can erode the very flexibility that carries them through. She links the 2026 Grossman critique arguing polyvagal theory is untenable. You do not have to agree to need an answer. If you keep the ventral, sympathetic, dorsal language, know which parts you hold as physiology and which as a working map for felt safety, and be able to say so plain.</p>
+  <p class="summary">Karla McLaren, in Part 2 of a series, argues that trauma is too often framed as a life sentence when research, chiefly George Bonanno's, shows roughly two-thirds of people regain their footing without treatment. She says popular phrases about regulating or hacking the nervous system, and tools like the ACEs quiz, can undercut what Bonanno calls the flexibility mindset: optimism, confidence in coping, and reading threats as challenges. She prefers the term potentially traumatic event over trauma as a force that dictates outcomes. She cites Grossman and colleagues (2026, Clinical Neuropsychiatry) on why polyvagal theory is untenable and a 2026 Frontiers paper on predictive coding and trauma.</p>
+  <div class="action">Try this: Read the Grossman et al. 2026 critique this week and draft two sentences on how Waystone uses polyvagal language: as a map for felt safety, and where you stop short of the physiological claims.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiowFBVV95cUxPSGZIWGdiZWZ0VFBTblFsdXRUNDlWN1Nsa3hlNXF5bmZrSzl6ZTJBNm5zOGpYdjNjNE5UT3FoLWFmZDByZl9mcUg5ZWFHbjlRX2xrOHo2VUR2Zy1jY3pxM2REV0VfUFY5YTRLWmF5WG5DXzMwRjR2RDFrdFliQ21GUk5DbzYxX0t6dlo3eFRsU0gyZnZITXg0SGtzX1o4RUFfaFQ0?oc=5" target="_blank" rel="noopener">Psychology Today</a></div>
+</section>
+</body></html>
