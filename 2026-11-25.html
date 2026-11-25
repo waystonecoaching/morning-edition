@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Edition - 2026-11-25</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --cream: #f4efe6;
+    --ivory: #f8f4ec;
+    --ink: #121212;
+    --midnight: #0b1224;
+    --rose: #f0d3cb;
+    --alert: #c43a2e;
+    --terminal-bg: #0a0d0a;
+    --terminal-fg: #7cff9c;
+    --academic: #f6f1e3;
+    --newsprint: #ebe3d3;
+    --poster: #10412b;
+    --field: #e9efe6;
+    --sage: #c8d2c1;
+    --monastic: #3a3a34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .spread {
+    min-height: 100vh;
+    padding: 8vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .spread .meta {
+    font-family: var(--sans);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .spread .headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    margin: 0 0 2.4rem 0;
+  }
+  .spread .framing {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+  }
+  .spread .summary {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+  .spread .action {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    max-width: 60ch;
+    border-left: 6px solid currentColor;
+  }
+  .spread .source {
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    opacity: 0.85;
+  }
+  .spread .source a { text-decoration: none; }
+  /* ====== 01 HERO ====== */
+  .hero { background: var(--cream); color: var(--ink); }
+  .hero .big-num {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(180px, 28vw, 460px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    position: absolute;
+    right: -3vw; top: -4vh;
+    color: var(--ink);
+    opacity: 0.08;
+  }
+  .hero .headline { font-size: clamp(64px, 9vw, 140px); font-weight: 800; }
+
+  /* ====== 02 MIDNIGHT ====== */
+  .midnight { background: var(--midnight); color: var(--ivory); }
+  .midnight .big-num {
+    position: absolute; right: 6vw; top: 6vh;
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.9;
+    color: transparent; -webkit-text-stroke: 2px var(--ivory);
+  }
+  .midnight .headline { font-size: clamp(56px, 7.5vw, 120px); font-style: italic; }
+
+  /* ====== 03 ROSE ALERT ====== */
+  .rose_alert { background: var(--rose); color: var(--ink); }
+  .rose_alert .alert-stamp {
+    position: absolute; right: 6vw; top: 10vh;
+    border: 6px solid var(--alert); color: var(--alert);
+    padding: 1rem 2rem; transform: rotate(9deg);
+    font-family: var(--sans); font-weight: 900; font-size: 38px;
+    letter-spacing: 0.3em;
+  }
+  .rose_alert .big-num {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(140px, 20vw, 260px); color: var(--alert);
+    line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem;
+  }
+  .rose_alert .headline { font-size: clamp(54px, 7vw, 110px); font-weight: 700; }
+
+  /* ====== 04 TERMINAL ====== */
+  .terminal { background: var(--terminal-bg); color: var(--terminal-fg); font-family: var(--mono); }
+  .terminal::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    pointer-events: none;
+  }
+  .terminal .prompt {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(140px, 18vw, 260px); line-height: 1;
+    margin-bottom: 2rem; color: #ffb347;
+    letter-spacing: -0.02em;
+  }
+  .terminal .headline {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(40px, 5vw, 72px); line-height: 1.15; color: var(--terminal-fg);
+  }
+  .terminal .framing, .terminal .summary, .terminal .action {
+    font-family: var(--mono); color: #cfd8cf; font-size: 22px;
+  }
+  .terminal .summary { color: #9fe8b3; }
+  .terminal .source { color: #ffb347; }
+
+  /* ====== 05 ACADEMIC ====== */
+  .academic { background: var(--academic); color: #1a1a1a; }
+  .academic .big-num {
+    position: absolute; right: 7vw; top: 8vh;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(140px, 18vw, 260px); color: #b79b5a;
+  }
+  .academic .headline {
+    font-size: clamp(48px, 6.5vw, 100px); font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  }
+  .academic .summary::first-letter {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 6.5em; float: left; line-height: 0.8;
+    padding: 0.1em 0.15em 0 0; color: #8a6f2f;
+  }
+
+  /* ====== 06 BIG STAT ====== */
+  .big_stat { background: #ffffff; color: var(--ink); justify-content: flex-start; }
+  .big_stat .mega {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(220px, 34vw, 540px); line-height: 0.85;
+    letter-spacing: -0.05em; margin: 0; color: var(--ink);
+  }
+  .big_stat .mega .unit {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 0.25em; vertical-align: super; letter-spacing: 0.05em;
+  }
+  .big_stat .headline { font-size: clamp(40px, 5vw, 72px); font-weight: 700; max-width: 28ch; }
+
+  /* ====== 07 NEWSPRINT ====== */
+  .newsprint { background: var(--newsprint); color: #1b1b1b; padding: 6vh 5vw; }
+  .newsprint .masthead {
+    font-family: var(--serif); font-weight: 900; font-style: italic;
+    font-size: 28px; letter-spacing: 0.04em; border-bottom: 3px double #1b1b1b; padding-bottom: 0.6rem;
+    margin-bottom: 1.8rem;
+  }
+  .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
+  .newsprint .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem; row-gap: 1.6rem;
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+  }
+  .newsprint .cols p { margin: 0; }
+  .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .newsprint .cols > p:last-of-type { grid-column: 2; grid-row: 1; }
+  .newsprint .cols > .pullquote { grid-column: 1 / -1; grid-row: 2; }
+  @media (max-width: 720px) {
+    .newsprint .cols { grid-template-columns: 1fr; }
+    .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+    .newsprint .cols > .pullquote { grid-column: 1; grid-row: 2; }
+    .newsprint .cols > p:last-of-type { grid-column: 1; grid-row: 3; }
+  }
+  .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
+    border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
+  }
+  .newsprint .roman {
+    position: absolute; right: 5vw; top: 3vh;
+    font-family: var(--serif); font-style: italic; font-weight: 600;
+    font-size: 80px; color: #1b1b1b;
+  }
+
+  /* ====== 08 POSTER ====== */
+  .poster { background: var(--poster); color: #f2e9d5; }
+  .poster .big-num {
+    position: absolute; right: 4vw; top: 4vh;
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.85;
+    color: #f2e9d5; opacity: 0.12; letter-spacing: -0.05em;
+  }
+  .poster .headline {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(68px, 9vw, 150px); letter-spacing: -0.02em;
+    text-transform: uppercase; line-height: 0.92;
+  }
+
+  /* ====== 09 FIELD NOTES ====== */
+  .field_notes {
+    background: var(--field) ;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: #1a1f1a;
+  }
+  .field_notes .big-num {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(120px, 16vw, 220px); line-height: 0.9;
+    color: #4b5a44; margin-bottom: 0.5rem;
+  }
+  .field_notes .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); max-width: 22ch; line-height: 1.05;
+  }
+
+  /* ====== 10 CODA ====== */
+  .coda {
+    background: var(--sage); color: var(--monastic);
+    text-align: center; align-items: center;
+  }
+  .coda .roman {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(140px, 18vw, 240px); line-height: 1; margin-bottom: 1rem;
+  }
+  .coda .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(54px, 7vw, 110px); max-width: 22ch;
+  }
+  .coda .framing, .coda .summary { max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ====== Cover ====== */
+  .cover {
+    background: var(--ink); color: var(--ivory); text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10vh 6vw;
+  }
+  .cover .masthead {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(90px, 13vw, 220px); line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 0.15em;
+  }
+  .cover .masthead a { color: inherit; text-decoration: none; }
+  .cover .subhead a { color: inherit; text-decoration: none; opacity: 0.85; }
+  .cover .subhead {
+    font-family: var(--sans); font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 24px; margin-top: 2rem; opacity: 0.85;
+  }
+  .cover .date {
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(34px, 4vw, 60px); margin-top: 3rem;
+  }
+  .cover .editors {
+    font-family: var(--serif); font-size: 26px; line-height: 1.5;
+    max-width: 52ch; margin-top: 4rem; text-align: left;
+  }
+  .contents {
+    background: var(--ivory); color: var(--ink);
+    padding: 10vh 6vw; min-height: 100vh;
+  }
+  .contents h2 {
+    font-family: var(--serif); font-weight: 700; font-style: italic;
+    font-size: clamp(56px, 7vw, 100px); margin: 0 0 3rem 0;
+  }
+  .contents ol { list-style: none; padding: 0; margin: 0; }
+  .contents li {
+    border-top: 2px solid rgba(0,0,0,0.2);
+    font-family: var(--serif); font-size: 26px; line-height: 1.3;
+  }
+  .contents li:last-child { border-bottom: 2px solid rgba(0,0,0,0.2); }
+  .contents .toc-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.2rem 0; color: inherit; text-decoration: none;
+    transition: background 0.15s ease, padding 0.15s ease;
+  }
+  .contents .toc-link:hover {
+    background: rgba(0,0,0,0.05); padding-left: 1rem; padding-right: 1rem;
+  }
+  .contents .toc-link .t { flex: 1; }
+  html { scroll-behavior: smooth; }
+  .contents .num { font-weight: 800; min-width: 2.5ch; }
+  .contents .cat {
+    font-family: var(--sans); font-size: 20px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600; margin-left: auto; opacity: 0.7;
+  }
+  @media print { .spread, .cover, .contents { page-break-after: always; } }
+</style>
+</head>
+<body>
+
+
+<section class="cover">
+  <div class="subhead"><a href="https://waystonecoaching.com" target="_blank" rel="noopener">Waystone Coaching</a>&#8217;s</div>
+  <h1 class="masthead"><a href="https://waystonecoaching.github.io/morning-edition/">Morning<br>Edition</a></h1>
+  <div class="date">Wednesday, November 25, 2026</div>
+  <div class="editors">Nine this morning, not ten. The feeds kept handing back last week's stories, and I would rather give you nine honest ones than one more lap around the same track. Two threads run through it: the work that does not replicate, and the medics saying the problem is the station, not the man. The old men said not to measure yourself. Measure the evidence, though. Hard.</div>
+</section>
+
+<section class="contents"><h2>The Ten</h2><ol><li><a class="toc-link" href="#story-1"><span class="num">01</span><span class="t">Five Labs, One Protocol: Psilocybin's Lasting Effects Did Not Replicate in Mice</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-2"><span class="num">02</span><span class="t">Veterans Groups Press Congress as VA Says It Is Preparing for Approved Psychedelics</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-3"><span class="num">03</span><span class="t">'Under Fire': An Idaho Fire Captain, Ketamine, and Who Takes Care of the Caretakers</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-4"><span class="num">04</span><span class="t">Burnout Is an Operational Issue, Not a Personal Wellness Problem</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-5"><span class="num">05</span><span class="t">Bessel van der Kolk on Complex PTSD, Attachment, and the Limits of Pharmacotherapy</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-6"><span class="num">06</span><span class="t">Eleven Walk Off a South Dakota County Ambulance Service</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-7"><span class="num">07</span><span class="t">The EMS Pulse: Medics on De-escalating Difficult Family Members</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-8"><span class="num">08</span><span class="t">Moral Injury and Coach Burnout: The Moral Limits of Coaching Work</span><span class="cat">Coaching Practice</span></a></li><li><a class="toc-link" href="#story-9"><span class="num">09</span><span class="t">Somatic Settling and Non-Coercive Regulation: A Theory for Comparing Contemplative Practice</span><span class="cat">Contemplative</span></a></li></ol></section>
+
+<section id="story-1" class="spread hero">
+  <div class="big-num">01</div>
+  <div class="meta">No. 01 &middot; Psychedelic Therapy &middot; 2026-11-17</div>
+  
+  <h2 class="headline">Five Labs, One Protocol: Psilocybin's Lasting Effects Did Not Replicate in Mice</h2>
+  <p class="framing">This is the field checking its own math, and the math came back thin. The animal work under the psilocybin story was supposed to show lasting change. Run the same way in five labs, it mostly did not. That does not settle anything for humans, but it is one more reason to read psychedelic headlines with your hand on your wallet. The field is under credibility stress and this is part of why.</p>
+  <p class="summary">Five labs at UC Berkeley, UC San Francisco and Stanford ran identical psilocybin protocols in mice, published in Nature Neuroscience and covered here by ZME Science. Pooled, the most reproducible effects were a spike in anxiety-like behavior right after dosing and reduced fear expression in the acute window. Lasting reductions in depression- or anxiety-like behavior did not replicate. The researchers put the inconsistency down to a small underlying effect, and ruled out handler sex, mouse supplier and housing time. Co-first author Odilia Lu notes the limits of translating mouse behavior models to human depression.</p>
+  <div class="action">Try this: When a client quotes a psilocybin result, ask one question first: was it people or mice, and has anyone run it twice?</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMi3AFBVV95cUxPNTR1cFk5S29rNFFna3JxaTFkTVk4RzZLYWdXRmxIZjlVQWI5cVpGSENQZjgyZWJFd3lXN2hfMXU0ZWdTN3laQW5JS0w3OFgxUU1xN3FWb2NhbFdnakpPQjJ4cE5xeDZacDRadFB6eDdfY2Fzd2hZRnVRMkFDOXVPN2ZhMGhUaUs0ZmZjQzZSMFJQM3RqVVdpZGdHN0ZTdDdaa1UxNDNCVWRRWEx1TDJ4YUVQb2tGdjQ0cHIwM0hkdEVlM2dUNkJQRXpzYV9TTFJmNXJzLWxhMm8wTkJZ?oc=5" target="_blank" rel="noopener">ZME Science</a></div>
+</section>
+
+<section id="story-2" class="spread midnight">
+  <div class="big-num">02</div>
+  <div class="meta">No. 02 &middot; Psychedelic Therapy &middot; 2026-11-18</div>
+  
+  <h2 class="headline">Veterans Groups Press Congress as VA Says It Is Preparing for Approved Psychedelics</h2>
+  <p class="framing">The VA usually sets the track first responder care runs on a few years later. If the VA builds a psychedelic delivery system, fire service EAPs and workers' comp will be asked why they have not. Read the testimony for what it is: advocates citing small studies at a hearing. A 30-person study with a near 90 percent claim is a reason to look, not a standard of care.</p>
+  <p class="summary">At a House VA Health Subcommittee hearing on November 18, the VFW, the Special Forces Foundation and Disabled American Veterans urged lawmakers to speed psychedelic research and clear access barriers. VA officials said the agency is preparing for FDA-approved psychedelic therapies, several of which may move toward approval in 2027 following the April 2026 executive order. Rep. Julia Brownley pressed the VA to have a trained workforce and safety protocols in place first. One veteran described ibogaine treatment abroad and said his symptoms came back after 18 months. DAV's Naomi Mathis cited a 2024 Stanford study of 30 veterans with TBI; the paper reports the claim as testimony and does not verify it.</p>
+  <div class="action">Try this: Note the veteran whose symptoms returned at 18 months. That is the integration question in one line: what holds the change after the medicine wears off.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMingFBVV95cUxPeXhzWlkycFNvT2c5X20ybFpaNGQxbDR3UGRYNG5GNFFhdHpCdlA0Vk1BNmgzWTIwcXkwTGxuZFBTeWdiYUR4Um1TTXpIeWZUOG9lblEzOGR5Y3h5WEt4RDhaVThQdmJEWVhtRlFhZktFcHpzbUotMENfZzZUMld2SVIyV0JwbHdyaTZPeTVJZ1g2NHItVTRxRHpTaUI0Zw?oc=5" target="_blank" rel="noopener">Stars and Stripes</a></div>
+</section>
+
+<section id="story-3" class="spread rose_alert">
+  <div class="alert-stamp">Dispatch</div>
+  <div class="big-num">03</div>
+  <div class="meta">No. 03 &middot; First Responder MH &middot; 2026-11-18</div>
+  
+  <h2 class="headline">'Under Fire': An Idaho Fire Captain, Ketamine, and Who Takes Care of the Caretakers</h2>
+  <p class="framing">A fire captain going through ketamine-assisted therapy on camera, and the film is out where crews will see it. That is first responder psychedelic care leaving the journals and entering the station kitchen. The director's own father died by suicide, so this sits on the suicidality edge and on the clinical edge both. It is a documentary, not data. Treat it as the conversation starter it says it is.</p>
+  <p class="summary">TheWrap interviews filmmaker Brandon Kapelow about 'Under Fire,' an 88-minute documentary that premiered to a sold-out crowd at Doc NYC. It follows Idaho fire Capt. Rob Christensen through experimental ketamine-assisted therapy for PTSD. The film grew out of Kapelow's 2024 New York Times op-doc 'An Act of Service,' and Kapelow says his father died by suicide when he was 12. Riley Keough is among the executive producers. Virtual screening tickets run through November 29, and Kapelow says the film is meant to open conversation rather than push one answer.</p>
+  <div class="action">Try this: Catch a virtual screening before November 29. Watch for what the captain's crew and family do around the treatment, not just the session itself.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiswFBVV95cUxNMlZaNWNXbnVXSUJtaHZoOVBjSVJfWTJoOEkzQjhaRmVQYzBZYmMwenAwYXpxd1d6Yms3S0MyNUNyM2tmSWpsdTdDdGpkSjZ6TkVodDJuTkhuWi1nR05oaW44RXZIQktIQm9Pb3h0aEJBc21ySkM0d0VkVDA4LUM3WmpWZWdIMVRaTjBjQ2tJTGo0X0xuOERpa1ZzcHhYYW16ZTRXbmo3ODNLaWJxMXNIOUdhMA?oc=5" target="_blank" rel="noopener">TheWrap</a></div>
+</section>
+
+<section id="story-4" class="spread terminal">
+  <div class="prompt">04</div>
+  <div class="meta">No. 04 &middot; Resilience &amp; Moral Injury &middot; 2026-11-13</div>
+  
+  <h2 class="headline">Burnout Is an Operational Issue, Not a Personal Wellness Problem</h2>
+  <p class="framing">This is the structural lineage talking, in the field's own trade press. Medics are saying the yoga app is not the fix; staffing is. That is the tension between the wellness frame and the leadership-failure frame, and it lands right on a solo coach's pitch to a department. If you sell resilience to a crew that is short three bodies a shift, you are selling the wrong thing. Know which camp you are standing in when you walk into a station.</p>
+  <p class="summary">Drawing on respondent comments from EMS1's 'What Paramedics Want in 2026' survey, Rachel Engel argues burnout is driven by staffing shortages, workload, poor scheduling, low pay, weak leadership communication and too little recovery time. Respondents asked for more staff, predictable schedules (some named 24/72), better pay and benefits, and leadership they can trust. They still want counseling and peer support that actually works, but not as a stand-in for fixing operations. The piece gives no respondent count or sampling method, so read it as field voice, not measurement.</p>
+  <div class="action">Try this: Before your next department conversation, write one sentence that says what coaching can and cannot fix when the problem is staffing.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxPN2ZBMVRwc3JFak9yZ1lfYUpWSmZaWVpFaWN2UFBZMzVoLU5LYkdXZzliY2E5YkFoT2toMTA5ZUphUGNoZUFsdTBZT2E4QTNqOEJIeXhuM1UwQjBrOXJNTy1BZU90elhpTlpfN0JIZmFXejNybTc2cU53WTd0RUZmMjhGT28ta2ZkS01id2U5elZEVXU0ekJ0RU9KMl9IOFRiT2RtYkJ2MjVVRE0?oc=5" target="_blank" rel="noopener">EMS1</a></div>
+</section>
+
+<section id="story-5" class="spread academic">
+  <div class="big-num">V</div>
+  <div class="meta">No. 05 &middot; Psychedelic Therapy &middot; 2026-11-20</div>
+  
+  <h2 class="headline">Bessel van der Kolk on Complex PTSD, Attachment, and the Limits of Pharmacotherapy</h2>
+  <p class="framing">Van der Kolk puts attachment under trauma and says the drugs fall short for complex PTSD. That is close to how you already hold it: the nervous system shaped in relationship, healed in relationship. His aside on the MDMA phase 3 trial matters for the critical read. If most participants carried childhood abuse and neglect, the trial may say more about developmental trauma than about a medic's single bad call. It is an interview, so these are his views, not findings.</p>
+  <p class="summary">In a Psychiatric Times 'Brain Trust' interview with Joseph F. Goldberg, MD, van der Kolk argues much of what gets labeled trauma is an attachment disorder, and that medication falls short for complex PTSD. He notes there are no randomized drug trials for complex PTSD and only two FDA-approved PTSD medications. He cites his group's study of 20,000 children supporting a developmental trauma disorder diagnosis that DSM-5 did not adopt, and EMDR remission in most adults with adult-onset trauma. He also points out that 88 percent of participants in the phase 3 MDMA trial had histories of chronic abuse and neglect.</p>
+  <div class="action">Try this: With your next client, ask about the first room before the worst call: who was there for you when you were small, and who is there now?</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMizAFBVV95cUxNdnBrZDlieU1JSlNibm9DNTNib3ZXUF9jaEVnTU5mUUhlMmRKbkhnOERFSXp3SHpCXzFMNnJvN3FsOFZKMkJBS3JfSHNTeWRiN2VaR0NqaWQ0QklqVFYyS2w2OGFWXzNsc2dvM1JiZUVEY3lBRFlWQjVBUm9Ua05sYk85Z1gwMTh6OFN4TEF1aG8xNHV3UWtRYk96T2VxSHNKRFRtMk0xZ3EyaGZ0djlSeXY0cTh6LW9LaUlKdGNtaHZUYzVlWFBrUV9MNXM?oc=5" target="_blank" rel="noopener">Psychiatric Times</a></div>
+</section>
+
+<section id="story-6" class="spread big_stat">
+  <div class="meta">No. 06 &middot; Resilience &amp; Moral Injury &middot; 2026-11-18</div>
+  <div class="mega">11<span class="unit">resignations, effective immediately</span></div>
+  
+  <h2 class="headline">Eleven Walk Off a South Dakota County Ambulance Service</h2>
+  <p class="framing">This is what moral injury looks like when it stops being a word: people leaving the truck because the people above them would not fix the station. No bathroom, no climate control, a commission that could not agree. It is rural EMS, not Phoenix, but the betrayal shape is the same one you hear on the floor. The count comes from one former employee and the county says service continues, so hold the number loosely.</p>
+  <p class="summary">EMS1 and Dakota News Now report that employees of the Day County Ambulance Service resigned effective immediately on November 17 after the county commission failed to reach agreement. Former employee Joshua Edwards put the number at 11, with five more expected. Former staff cited facilities without climate control or bathrooms, and a since-deleted service post blamed communication breakdowns among commissioners, the ambulance director and crew. The county says the service remains in full operation. Separately, Rapid City Fire says its rural ambulance service ends December 31 without new funding, and a state EMS task force is under way.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMiqwFBVV95cUxPM0lKaXJ4TjY0aHZocGRmelNhS2tjcVZoVGpGMXM3aTl0empuamMzc2pjR2NvTC0wbmZrYk1lQ0dvQmtSbnN2c2MyTE85azBub0tUVnhnU3JtcWZjWEhfS2p3blpDMUk4TnNreXpESGhuRHF2bW9FWU03c0gta0ZpQTEyZTBfQW9vWllfT25ldnFHWlRUSWtBREpoMnM4bDNxLWt1aTlFVS10SUE?oc=5" target="_blank" rel="noopener">EMS1</a></div>
+</section>
+
+<section id="story-7" class="spread newsprint">
+  <div class="roman">VII</div>
+  <div class="masthead">The Waystone Dispatch</div>
+  <div class="meta">No. 07 &middot; First Responder MH &middot; 2026-11-19</div>
+  
+  <h2 class="headline">The EMS Pulse: Medics on De-escalating Difficult Family Members</h2>
+  <div class="cols">
+    <p>EMS1 collected reader answers to one question: your best de-escalation tip for difficult family members on a patient call. Common threads were listening and empathy, firm and simple scripts, clearing the room or leaving when the scene turns unsafe, and redirecting attention. Editor Rachel Engel notes the responses converged on acknowledging fear, giving plain explanations and protecting scene safety. The number of responses is not given; this is field advice, not research.</p>
+    <div class="pullquote">Acknowledge their feelings and reassure. If it's unsafe, leave.</div>
+    <p>This is your day job in plain language from the people doing it. Acknowledge the fear, say it plainly, and leave if it is unsafe. That is Getting Real at the curb: name what is happening, make contact, keep the body safe. The thread never settled where de-escalation ends and disengagement begins. That line is worth drawing for yourself before the next call.</p>
+  </div>
+  <div class="action">Try this: Pick one line you will say first to a frightened family member, and practice it out loud until it comes out in a ventral voice under load.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMinAFBVV95cUxNeHM3UlRnOXA4X0NzTHUzZW5taElmSmF6a1V6dHZrNkk1cDI2cUg3TVBoQlh2VVlMZU9tSE9WcTFtOWVzcUFJSDh5T3RLS05RN2k1RFZpVHNScWYzTkVQZmV4THdIanhvRmxadFY1SmxJMFZVU3VpdEl4elJPNFRXTDJ0aVhJZ3g0VFVNYy1jLWF0MngzSG15VFlPUzk?oc=5" target="_blank" rel="noopener">EMS1</a></div>
+</section>
+
+<section id="story-8" class="spread poster">
+  <div class="big-num">08</div>
+  <div class="meta">No. 08 &middot; Coaching Practice &middot; 2026-11-09</div>
+  
+  <h2 class="headline">Moral Injury and Coach Burnout: The Moral Limits of Coaching Work</h2>
+  <p class="framing">Turn the lens around. Coaches carry moral injury too, when the system asks them to trade the person for the result. Sport coaching is not your coaching, but the question of where responsibility ends is the same one a solo practitioner faces with a client in crisis. Only the headline came through this morning, so read the paper before you lean on it.</p>
+  <p class="summary">Frontiers published an article on moral injury and burnout among coaches in high-performance sport, framed around responsibility, trust and the moral limits of coaching work. The feed carried the headline only and the full text could not be read from here. Nothing beyond the title is reported in this issue.</p>
+  <div class="action">Try this: Write down the one thing you will not do for a client, even if he asks. That is your moral limit; know it before it is tested.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMipAFBVV95cUxPaHdtRUFNSkVCLUxURFdIeGpRWXBfSF9tS290dHVVRmdxUWQteWxOcjdWQlVOWGtzUWg3WGpPVlNsRndSbnJ3WlpoWEczWGVXUGQwcnUyM0gyRWY1b3pfelVDRU1Md0FjYXI4TUNwRjRHQzUtcGRQMnhkWkdlYW1rUkJ4NEVwVm5TU252bXRYa1RLcm84bnBub25lUi0xbG16UDZVNw?oc=5" target="_blank" rel="noopener">Frontiers</a></div>
+</section>
+
+<section id="story-9" class="spread field_notes">
+  <div class="big-num">ix</div>
+  <div class="meta">No. 09 &middot; Contemplative &middot; 2026-11-25</div>
+  
+  <h2 class="headline">Somatic Settling and Non-Coercive Regulation: A Theory for Comparing Contemplative Practice</h2>
+  <p class="framing">Two philosophers try to compare contemplative traditions without boiling them down to one technique. Their four dimensions, somatic settling, interoceptive meaning, non-coercive regulation and a relational orientation, map well onto what the Fathers call watchfulness and what Dana calls coming home to the body. It is pure theory with no human data. Read it as a lens, not a result, and notice what it cannot hold: prayer addressed to Someone.</p>
+  <p class="summary">In a Hypothesis and Theory article in Frontiers in Psychology, Ziang Wang and Linghong Kong of Zhejiang University propose four process dimensions for comparing contemplative practices: somatic settling, interoceptive-semantic organization, non-coercive affect regulation and normative-relational orientation. They sketch an author-designed meditation prototype informed by the Chinese idea of zhengqi, framed as 'experienced vital integrity,' and lay out testable propositions and a staged research program. The authors are plain that no original human data are reported and that the prototype is not a recovered historical tradition. No efficacy or safety claims are made.</p>
+  <div class="action">Try this: Sit with the Prayer for twenty minutes and notice which of the four dimensions shows up first. Then notice what none of them name.</div>
+  <div class="source">Source: <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2026.1980659" target="_blank" rel="noopener">Frontiers in Psychology</a></div>
+</section>
+</body></html>
