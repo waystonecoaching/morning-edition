@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Morning Edition - 2026-11-28</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    --cream: #f4efe6;
+    --ivory: #f8f4ec;
+    --ink: #121212;
+    --midnight: #0b1224;
+    --rose: #f0d3cb;
+    --alert: #c43a2e;
+    --terminal-bg: #0a0d0a;
+    --terminal-fg: #7cff9c;
+    --academic: #f6f1e3;
+    --newsprint: #ebe3d3;
+    --poster: #10412b;
+    --field: #e9efe6;
+    --sage: #c8d2c1;
+    --monastic: #3a3a34;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 22px;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--cream);
+  }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  .spread {
+    min-height: 100vh;
+    padding: 8vh 6vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .spread .meta {
+    font-family: var(--sans);
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .spread .headline {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144;
+    line-height: 0.95;
+    margin: 0 0 2.4rem 0;
+  }
+  .spread .framing {
+    font-family: var(--sans);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 42ch;
+    margin-bottom: 2rem;
+  }
+  .spread .summary {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.5;
+    max-width: 62ch;
+    margin-bottom: 2rem;
+  }
+  .spread .action {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1.2rem 1.6rem;
+    max-width: 60ch;
+    border-left: 6px solid currentColor;
+  }
+  .spread .source {
+    font-family: var(--sans);
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    opacity: 0.85;
+  }
+  .spread .source a { text-decoration: none; }
+  /* ====== 01 HERO ====== */
+  .hero { background: var(--cream); color: var(--ink); }
+  .hero .big-num {
+    font-family: var(--serif);
+    font-weight: 800;
+    font-size: clamp(180px, 28vw, 460px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    position: absolute;
+    right: -3vw; top: -4vh;
+    color: var(--ink);
+    opacity: 0.08;
+  }
+  .hero .headline { font-size: clamp(64px, 9vw, 140px); font-weight: 800; }
+
+  /* ====== 02 MIDNIGHT ====== */
+  .midnight { background: var(--midnight); color: var(--ivory); }
+  .midnight .big-num {
+    position: absolute; right: 6vw; top: 6vh;
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.9;
+    color: transparent; -webkit-text-stroke: 2px var(--ivory);
+  }
+  .midnight .headline { font-size: clamp(56px, 7.5vw, 120px); font-style: italic; }
+
+  /* ====== 03 ROSE ALERT ====== */
+  .rose_alert { background: var(--rose); color: var(--ink); }
+  .rose_alert .alert-stamp {
+    position: absolute; right: 6vw; top: 10vh;
+    border: 6px solid var(--alert); color: var(--alert);
+    padding: 1rem 2rem; transform: rotate(9deg);
+    font-family: var(--sans); font-weight: 900; font-size: 38px;
+    letter-spacing: 0.3em;
+  }
+  .rose_alert .big-num {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(140px, 20vw, 260px); color: var(--alert);
+    line-height: 1; letter-spacing: -0.04em; margin-bottom: 1rem;
+  }
+  .rose_alert .headline { font-size: clamp(54px, 7vw, 110px); font-weight: 700; }
+
+  /* ====== 04 TERMINAL ====== */
+  .terminal { background: var(--terminal-bg); color: var(--terminal-fg); font-family: var(--mono); }
+  .terminal::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.03) 0 2px, transparent 2px 4px);
+    pointer-events: none;
+  }
+  .terminal .prompt {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(140px, 18vw, 260px); line-height: 1;
+    margin-bottom: 2rem; color: #ffb347;
+    letter-spacing: -0.02em;
+  }
+  .terminal .headline {
+    font-family: var(--mono); font-weight: 700;
+    font-size: clamp(40px, 5vw, 72px); line-height: 1.15; color: var(--terminal-fg);
+  }
+  .terminal .framing, .terminal .summary, .terminal .action {
+    font-family: var(--mono); color: #cfd8cf; font-size: 22px;
+  }
+  .terminal .summary { color: #9fe8b3; }
+  .terminal .source { color: #ffb347; }
+
+  /* ====== 05 ACADEMIC ====== */
+  .academic { background: var(--academic); color: #1a1a1a; }
+  .academic .big-num {
+    position: absolute; right: 7vw; top: 8vh;
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(140px, 18vw, 260px); color: #b79b5a;
+  }
+  .academic .headline {
+    font-size: clamp(48px, 6.5vw, 100px); font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 50;
+  }
+  .academic .summary::first-letter {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 6.5em; float: left; line-height: 0.8;
+    padding: 0.1em 0.15em 0 0; color: #8a6f2f;
+  }
+
+  /* ====== 06 BIG STAT ====== */
+  .big_stat { background: #ffffff; color: var(--ink); justify-content: flex-start; }
+  .big_stat .mega {
+    font-family: var(--serif); font-weight: 900;
+    font-size: clamp(220px, 34vw, 540px); line-height: 0.85;
+    letter-spacing: -0.05em; margin: 0; color: var(--ink);
+  }
+  .big_stat .mega .unit {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 0.25em; vertical-align: super; letter-spacing: 0.05em;
+  }
+  .big_stat .headline { font-size: clamp(40px, 5vw, 72px); font-weight: 700; max-width: 28ch; }
+
+  /* ====== 07 NEWSPRINT ====== */
+  .newsprint { background: var(--newsprint); color: #1b1b1b; padding: 6vh 5vw; }
+  .newsprint .masthead {
+    font-family: var(--serif); font-weight: 900; font-style: italic;
+    font-size: 28px; letter-spacing: 0.04em; border-bottom: 3px double #1b1b1b; padding-bottom: 0.6rem;
+    margin-bottom: 1.8rem;
+  }
+  .newsprint .headline { font-size: clamp(50px, 6vw, 96px); font-weight: 700; margin-bottom: 1.4rem; }
+  .newsprint .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 3rem; row-gap: 1.6rem;
+    font-family: var(--serif); font-size: 22px; line-height: 1.55;
+  }
+  .newsprint .cols p { margin: 0; }
+  .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+  .newsprint .cols > p:last-of-type { grid-column: 2; grid-row: 1; }
+  .newsprint .cols > .pullquote { grid-column: 1 / -1; grid-row: 2; }
+  @media (max-width: 720px) {
+    .newsprint .cols { grid-template-columns: 1fr; }
+    .newsprint .cols > p:first-of-type { grid-column: 1; grid-row: 1; }
+    .newsprint .cols > .pullquote { grid-column: 1; grid-row: 2; }
+    .newsprint .cols > p:last-of-type { grid-column: 1; grid-row: 3; }
+  }
+  .newsprint .pullquote {
+    column-span: all;
+    -webkit-column-span: all;
+    break-inside: avoid;
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(34px, 3.5vw, 56px); line-height: 1.15;
+    border-top: 4px solid #1b1b1b; border-bottom: 4px solid #1b1b1b;
+    padding: 1.6rem 0; margin: 2rem 0;
+    text-align: center;
+  }
+  .newsprint .roman {
+    position: absolute; right: 5vw; top: 3vh;
+    font-family: var(--serif); font-style: italic; font-weight: 600;
+    font-size: 80px; color: #1b1b1b;
+  }
+
+  /* ====== 08 POSTER ====== */
+  .poster { background: var(--poster); color: #f2e9d5; }
+  .poster .big-num {
+    position: absolute; right: 4vw; top: 4vh;
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(160px, 22vw, 340px); line-height: 0.85;
+    color: #f2e9d5; opacity: 0.12; letter-spacing: -0.05em;
+  }
+  .poster .headline {
+    font-family: var(--sans); font-weight: 900;
+    font-size: clamp(68px, 9vw, 150px); letter-spacing: -0.02em;
+    text-transform: uppercase; line-height: 0.92;
+  }
+
+  /* ====== 09 FIELD NOTES ====== */
+  .field_notes {
+    background: var(--field) ;
+    background-image:
+      linear-gradient(rgba(0,0,0,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,0.08) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: #1a1f1a;
+  }
+  .field_notes .big-num {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(120px, 16vw, 220px); line-height: 0.9;
+    color: #4b5a44; margin-bottom: 0.5rem;
+  }
+  .field_notes .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 500;
+    font-size: clamp(48px, 6vw, 88px); max-width: 22ch; line-height: 1.05;
+  }
+
+  /* ====== 10 CODA ====== */
+  .coda {
+    background: var(--sage); color: var(--monastic);
+    text-align: center; align-items: center;
+  }
+  .coda .roman {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(140px, 18vw, 240px); line-height: 1; margin-bottom: 1rem;
+  }
+  .coda .headline {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(54px, 7vw, 110px); max-width: 22ch;
+  }
+  .coda .framing, .coda .summary { max-width: 50ch; margin-left: auto; margin-right: auto; }
+
+  /* ====== Cover ====== */
+  .cover {
+    background: var(--ink); color: var(--ivory); text-align: center;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 10vh 6vw;
+  }
+  .cover .masthead {
+    font-family: var(--serif); font-weight: 800; font-style: italic;
+    font-size: clamp(90px, 13vw, 220px); line-height: 0.9; letter-spacing: -0.02em;
+    margin-top: 0.15em;
+  }
+  .cover .masthead a { color: inherit; text-decoration: none; }
+  .cover .subhead a { color: inherit; text-decoration: none; opacity: 0.85; }
+  .cover .subhead {
+    font-family: var(--sans); font-weight: 500; letter-spacing: 0.18em;
+    text-transform: uppercase; font-size: 24px; margin-top: 2rem; opacity: 0.85;
+  }
+  .cover .date {
+    font-family: var(--serif); font-weight: 400; font-style: italic;
+    font-size: clamp(34px, 4vw, 60px); margin-top: 3rem;
+  }
+  .cover .editors {
+    font-family: var(--serif); font-size: 26px; line-height: 1.5;
+    max-width: 52ch; margin-top: 4rem; text-align: left;
+  }
+  .contents {
+    background: var(--ivory); color: var(--ink);
+    padding: 10vh 6vw; min-height: 100vh;
+  }
+  .contents h2 {
+    font-family: var(--serif); font-weight: 700; font-style: italic;
+    font-size: clamp(56px, 7vw, 100px); margin: 0 0 3rem 0;
+  }
+  .contents ol { list-style: none; padding: 0; margin: 0; }
+  .contents li {
+    border-top: 2px solid rgba(0,0,0,0.2);
+    font-family: var(--serif); font-size: 26px; line-height: 1.3;
+  }
+  .contents li:last-child { border-bottom: 2px solid rgba(0,0,0,0.2); }
+  .contents .toc-link {
+    display: flex; align-items: baseline; gap: 1.2rem;
+    padding: 1.2rem 0; color: inherit; text-decoration: none;
+    transition: background 0.15s ease, padding 0.15s ease;
+  }
+  .contents .toc-link:hover {
+    background: rgba(0,0,0,0.05); padding-left: 1rem; padding-right: 1rem;
+  }
+  .contents .toc-link .t { flex: 1; }
+  html { scroll-behavior: smooth; }
+  .contents .num { font-weight: 800; min-width: 2.5ch; }
+  .contents .cat {
+    font-family: var(--sans); font-size: 20px; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 600; margin-left: auto; opacity: 0.7;
+  }
+  @media print { .spread, .cover, .contents { page-break-after: always; } }
+</style>
+</head>
+<body>
+
+
+<section class="cover">
+  <div class="subhead"><a href="https://waystonecoaching.com" target="_blank" rel="noopener">Waystone Coaching</a>&#8217;s</div>
+  <h1 class="masthead"><a href="https://waystonecoaching.github.io/morning-edition/">Morning<br>Edition</a></h1>
+  <div class="date">Saturday, November 28, 2026</div>
+  <div class="editors">Thin day. Five pieces, not ten, and I did not pad it. Better a small loaf than a table set with stones. Two federal voices on psychedelics, a dispatcher who did not make it home, money for firefighters in Wales, and a trial that says watching people harder does not keep them. Most came through as headlines only; where the detail is unconfirmed, the page says so.</div>
+</section>
+
+<section class="contents"><h2>The Ten</h2><ol><li><a class="toc-link" href="#story-1"><span class="num">01</span><span class="t">FDA, VA and ARPA-H on Psychedelic Medicine</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-2"><span class="num">02</span><span class="t">HHS's Matt Zorn on Psychedelic Safety and Speed</span><span class="cat">Psychedelic Therapy</span></a></li><li><a class="toc-link" href="#story-3"><span class="num">03</span><span class="t">Foundation Cites Suicide in Death of Brown County 911 Dispatcher</span><span class="cat">First Responder MH</span></a></li><li><a class="toc-link" href="#story-4"><span class="num">04</span><span class="t">Wales Puts £500,000 Toward Protecting Firefighters and Building Resilience</span><span class="cat">Resilience &amp; Moral Injury</span></a></li><li><a class="toc-link" href="#story-5"><span class="num">05</span><span class="t">Strict Buprenorphine Dispenser Monitoring Fails to Improve Opioid Treatment Retention</span><span class="cat">Coaching Practice</span></a></li></ol></section>
+
+<section id="story-1" class="spread hero">
+  <div class="big-num">01</div>
+  <div class="meta">No. 01 &middot; Psychedelic Therapy &middot; 2026-11-26</div>
+  
+  <h2 class="headline">FDA, VA and ARPA-H on Psychedelic Medicine</h2>
+  <p class="framing">Three federal desks on one stage: the regulator, the agency that would deliver care to veterans, and the agency funding the high-risk research. This is panel talk, recorded at an industry event, so treat it as statements of intent, not policy. It matters for one reason: the VA is the most likely first door a former responder with a service history walks through for MDMA or psilocybin, and where the VA lands will shape what the fire service follows. Listen for what they say about therapist training and monitoring, and for what they leave out on durability and adverse events.</p>
+  <p class="summary">Psychedelic Alpha posted a video of a panel bringing together representatives of the FDA, the Department of Veterans Affairs, and ARPA-H on psychedelic medicine. It is one of a batch of recorded sessions the outlet published on November 26. The feed carried no transcript or written summary, so the specifics of what each agency committed to are not confirmed here. Watch it before citing it.</p>
+  <div class="action">Try this: Watch the VA segment and note any stated timeline or eligibility language. That is what a client with veteran status will ask you about first.</div>
+  <div class="source">Source: <a href="https://psychedelicalpha.com/news/video-fda-va-and-arpa-h-on-psychedelic-medicine/" target="_blank" rel="noopener">Psychedelic Alpha</a></div>
+</section>
+
+<section id="story-2" class="spread midnight">
+  <div class="big-num">02</div>
+  <div class="meta">No. 02 &middot; Psychedelic Therapy &middot; 2026-11-26</div>
+  
+  <h2 class="headline">HHS's Matt Zorn on Psychedelic Safety and Speed</h2>
+  <p class="framing">The title names the tension the whole field is living in. Federal people are pushing to move fast, and the evidence base has taken real hits: an MDMA application turned down in 2024, a psilocybin durability finding that did not replicate in mice this week, serious adverse events in a psilocin trial. Speed and safety are not on the same side of the ledger right now. Hear the man from HHS out, and keep your own count.</p>
+  <p class="summary">A recorded conversation with Matt Zorn of the Department of Health and Human Services on balancing safety against speed in bringing psychedelic therapies to patients. It was posted by Psychedelic Alpha alongside its other event videos. No transcript came through the feed, so the specific positions he takes are not summarized here.</p>
+  
+  <div class="source">Source: <a href="https://psychedelicalpha.com/news/video-hhss-matt-zorn-on-psychedelic-safety-and-speed/" target="_blank" rel="noopener">Psychedelic Alpha</a></div>
+</section>
+
+<section id="story-3" class="spread rose_alert">
+  <div class="alert-stamp">Dispatch</div>
+  <div class="big-num">03</div>
+  <div class="meta">No. 03 &middot; First Responder MH &middot; 2026-11-25</div>
+  
+  <h2 class="headline">Foundation Cites Suicide in Death of Brown County 911 Dispatcher</h2>
+  <p class="framing">Dispatchers take the call nobody else hears the end of, and they still get counted as clerical in half the country. Brown County's center has been in the regional news for more than a year over a staffing shortage, forced overtime, resignations, and a study commission on morale. A foundation naming suicide as the cause is the part the record usually leaves out. Scope edge: this is suicidality, and it is a real person with a family. Read it as field signal on telecommunicator load, not as a case to work.</p>
+  <p class="summary">Green Bay station WLUK reports that a foundation has cited suicide in the death of a Brown County, Wisconsin, 911 dispatcher. The feed carried only the headline. The county's dispatch center has had documented staffing and working-conditions problems, including forced overtime and a commission that issued improvement recommendations.</p>
+  <div class="action">Try this: If your peer or coaching work touches dispatch, ask your local center who covers telecommunicators under its peer support and EAP. Often the honest answer is nobody.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMi7wFBVV95cUxOVXNUMXpJZm1oMlhYRjNCQ3FZNFpCcDdzRzdrbGtoMUlubWVINVNWV0ZqLUJaRk02cGN4clp3RUpNQUVXd2ZpTU5SMDBxMEU5blFhUi0ySTl3N1lCZ1JEeklfMG01d3puYzltMHkwSmQyWWwzQzBmU3lGeXZGZ0NkSG1lYm9KR2NpNTdYdjJ5V1A1SnFvQUhFVTJjaENDQ2czTGVXNEw4VThNT3FXX0QtUHhMQklneGZ2aWFwSEg1Mld5cWQ1Z3lQSFZ6czJUeFlHZUhwcVpZSm9aTlNmQnJCZ1EtZEk0aFBYZV9rejJWSQ?oc=5" target="_blank" rel="noopener">WLUK (Fox 11)</a></div>
+</section>
+
+<section id="story-4" class="spread terminal">
+  <div class="prompt">04</div>
+  <div class="meta">No. 04 &middot; Resilience &amp; Moral Injury &middot; 2026-11-27</div>
+  
+  <h2 class="headline">Wales Puts £500,000 Toward Protecting Firefighters and Building Resilience</h2>
+  <p class="framing">This sits in the operational lineage: government money, framed as protection and resilience, routed through the fire and rescue services. That frame does good work and also has a blind spot. Resilience funding tends to buy training and screening for the individual, and leaves the betrayal side of moral injury, the staffing and leadership decisions, untouched. Worth knowing what the money actually buys before calling it a wellness win.</p>
+  <p class="summary">The Welsh Government announced £500,000 to protect firefighters and strengthen resilience in the fire and rescue service. The feed carried only the headline, so how the money splits between physical protection, mental health, and operational resilience is not confirmed here.</p>
+  
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMinwFBVV95cUxPdzF0WkF6alYtWXZBaUpaaXl6bEpzMG9MVTRkX296WU5mZDZlSzVWeE5yY1kxaTBoRjVCWHV4Z0JJZ2hQRW9hcEE4aDMtU1VwV3BWR1JyakxJOUdnekQ3TjNDMFZiZ3Q5RGEtRXVkQUEyUHJ2bUI3VXRhbnZiczNITFpIUElsR25Sb3hYMnhTT1A3Y2Q0NGFrbDhXN3l5Smc?oc=5" target="_blank" rel="noopener">Welsh Government</a></div>
+</section>
+
+<section id="story-5" class="spread academic">
+  <div class="big-num">V</div>
+  <div class="meta">No. 05 &middot; Coaching Practice &middot; 2026-11-26</div>
+  
+  <h2 class="headline">Strict Buprenorphine Dispenser Monitoring Fails to Improve Opioid Treatment Retention</h2>
+  <p class="framing">Tighter surveillance did not keep people in treatment. That lines up with what peer work already knows: control is not the same as safety, and a nervous system under watch does not settle. Source caution: Bioengineer.org rewrites journal papers, so find the original trial before you lean on it. Scope edge: opioid use disorder treatment is clinical territory. A coach's lane is the relationship around it, not the dosing.</p>
+  <p class="summary">A write-up of a trial that found strict monitoring through a buprenorphine dispensing device did not improve retention in opioid use disorder treatment. The feed carried only the headline, so the trial design, sample size, and comparison arm are not confirmed here.</p>
+  <div class="action">Try this: Pull the source paper before using this with a client or a department. A headline about monitoring will get quoted on both sides of a policy fight.</div>
+  <div class="source">Source: <a href="https://news.google.com/rss/articles/CBMirwFBVV95cUxNQS1oMVdJVEZTSWJTdy1aaHp3MTQtcGNrVEdMVktUMXY3dkpabnN1Y2xMd2RreDF4aWJFNHVkMUpXZU1lTVB3X2s0V09zR2R6N2Y1U0dUMTdSS0I2TzBQTHVmUEZsUEZlZnNnMkpFZGNiT3FidDF2Rm1sM2h2N05PX3VsWU5QUE9iU3dqQUtjekxiNGdfeHdac2NwaXVqMVZFQ0Y4cjZBQ3AyN2tIVWpn?oc=5" target="_blank" rel="noopener">Bioengineer.org</a></div>
+</section>
+</body></html>
